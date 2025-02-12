@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roda de Nomes</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    /* Área do canvas central */
+    #wheel-container {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 150px); /* considerando navbar e footer */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f8f9fa;
+    }
+    #wheelCanvas {
+      cursor: pointer;
+      background-color: #fff;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu superior -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Minha Empresa</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Área central com a roleta -->
+      <div class="col-md-8">
+        <div id="wheel-container">
+          <canvas id="wheelCanvas"></canvas>
+        </div>
+      </div>
+      <!-- Barra lateral direita -->
+      <div class="col-md-4">
+        <div class="p-3">
+          <textarea id="namesInput" class="form-control" rows="10" placeholder="Insira os nomes, um por linha"></textarea>
+          <button id="updateNames" class="btn btn-primary btn-block mt-2">Atualizar Roda</button>
+          <!-- Espaço para banner Adsense -->
+          <div id="adsBanner" class="mt-3 text-center">
+            <div style="border: 1px solid #ccc; padding: 20px;">
+              AdSense Banner Placeholder
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="bg-light text-center mt-3 p-3">
+    <a href="https://minhaempresa.com" class="text-decoration-none">Minha Empresa</a>
+  </footer>
+
+  <!-- Bootstrap 5 Bundle com Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Variáveis globais para nomes e estado da roleta
+    let names = [];
+    let colors = [];
+    let angleCurrent = 0;
+    let isSpinning = false;
+    let spinTimeout = null;
+    let spinAngleStart = 0;
+    let spinTime = 0;
+    let spinTimeTotal = 0;
+
+    const canvas = document.getElementById("wheelCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Ajusta o tamanho do canvas conforme a área disponível
+    function resizeCanvas() {
+      const container = document.getElementById("wheel-container");
+      const size = Math.min(container.offsetWidth, container.offsetHeight) - 20;
+      canvas.width = size;
+      canvas.height = size;
+      drawWheel();
+    }
+    window.addEventListener("resize", resizeCanvas);
+
+    // Gera um array de cores para os segmentos (usa uma paleta pré-definida)
+    function generateColors(count) {
+      const palette = [
+        "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231",
+        "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe",
+        "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000",
+        "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080"
+      ];
+      let result = [];
+      for (let i = 0; i < count; i++) {
+        result.push(palette[i % palette.length]);
+      }
+      return result;
+    }
+
+    // Desenha a roleta com os nomes
+    function drawWheel() {
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const outsideRadius = canvas.width / 2 - 10;
+
+      // Se não houver nomes, exibe mensagem
+      if (names.length === 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#ccc";
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, outsideRadius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillStyle = "black";
+        ctx.font = "20px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Insira nomes e atualize", centerX, centerY);
+        return;
+      }
+
+      const textRadius = outsideRadius - 30;
+      const arc = Math.PI * 2 / names.length;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < names.length; i++) {
+        const angle = angleCurrent + i * arc;
+        ctx.fillStyle = colors[i];
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc, false);
+        ctx.lineTo(centerX, centerY);
+        ctx.fill();
+        ctx.save();
+
+        // Desenha o texto do nome centralizado no segmento
+        ctx.fillStyle = "white";
+        ctx.translate(centerX + Math.cos(angle + arc / 2) * textRadius,
+                      centerY + Math.sin(angle + arc / 2) * textRadius);
+        ctx.rotate(angle + arc / 2 + Math.PI / 2);
+        ctx.font = "16px sans-serif";
+        ctx.fillText(names[i], -ctx.measureText(names[i]).width / 2, 0);
+        ctx.restore();
+      }
+      // Desenha o círculo central da roleta
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // Atualiza os nomes a partir do conteúdo do textarea
+    document.getElementById("updateNames").addEventListener("click", () => {
+      const inputText = document.getElementById("namesInput").value;
+      names = inputText.split("\n").map(n => n.trim()).filter(n => n);
+      colors = generateColors(names.length);
+      angleCurrent = 0;
+      drawWheel();
+    });
+
+    // Inicia o giro da roleta
+    function spin() {
+      spinAngleStart = Math.random() * 10 + 10; // velocidade inicial aleatória
+      spinTime = 0;
+      spinTimeTotal = Math.random() * 3000 + 4000; // duração entre 4 e 7 segundos
+      rotateWheel();
+    }
+
+    // Animação do giro utilizando easing para desaceleração
+    function rotateWheel() {
+      spinTime += 30;
+      if (spinTime >= spinTimeTotal) {
+        stopRotateWheel();
+        return;
+      }
+      const spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+      angleCurrent += (spinAngle * Math.PI / 180);
+      drawWheel();
+      spinTimeout = setTimeout(rotateWheel, 30);
+    }
+
+    // Calcula a função de easing para suavizar a desaceleração
+    function easeOut(t, b, c, d) {
+      t /= d;
+      return c * (--t * t * t + 1) + b;
+    }
+
+    // Para o giro, determina o nome sorteado, dispara a animação de fogos e remove o nome sorteado
+    function stopRotateWheel() {
+      clearTimeout(spinTimeout);
+      const degrees = angleCurrent * 180 / Math.PI % 360;
+      const arc = 360 / names.length;
+      const index = Math.floor((360 - degrees + arc / 2) / arc) % names.length;
+      // Dispara a animação de fogos de artifício para o segmento selecionado
+      triggerFireworks(index);
+      // Remove o nome sorteado da lista e atualiza a roleta após um breve delay
+      names.splice(index, 1);
+      colors = generateColors(names.length);
+      angleCurrent = 0;
+      setTimeout(drawWheel, 2000);
+      isSpinning = false;
+    }
+
+    // Efeito simples de fogos de artifício utilizando partículas
+    function triggerFireworks(index) {
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      // Aproximação para posicionar os fogos no segmento sorteado
+      const arc = Math.PI * 2 / (names.length + 1);
+      const angle = angleCurrent + index * arc + arc / 2;
+      const x = centerX + Math.cos(angle) * (canvas.width / 4);
+      const y = centerY + Math.sin(angle) * (canvas.height / 4);
+      // Cria partículas com propriedades aleatórias
+      const particles = [];
+      for (let i = 0; i < 30; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          angle: Math.random() * 2 * Math.PI,
+          speed: Math.random() * 4 + 1,
+          radius: Math.random() * 2 + 1,
+          alpha: 1
+        });
+      }
+      const fireworksInterval = setInterval(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawWheel();
+        particles.forEach(p => {
+          p.x += Math.cos(p.angle) * p.speed;
+          p.y += Math.sin(p.angle) * p.speed;
+          p.alpha -= 0.02;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = "rgba(255,215,0," + p.alpha + ")";
+          ctx.fill();
+        });
+        if (particles.every(p => p.alpha <= 0)) {
+          clearInterval(fireworksInterval);
+          drawWheel();
+        }
+      }, 30);
+    }
+
+    // Inicia o giro quando o usuário clicar no canvas (se não estiver girando e houver nomes)
+    canvas.addEventListener("click", function () {
+      if (isSpinning || names.length === 0) return;
+      isSpinning = true;
+      spin();
+    });
+
+    // Chama o ajuste inicial do canvas
+    resizeCanvas();
+  </script>
+</body>
+</html>
