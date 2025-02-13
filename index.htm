@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Wheel Of List</title>
-  <meta name="description" content="Free and easy to use spinner. Used by teachers and for raffles. Enter names, spin wheel to pick a random winner. Customize look and feel, save and share wheels.">
+  <meta name="description" content="Free and easy to use spinner. Used by teachers and for raffles. Enter names, spin the wheel to pick a random winner. Customize the look and feel, save and share your wheel.">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="theme-color" content="#3369e8">
@@ -25,8 +25,7 @@
   <script>
     window.dataLayer = window.dataLayer || [];
   </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057"
-  crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
   <style>
     html, body {
       height: 100%;
@@ -37,7 +36,7 @@
     #wheel-container {
       position: relative;
       width: 100%;
-      height: calc(100vh - 150px); /* accounting for navbar and footer */
+      height: calc(100vh - 150px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -53,7 +52,7 @@
     /* Pointer at the bottom pointing upward */
     #pointer {
       position: absolute;
-      bottom: -25px; /* height of pointer */
+      bottom: -25px;
       left: 50%;
       transform: translateX(-50%);
       border-left: 15px solid transparent;
@@ -79,13 +78,21 @@
       50% { opacity: 0.5; }
       100% { opacity: 1; }
     }
+    /* Custom navbar style with bright blue background */
+    .navbar-custom {
+      background-color: #1E90FF;
+    }
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+      color: #fff !important;
+    }
   </style>
 </head>
 <body>
-  <!-- Top Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Top Navigation with custom blue navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Wheel of Names</a>
+      <a class="navbar-brand" href="#">Wheel Of List</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -105,7 +112,7 @@
       <!-- Wheel Area -->
       <div class="col-md-8">
         <div id="wheel-container">
-          <!-- Instruction overlay (only visible if there are at least 2 names and not spinning or animating) -->
+          <!-- Instruction overlay (visible only if at least 2 names and not spinning/animating) -->
           <div id="overlayText">Click to Spin!</div>
           <!-- Pointer indicating the winning segment -->
           <div id="pointer"></div>
@@ -136,13 +143,15 @@
 
   <!-- Footer -->
   <footer class="bg-light text-center mt-3 p-3">
-    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+    <a href="https://dionisio.dev" class="text-decoration-none">
+      Copyright © Dionisio Software
+    </a>
   </footer>
 
-  <!-- Audio files via CDN (Google Actions) -->
-  <audio id="startSpinSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto" crossorigin="anonymous"></audio>
-  <audio id="tickSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto" crossorigin="anonymous"></audio>
-  <audio id="fireworksSound" src="https://actions.google.com/sounds/v1/explosions/fireworks.ogg" preload="auto" crossorigin="anonymous"></audio>
+  <!-- Local Audio files -->
+  <audio id="tickSound" src="audio/ticks.mp3" preload="auto"></audio>
+  <audio id="whooshSound" src="audio/whoosh.mp3" preload="auto"></audio>
+  <audio id="twinkleSound" src="audio/twinkle.mp3" preload="auto"></audio>
 
   <!-- Bootstrap 5 Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -164,7 +173,7 @@
     const canvas = document.getElementById("wheelCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Update the overlay: show "Click to Spin!" only if there are at least 2 names and no spin or winner animation is in progress.
+    // Update overlay: show "Click to Spin!" only if there are at least 2 names and no spin or winner animation.
     function updateOverlay() {
       const overlay = document.getElementById("overlayText");
       if (names.length < 2 || isSpinning || isAnimatingWinner) {
@@ -174,7 +183,7 @@
       }
     }
 
-    // Initialize default names if none are provided
+    // Initialize default names if none are provided.
     function initDefaultNames() {
       if (names.length === 0) {
         names = ["Alice", "Bob", "Carol", "Dave", "Eve"];
@@ -183,7 +192,7 @@
       }
     }
 
-    // Adjust canvas size
+    // Adjust canvas size.
     function resizeCanvas() {
       const container = document.getElementById("wheel-container");
       const size = Math.min(container.offsetWidth, container.offsetHeight) - 20;
@@ -193,7 +202,7 @@
     }
     window.addEventListener("resize", resizeCanvas);
 
-    // Generate colors for segments
+    // Generate colors for segments.
     function generateColors(count) {
       const palette = [
         "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231",
@@ -208,7 +217,7 @@
       return result;
     }
 
-    // Draw the wheel with names
+    // Draw the wheel with names.
     function drawWheel() {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
@@ -247,7 +256,7 @@
         ctx.fillText(names[i], -ctx.measureText(names[i]).width / 2, 0);
         ctx.restore();
       }
-      // Draw central circle
+      // Draw central circle.
       ctx.beginPath();
       ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
       ctx.fillStyle = "#ffffff";
@@ -257,7 +266,7 @@
       updateOverlay();
     }
 
-    // Update names when "Update Wheel" is clicked (scoreboard cleared only then)
+    // Update names when "Update Wheel" is clicked (scoreboard cleared only then).
     document.getElementById("updateNames").addEventListener("click", () => {
       const inputText = document.getElementById("namesInput").value;
       names = inputText.split("\n").map(n => n.trim()).filter(n => n);
@@ -273,24 +282,37 @@
       angleCurrent = 0;
       document.getElementById("overlayText").style.display = "block";
       drawWheel();
+      // Play whoosh sound after updating the wheel.
+      const whooshSound = document.getElementById("whooshSound");
+      if (whooshSound) {
+        setTimeout(() => { whooshSound.play().catch(err => console.log(err)); }, 100);
+      }
     });
 
-    // Start spinning the wheel
+    // Start spinning the wheel.
     function spin() {
-      document.getElementById("startSpinSound").play().catch(err => console.log(err));
       document.getElementById("overlayText").style.display = "none";
       spinAngleStart = Math.random() * 10 + 10;
       spinTime = 0;
       spinTimeTotal = Math.random() * 3000 + 4000;
+      // Start tick sound at 150ms intervals.
       tickInterval = setInterval(() => {
-        document.getElementById("tickSound").play().catch(err => console.log(err));
+        const tickSound = document.getElementById("tickSound");
+        if (tickSound) {
+          tickSound.play().catch(err => console.log(err));
+        }
       }, 150);
       rotateWheel();
     }
 
-    // Rotate the wheel with easing
+    // Rotate the wheel with easing; slow down ticks near the end.
     function rotateWheel() {
       spinTime += 30;
+      // Stop tick sound when spinTime reaches 80% of spinTimeTotal.
+      if (spinTime >= 0.8 * spinTimeTotal && tickInterval) {
+        clearInterval(tickInterval);
+        tickInterval = null;
+      }
       if (spinTime >= spinTimeTotal) {
         stopRotateWheel();
         return;
@@ -306,7 +328,7 @@
       return c * (--t * t * t + 1) + b;
     }
 
-    // Compute the winning index (pointer fixed at 90°)
+    // Compute the winning index (pointer fixed at 90°).
     function getWinningIndex() {
       const angleCurrentDeg = (angleCurrent * 180 / Math.PI) % 360;
       const pointerAngle = 90;
@@ -318,27 +340,50 @@
     // When the spin stops, handle the winning name.
     function stopRotateWheel() {
       clearTimeout(spinTimeout);
-      clearInterval(tickInterval);
-      if (names.length >= 1) {
-        // Always get the winner index; if only one remains, index = 0.
-        const index = (names.length === 1) ? 0 : getWinningIndex();
+      if (tickInterval) {
+        clearInterval(tickInterval);
+        tickInterval = null;
+      }
+      const tickSound = document.getElementById("tickSound");
+      if (tickSound) {
+        tickSound.pause();
+        tickSound.currentTime = 0;
+      }
+      if (names.length === 1) {
+        // If only one name remains, add it immediately to the scoreboard and reset.
+        const lastName = names[0];
+        addScoreboard(lastName);
+        names = [];
+        setTimeout(resetGame, 1000);
+      } else if (names.length === 2) {
+        // For exactly two names, spin normally, then:
+        // 1. Determine the winning name.
+        // 2. Add the winning name to the scoreboard.
+        // 3. Animate the winner.
+        // 4. Remove the winning name.
+        // 5. Immediately add the non-winning (remaining) name to the scoreboard and reset.
+        const index = getWinningIndex();
         const winningName = names[index];
         addScoreboard(winningName);
-        // If more than one name, trigger fireworks and remove the winner.
-        if (names.length > 1) {
-          triggerFireworks(winningName);
-          names.splice(index, 1);
-          setTimeout(drawWheel, 3000);
-        } else {
-          // For the last name, trigger fireworks then reset the game.
-          triggerFireworks(winningName);
-          names.splice(index, 1); // now names becomes empty
-          setTimeout(resetGame, 3000);
-        }
+        triggerFireworks(winningName);
+        names.splice(index, 1); // Remove winning name; one remains.
+        setTimeout(() => {
+          addScoreboard(names[0]); // Add the remaining name.
+          names = [];
+          resetGame();
+        }, 3000);
+      } else if (names.length >= 3) {
+        // For three or more names, spin normally.
+        const index = getWinningIndex();
+        const winningName = names[index];
+        addScoreboard(winningName);
+        triggerFireworks(winningName);
+        names.splice(index, 1);
+        setTimeout(drawWheel, 3000);
       }
     }
 
-    // Add winner to the scoreboard with position.
+    // Add the winning name to the scoreboard with its position.
     function addScoreboard(winner) {
       const scoreboardEl = document.getElementById("scoreboard");
       const position = scoreboardEl.children.length + 1;
@@ -348,9 +393,12 @@
       scoreboardEl.appendChild(li);
     }
 
-    // Fireworks animation with pulsating winner text.
+    // Winner animation with fireworks effect and pulsating winner text using twinkleSound.
     function triggerFireworks(winningName) {
-      document.getElementById("fireworksSound").play().catch(err => console.log(err));
+      const twinkleSound = document.getElementById("twinkleSound");
+      if (twinkleSound) {
+        twinkleSound.play().catch(err => console.log(err));
+      }
       isAnimatingWinner = true;
       document.getElementById("overlayText").style.display = "none";
       animationStartTime = Date.now();
@@ -403,7 +451,7 @@
       requestAnimationFrame(animate);
     }
 
-    // Reset the game (scoreboard is maintained)
+    // Reset the game (scoreboard is maintained).
     function resetGame() {
       names = [];
       originalNames = [];
@@ -412,14 +460,17 @@
       updateOverlay();
     }
 
-    // On canvas click, start spin if more than one name exists.
+    // On canvas click: only allow spin if there are at least 2 names.
     canvas.addEventListener("click", function () {
       if (isSpinning) return;
-      if (names.length > 1) {
+      if (names.length >= 2) {
         isSpinning = true;
         spin();
         setTimeout(() => { isSpinning = false; }, spinTimeTotal + 100);
       } else if (names.length === 1) {
+        // If only one name, add it immediately and reset.
+        addScoreboard(names[0]);
+        names = [];
         resetGame();
       }
     });
