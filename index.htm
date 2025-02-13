@@ -1,31 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Roda de Nomes</title>
-  <!-- Bootstrap 5 CSS -->
+  <meta charset="utf-8">
+  <title>Wheel of Names</title>
+  <meta name="description" content="Free and easy to use spinner. Used by teachers and for raffles. Enter names, spin wheel to pick a random winner. Customize look and feel, save and share wheels.">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="theme-color" content="#3369e8">
+  <meta name="wot-verification" content="95cd5db0576bcf925e08">
+  <meta property="og:url" content="https://wheelofnames.com">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Wheel of Names">
+  <meta property="og:description" content="Enter names, spin wheel to pick a random winner. Customize look and feel, save and share wheels.">
+  <meta property="og:image" content="https://wheelofnames.com/images/open-graph-image.png">
+  <meta property="og:image:width" content="1163">
+  <meta property="og:image:height" content="1163">
+  <meta property="fb:app_id" content="1438567632972557">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
+  <!-- Link do Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Quicksand">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
   <style>
     html, body {
       height: 100%;
       margin: 0;
+      font-family: 'Quicksand', sans-serif;
     }
-    /* Área do canvas central */
+    /* Container da roleta */
     #wheel-container {
       position: relative;
       width: 100%;
-      height: calc(100vh - 150px); /* considerando navbar e footer */
+      height: calc(100vh - 150px);
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: #f8f9fa;
     }
+    /* Canvas da roleta */
     #wheelCanvas {
       cursor: pointer;
       background-color: #fff;
       border: 2px solid #ddd;
       border-radius: 50%;
+    }
+    /* Pointer reposicionado para a parte inferior, apontando para cima */
+    #pointer {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 25px solid red;
+      z-index: 10;
+    }
+    /* Overlay de instrução com efeito pulsante */
+    #overlayText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.7);
+      animation: pulse 1.5s infinite;
+      pointer-events: none;
+      z-index: 20;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
@@ -53,12 +103,22 @@
       <!-- Área central com a roleta -->
       <div class="col-md-8">
         <div id="wheel-container">
+          <!-- Overlay com instrução -->
+          <div id="overlayText">Click to Spin!</div>
+          <!-- Pointer indicando o setor vencedor -->
+          <div id="pointer"></div>
           <canvas id="wheelCanvas"></canvas>
         </div>
       </div>
       <!-- Barra lateral direita -->
       <div class="col-md-4">
         <div class="p-3">
+          <!-- Placar dos vencedores -->
+          <div class="mb-3">
+            <h5>Placar</h5>
+            <ul id="scoreboard" class="list-group"></ul>
+          </div>
+          <!-- Área de inserção de nomes -->
           <textarea id="namesInput" class="form-control" rows="10" placeholder="Insira os nomes, um por linha"></textarea>
           <button id="updateNames" class="btn btn-primary btn-block mt-2">Atualizar Roda</button>
           <!-- Espaço para banner Adsense -->
@@ -77,11 +137,17 @@
     <a href="https://minhaempresa.com" class="text-decoration-none">Minha Empresa</a>
   </footer>
 
+  <!-- Áudios via CDN (Google Actions) -->
+  <audio id="startSpinSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto" crossorigin="anonymous"></audio>
+  <audio id="tickSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto" crossorigin="anonymous"></audio>
+  <audio id="fireworksSound" src="https://actions.google.com/sounds/v1/explosions/fireworks.ogg" preload="auto" crossorigin="anonymous"></audio>
+
   <!-- Bootstrap 5 Bundle com Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Variáveis globais para nomes e estado da roleta
+    // Variáveis globais e estado da aplicação
     let names = [];
+    let originalNames = [];
     let colors = [];
     let angleCurrent = 0;
     let isSpinning = false;
@@ -89,11 +155,33 @@
     let spinAngleStart = 0;
     let spinTime = 0;
     let spinTimeTotal = 0;
+    let tickInterval = null;
+    let animationStartTime = 0;
+    let isAnimatingWinner = false; // Indica se a animação do vencedor está ocorrendo
 
     const canvas = document.getElementById("wheelCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Ajusta o tamanho do canvas conforme a área disponível
+    // Atualiza o overlay "Click to Spin!" apenas se houver mais de 1 nome, e se não estiver girando ou animando o vencedor.
+    function updateOverlay() {
+      const overlay = document.getElementById("overlayText");
+      if (names.length <= 1 || isSpinning || isAnimatingWinner) {
+        overlay.style.display = "none";
+      } else {
+        overlay.style.display = "block";
+      }
+    }
+
+    // Define nomes padrão se nenhum for inserido
+    function initDefaultNames() {
+      if (names.length === 0) {
+        names = ["Alice", "Bob", "Carol", "Dave", "Eve"];
+        originalNames = names.slice();
+        colors = generateColors(names.length);
+      }
+    }
+
+    // Ajusta o tamanho do canvas
     function resizeCanvas() {
       const container = document.getElementById("wheel-container");
       const size = Math.min(container.offsetWidth, container.offsetHeight) - 20;
@@ -103,7 +191,7 @@
     }
     window.addEventListener("resize", resizeCanvas);
 
-    // Gera um array de cores para os segmentos (usa uma paleta pré-definida)
+    // Gera cores para os segmentos
     function generateColors(count) {
       const palette = [
         "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231",
@@ -118,15 +206,14 @@
       return result;
     }
 
-    // Desenha a roleta com os nomes
+    // Desenha a roleta
     function drawWheel() {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const outsideRadius = canvas.width / 2 - 10;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Se não houver nomes, exibe mensagem
       if (names.length === 0) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "#ccc";
         ctx.beginPath();
         ctx.arc(centerX, centerY, outsideRadius, 0, 2 * Math.PI);
@@ -135,13 +222,12 @@
         ctx.font = "20px sans-serif";
         ctx.textAlign = "center";
         ctx.fillText("Insira nomes e atualize", centerX, centerY);
+        updateOverlay();
         return;
       }
 
       const textRadius = outsideRadius - 30;
       const arc = Math.PI * 2 / names.length;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       for (let i = 0; i < names.length; i++) {
         const angle = angleCurrent + i * arc;
         ctx.fillStyle = colors[i];
@@ -151,42 +237,56 @@
         ctx.lineTo(centerX, centerY);
         ctx.fill();
         ctx.save();
-
-        // Desenha o texto do nome centralizado no segmento
         ctx.fillStyle = "white";
         ctx.translate(centerX + Math.cos(angle + arc / 2) * textRadius,
                       centerY + Math.sin(angle + arc / 2) * textRadius);
         ctx.rotate(angle + arc / 2 + Math.PI / 2);
-        ctx.font = "16px sans-serif";
+        ctx.font = "bold 20px sans-serif";
         ctx.fillText(names[i], -ctx.measureText(names[i]).width / 2, 0);
         ctx.restore();
       }
-      // Desenha o círculo central da roleta
+      // Círculo central
       ctx.beginPath();
       ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
       ctx.fillStyle = "#ffffff";
       ctx.fill();
       ctx.stroke();
+      
+      updateOverlay();
     }
 
-    // Atualiza os nomes a partir do conteúdo do textarea
+    // Atualiza os nomes (placar limpo somente quando o usuário clica em "Atualizar Roda")
     document.getElementById("updateNames").addEventListener("click", () => {
       const inputText = document.getElementById("namesInput").value;
       names = inputText.split("\n").map(n => n.trim()).filter(n => n);
+      if (names.length === 0) {
+        originalNames = [];
+        updateOverlay();
+        drawWheel();
+        return;
+      }
+      originalNames = names.slice();
       colors = generateColors(names.length);
+      document.getElementById("scoreboard").innerHTML = "";
       angleCurrent = 0;
+      document.getElementById("overlayText").style.display = "block";
       drawWheel();
     });
 
-    // Inicia o giro da roleta
+    // Inicia o giro
     function spin() {
-      spinAngleStart = Math.random() * 10 + 10; // velocidade inicial aleatória
+      document.getElementById("startSpinSound").play().catch(err => console.log(err));
+      document.getElementById("overlayText").style.display = "none";
+      spinAngleStart = Math.random() * 10 + 10;
       spinTime = 0;
-      spinTimeTotal = Math.random() * 3000 + 4000; // duração entre 4 e 7 segundos
+      spinTimeTotal = Math.random() * 3000 + 4000;
+      tickInterval = setInterval(() => {
+        document.getElementById("tickSound").play().catch(err => console.log(err));
+      }, 150);
       rotateWheel();
     }
 
-    // Animação do giro utilizando easing para desaceleração
+    // Rotaciona com easing
     function rotateWheel() {
       spinTime += 30;
       if (spinTime >= spinTimeTotal) {
@@ -199,50 +299,74 @@
       spinTimeout = setTimeout(rotateWheel, 30);
     }
 
-    // Calcula a função de easing para suavizar a desaceleração
     function easeOut(t, b, c, d) {
       t /= d;
       return c * (--t * t * t + 1) + b;
     }
 
-    // Para o giro, determina o nome sorteado, dispara a animação de fogos e remove o nome sorteado
-    function stopRotateWheel() {
-      clearTimeout(spinTimeout);
-      const degrees = angleCurrent * 180 / Math.PI % 360;
+    // Calcula o índice do vencedor (pointer fixo a 90°)
+    function getWinningIndex() {
+      const angleCurrentDeg = (angleCurrent * 180 / Math.PI) % 360;
+      const pointerAngle = 90;
+      const effectiveAngle = (pointerAngle - angleCurrentDeg + 360) % 360;
       const arc = 360 / names.length;
-      const index = Math.floor((360 - degrees + arc / 2) / arc) % names.length;
-      // Dispara a animação de fogos de artifício para o segmento selecionado
-      triggerFireworks(index);
-      // Remove o nome sorteado da lista e atualiza a roleta após um breve delay
-      names.splice(index, 1);
-      colors = generateColors(names.length);
-      angleCurrent = 0;
-      setTimeout(drawWheel, 2000);
-      isSpinning = false;
+      return Math.floor(effectiveAngle / arc);
     }
 
-    // Efeito simples de fogos de artifício utilizando partículas
-    function triggerFireworks(index) {
+    // Quando o giro termina
+    function stopRotateWheel() {
+      clearTimeout(spinTimeout);
+      clearInterval(tickInterval);
+      if (names.length > 1) {
+        const index = getWinningIndex();
+        const winningName = names[index];
+        addScoreboard(winningName);
+        triggerFireworks(winningName);
+        names.splice(index, 1);
+        setTimeout(drawWheel, 3000);
+      } else if (names.length === 1) {
+        // Para o último nome: ocultar overlay, adicioná-lo ao placar e resetar o jogo
+        document.getElementById("overlayText").style.display = "none";
+        const lastName = names[0];
+        addScoreboard(lastName);
+        setTimeout(resetGame, 3000);
+      }
+    }
+
+    // Adiciona o nome vencedor ao placar com posição
+    function addScoreboard(winner) {
+      const scoreboardEl = document.getElementById("scoreboard");
+      const position = scoreboardEl.children.length + 1;
+      const li = document.createElement("li");
+      li.className = "list-group-item list-group-item-success";
+      li.textContent = position + ". " + winner;
+      scoreboardEl.appendChild(li);
+    }
+
+    // Animação dos fogos para o vencedor
+    function triggerFireworks(winningName) {
+      document.getElementById("fireworksSound").play().catch(err => console.log(err));
+      isAnimatingWinner = true;
+      // Garante que o overlay esteja oculto
+      document.getElementById("overlayText").style.display = "none";
+      animationStartTime = Date.now();
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      // Aproximação para posicionar os fogos no segmento sorteado
-      const arc = Math.PI * 2 / (names.length + 1);
-      const angle = angleCurrent + index * arc + arc / 2;
-      const x = centerX + Math.cos(angle) * (canvas.width / 4);
-      const y = centerY + Math.sin(angle) * (canvas.height / 4);
-      // Cria partículas com propriedades aleatórias
       const particles = [];
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 50; i++) {
         particles.push({
-          x: x,
-          y: y,
+          x: centerX,
+          y: centerY,
           angle: Math.random() * 2 * Math.PI,
           speed: Math.random() * 4 + 1,
           radius: Math.random() * 2 + 1,
           alpha: 1
         });
       }
-      const fireworksInterval = setInterval(() => {
+      const duration = 3000;
+      const startTime = Date.now();
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawWheel();
         particles.forEach(p => {
@@ -251,24 +375,53 @@
           p.alpha -= 0.02;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
-          ctx.fillStyle = "rgba(255,215,0," + p.alpha + ")";
+          ctx.fillStyle = "rgba(255,215,0," + Math.max(p.alpha, 0) + ")";
           ctx.fill();
         });
-        if (particles.every(p => p.alpha <= 0)) {
-          clearInterval(fireworksInterval);
+        const scale = 1 + 0.5 * Math.abs(Math.sin((Date.now() - animationStartTime) / 200));
+        const fontSize = 24 * scale;
+        ctx.font = fontSize + "px sans-serif";
+        const textWidth = ctx.measureText(winningName).width;
+        const padding = 10;
+        ctx.fillStyle = "rgba(0,0,0,0.5)";
+        ctx.fillRect(centerX - textWidth / 2 - padding, centerY - fontSize, textWidth + 2 * padding, fontSize + 10);
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.fillText(winningName, centerX, centerY);
+        if (elapsed < duration) {
+          requestAnimationFrame(animate);
+        } else {
+          isAnimatingWinner = false;
+          updateOverlay();
           drawWheel();
         }
-      }, 30);
+      };
+      requestAnimationFrame(animate);
     }
 
-    // Inicia o giro quando o usuário clicar no canvas (se não estiver girando e houver nomes)
+    // Reinicia o jogo (placar é mantido)
+    function resetGame() {
+      names = [];
+      originalNames = [];
+      angleCurrent = 0;
+      drawWheel();
+      updateOverlay();
+    }
+
+    // Ao clicar no canvas, inicia o giro se houver mais de um nome
     canvas.addEventListener("click", function () {
-      if (isSpinning || names.length === 0) return;
-      isSpinning = true;
-      spin();
+      if (isSpinning) return;
+      if (names.length > 1) {
+        isSpinning = true;
+        spin();
+        setTimeout(() => { isSpinning = false; }, spinTimeTotal + 100);
+      } else if (names.length === 1) {
+        resetGame();
+      }
     });
 
-    // Chama o ajuste inicial do canvas
+    // Inicializa com nomes padrão e desenha a roda
+    initDefaultNames();
     resizeCanvas();
   </script>
 </body>
