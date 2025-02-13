@@ -1,23 +1,23 @@
 <!doctype html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Wheel of Names</title>
+  <title>Wheel Of List</title>
   <meta name="description" content="Free and easy to use spinner. Used by teachers and for raffles. Enter names, spin wheel to pick a random winner. Customize look and feel, save and share wheels.">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="theme-color" content="#3369e8">
   <meta name="wot-verification" content="95cd5db0576bcf925e08">
-  <meta property="og:url" content="https://wheelofnames.com">
+  <meta property="og:url" content="https://wheeloflist.com">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Wheel of Names">
-  <meta property="og:description" content="Enter names, spin wheel to pick a random winner. Customize look and feel, save and share wheels.">
-  <meta property="og:image" content="https://wheelofnames.com/images/open-graph-image.png">
+  <meta property="og:title" content="Wheel Of List">
+  <meta property="og:description" content="Enter names, spin the wheel to pick a random winner. Customize the look and feel, save and share your wheel.">
+  <meta property="og:image" content="https://wheeloflist.com/images/open-graph-image.png">
   <meta property="og:image:width" content="1163">
   <meta property="og:image:height" content="1163">
   <meta property="fb:app_id" content="1438567632972557">
   <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
-  <!-- Link do Bootstrap 5 -->
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Google Fonts -->
   <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Quicksand">
@@ -31,27 +31,27 @@
       margin: 0;
       font-family: 'Quicksand', sans-serif;
     }
-    /* Container da roleta */
+    /* Wheel container */
     #wheel-container {
       position: relative;
       width: 100%;
-      height: calc(100vh - 150px);
+      height: calc(100vh - 150px); /* accounting for navbar and footer */
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: #f8f9fa;
     }
-    /* Canvas da roleta */
+    /* Canvas for the wheel */
     #wheelCanvas {
       cursor: pointer;
       background-color: #fff;
       border: 2px solid #ddd;
       border-radius: 50%;
     }
-    /* Pointer reposicionado para a parte inferior, apontando para cima */
+    /* Pointer at the bottom pointing upward */
     #pointer {
       position: absolute;
-      bottom: -25px;
+      bottom: -25px; /* height of pointer */
       left: 50%;
       transform: translateX(-50%);
       border-left: 15px solid transparent;
@@ -59,7 +59,7 @@
       border-top: 25px solid red;
       z-index: 10;
     }
-    /* Overlay de instrução com efeito pulsante */
+    /* Instruction overlay with pulse effect */
     #overlayText {
       position: absolute;
       top: 50%;
@@ -80,51 +80,51 @@
   </style>
 </head>
 <body>
-  <!-- Menu superior -->
+  <!-- Top Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Minha Empresa</a>
+      <a class="navbar-brand" href="#">My Company</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contato</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Conteúdo principal -->
+  <!-- Main Content -->
   <div class="container-fluid">
     <div class="row">
-      <!-- Área central com a roleta -->
+      <!-- Wheel Area -->
       <div class="col-md-8">
         <div id="wheel-container">
-          <!-- Overlay com instrução -->
+          <!-- Instruction overlay (only visible if there are at least 2 names and not spinning or animating) -->
           <div id="overlayText">Click to Spin!</div>
-          <!-- Pointer indicando o setor vencedor -->
+          <!-- Pointer indicating the winning segment -->
           <div id="pointer"></div>
           <canvas id="wheelCanvas"></canvas>
         </div>
       </div>
-      <!-- Barra lateral direita -->
+      <!-- Sidebar -->
       <div class="col-md-4">
         <div class="p-3">
-          <!-- Placar dos vencedores -->
+          <!-- Scoreboard -->
           <div class="mb-3">
-            <h5>Placar</h5>
+            <h5>Scoreboard</h5>
             <ul id="scoreboard" class="list-group"></ul>
           </div>
-          <!-- Área de inserção de nomes -->
-          <textarea id="namesInput" class="form-control" rows="10" placeholder="Insira os nomes, um por linha"></textarea>
-          <button id="updateNames" class="btn btn-primary btn-block mt-2">Atualizar Roda</button>
-          <!-- Espaço para banner Adsense -->
+          <!-- Names input area -->
+          <textarea id="namesInput" class="form-control" rows="10" placeholder="Enter names, one per line"></textarea>
+          <button id="updateNames" class="btn btn-primary btn-block mt-2">Update Wheel</button>
+          <!-- Ad banner placeholder -->
           <div id="adsBanner" class="mt-3 text-center">
             <div style="border: 1px solid #ccc; padding: 20px;">
-              AdSense Banner Placeholder
+              Ad Banner Placeholder
             </div>
           </div>
         </div>
@@ -132,20 +132,20 @@
     </div>
   </div>
 
-  <!-- Rodapé -->
+  <!-- Footer -->
   <footer class="bg-light text-center mt-3 p-3">
-    <a href="https://minhaempresa.com" class="text-decoration-none">Minha Empresa</a>
+    <a href="https://mycompany.com" class="text-decoration-none">My Company</a>
   </footer>
 
-  <!-- Áudios via CDN (Google Actions) -->
+  <!-- Audio files via CDN (Google Actions) -->
   <audio id="startSpinSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto" crossorigin="anonymous"></audio>
   <audio id="tickSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto" crossorigin="anonymous"></audio>
   <audio id="fireworksSound" src="https://actions.google.com/sounds/v1/explosions/fireworks.ogg" preload="auto" crossorigin="anonymous"></audio>
 
-  <!-- Bootstrap 5 Bundle com Popper -->
+  <!-- Bootstrap 5 Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Variáveis globais e estado da aplicação
+    // Global variables and state
     let names = [];
     let originalNames = [];
     let colors = [];
@@ -157,22 +157,22 @@
     let spinTimeTotal = 0;
     let tickInterval = null;
     let animationStartTime = 0;
-    let isAnimatingWinner = false; // Indica se a animação do vencedor está ocorrendo
+    let isAnimatingWinner = false; // true when winner animation is running
 
     const canvas = document.getElementById("wheelCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Atualiza o overlay "Click to Spin!" apenas se houver mais de 1 nome, e se não estiver girando ou animando o vencedor.
+    // Update the overlay: show "Click to Spin!" only if there are at least 2 names and no spin or winner animation is in progress.
     function updateOverlay() {
       const overlay = document.getElementById("overlayText");
-      if (names.length <= 1 || isSpinning || isAnimatingWinner) {
+      if (names.length < 2 || isSpinning || isAnimatingWinner) {
         overlay.style.display = "none";
       } else {
         overlay.style.display = "block";
       }
     }
 
-    // Define nomes padrão se nenhum for inserido
+    // Initialize default names if none are provided
     function initDefaultNames() {
       if (names.length === 0) {
         names = ["Alice", "Bob", "Carol", "Dave", "Eve"];
@@ -181,7 +181,7 @@
       }
     }
 
-    // Ajusta o tamanho do canvas
+    // Adjust canvas size
     function resizeCanvas() {
       const container = document.getElementById("wheel-container");
       const size = Math.min(container.offsetWidth, container.offsetHeight) - 20;
@@ -191,7 +191,7 @@
     }
     window.addEventListener("resize", resizeCanvas);
 
-    // Gera cores para os segmentos
+    // Generate colors for segments
     function generateColors(count) {
       const palette = [
         "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231",
@@ -206,7 +206,7 @@
       return result;
     }
 
-    // Desenha a roleta
+    // Draw the wheel with names
     function drawWheel() {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
@@ -221,7 +221,7 @@
         ctx.fillStyle = "black";
         ctx.font = "20px sans-serif";
         ctx.textAlign = "center";
-        ctx.fillText("Insira nomes e atualize", centerX, centerY);
+        ctx.fillText("Enter names and update", centerX, centerY);
         updateOverlay();
         return;
       }
@@ -245,17 +245,17 @@
         ctx.fillText(names[i], -ctx.measureText(names[i]).width / 2, 0);
         ctx.restore();
       }
-      // Círculo central
+      // Draw central circle
       ctx.beginPath();
       ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
       ctx.fillStyle = "#ffffff";
       ctx.fill();
       ctx.stroke();
-      
+
       updateOverlay();
     }
 
-    // Atualiza os nomes (placar limpo somente quando o usuário clica em "Atualizar Roda")
+    // Update names when "Update Wheel" is clicked (scoreboard cleared only then)
     document.getElementById("updateNames").addEventListener("click", () => {
       const inputText = document.getElementById("namesInput").value;
       names = inputText.split("\n").map(n => n.trim()).filter(n => n);
@@ -273,7 +273,7 @@
       drawWheel();
     });
 
-    // Inicia o giro
+    // Start spinning the wheel
     function spin() {
       document.getElementById("startSpinSound").play().catch(err => console.log(err));
       document.getElementById("overlayText").style.display = "none";
@@ -286,7 +286,7 @@
       rotateWheel();
     }
 
-    // Rotaciona com easing
+    // Rotate the wheel with easing
     function rotateWheel() {
       spinTime += 30;
       if (spinTime >= spinTimeTotal) {
@@ -304,7 +304,7 @@
       return c * (--t * t * t + 1) + b;
     }
 
-    // Calcula o índice do vencedor (pointer fixo a 90°)
+    // Compute the winning index (pointer fixed at 90°)
     function getWinningIndex() {
       const angleCurrentDeg = (angleCurrent * 180 / Math.PI) % 360;
       const pointerAngle = 90;
@@ -313,27 +313,30 @@
       return Math.floor(effectiveAngle / arc);
     }
 
-    // Quando o giro termina
+    // When the spin stops, handle the winning name.
     function stopRotateWheel() {
       clearTimeout(spinTimeout);
       clearInterval(tickInterval);
-      if (names.length > 1) {
-        const index = getWinningIndex();
+      if (names.length >= 1) {
+        // Always get the winner index; if only one remains, index = 0.
+        const index = (names.length === 1) ? 0 : getWinningIndex();
         const winningName = names[index];
         addScoreboard(winningName);
-        triggerFireworks(winningName);
-        names.splice(index, 1);
-        setTimeout(drawWheel, 3000);
-      } else if (names.length === 1) {
-        // Para o último nome: ocultar overlay, adicioná-lo ao placar e resetar o jogo
-        document.getElementById("overlayText").style.display = "none";
-        const lastName = names[0];
-        addScoreboard(lastName);
-        setTimeout(resetGame, 3000);
+        // If more than one name, trigger fireworks and remove the winner.
+        if (names.length > 1) {
+          triggerFireworks(winningName);
+          names.splice(index, 1);
+          setTimeout(drawWheel, 3000);
+        } else {
+          // For the last name, trigger fireworks then reset the game.
+          triggerFireworks(winningName);
+          names.splice(index, 1); // now names becomes empty
+          setTimeout(resetGame, 3000);
+        }
       }
     }
 
-    // Adiciona o nome vencedor ao placar com posição
+    // Add winner to the scoreboard with position.
     function addScoreboard(winner) {
       const scoreboardEl = document.getElementById("scoreboard");
       const position = scoreboardEl.children.length + 1;
@@ -343,11 +346,10 @@
       scoreboardEl.appendChild(li);
     }
 
-    // Animação dos fogos para o vencedor
+    // Fireworks animation with pulsating winner text.
     function triggerFireworks(winningName) {
       document.getElementById("fireworksSound").play().catch(err => console.log(err));
       isAnimatingWinner = true;
-      // Garante que o overlay esteja oculto
       document.getElementById("overlayText").style.display = "none";
       animationStartTime = Date.now();
       const centerX = canvas.width / 2;
@@ -399,7 +401,7 @@
       requestAnimationFrame(animate);
     }
 
-    // Reinicia o jogo (placar é mantido)
+    // Reset the game (scoreboard is maintained)
     function resetGame() {
       names = [];
       originalNames = [];
@@ -408,7 +410,7 @@
       updateOverlay();
     }
 
-    // Ao clicar no canvas, inicia o giro se houver mais de um nome
+    // On canvas click, start spin if more than one name exists.
     canvas.addEventListener("click", function () {
       if (isSpinning) return;
       if (names.length > 1) {
@@ -420,7 +422,7 @@
       }
     });
 
-    // Inicializa com nomes padrão e desenha a roda
+    // Initialize with default names and draw the wheel.
     initDefaultNames();
     resizeCanvas();
   </script>
