@@ -1,38 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Wheel Of List</title>
-  <meta name="description" content="Free and easy to use spinner. Used by teachers and for raffles. Enter names, spin the wheel to pick a random winner. Customize the look and feel, save and share your wheel.">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="description" content="Free and easy to use spinner. Enter names, spin the wheel to pick a random winner. Customize the look and feel, save and share your wheel.">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=5, minimum-scale=1, width=device-width">
   <meta name="theme-color" content="#3369e8">
-  <meta name="wot-verification" content="95cd5db0576bcf925e08">
-  <meta property="og:url" content="https://wheeloflist.com">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Wheel Of List">
-  <meta property="og:description" content="Enter names, spin the wheel to pick a random winner. Customize the look and feel, save and share your wheel.">
-  <meta property="og:image" content="https://wheeloflist.com/images/open-graph-image.png">
-  <meta property="og:image:width" content="1163">
-  <meta property="og:image:height" content="1163">
-  <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Google Fonts -->
-  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Quicksand">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-  </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
   <style>
     html, body {
       height: 100%;
       margin: 0;
       font-family: 'Quicksand', sans-serif;
       scroll-behavior: smooth;
+      transition: background-color 0.3s, color 0.3s;
     }
-    /* Wheel container */
     #wheel-container {
       position: relative;
       width: 100%;
@@ -40,19 +25,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f8f9fa;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
-    /* Canvas for the wheel with shadow */
     #wheelCanvas {
       cursor: pointer;
       background-color: #fff;
-      border: 2px solid #ddd;
       border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
-    /* Pointer: triângulo invertido usando clip-path.
-       A posição vertical do pointer será atualizada via JavaScript para que sua ponta fique sobre o raio da roleta.
-    */
     #pointer {
       position: absolute;
       left: 50%;
@@ -60,40 +43,110 @@
       width: 50px;
       height: 40px;
       clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      background: #555;
+      background: #1E90FF;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
       z-index: 10;
+      transition: transform 0.2s ease;
     }
-    /* Instruction overlay with pulse effect */
-    #overlayText {
+    #pointer:hover {
+      transform: translateX(-50%) scale(1.1);
+    }
+    #overlayButton {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 24px;
       font-weight: bold;
-      color: rgba(0, 0, 0, 0.7);
-      animation: pulse 1.5s infinite;
-      pointer-events: none;
       z-index: 20;
+      display: none;
+      animation: bounce 1.5s infinite;
     }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+    #winnerOverlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 15px 30px;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(45deg, #1E90FF, #00BFFF);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 20;
+      display: none;
+      animation: bounce 1.5s infinite;
     }
-    /* Custom navbar style with bright blue background */
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-10px); }
+    }
     .navbar-custom {
-      background-color: #1E90FF;
+      background: linear-gradient(90deg, #1E90FF, #00BFFF);
     }
-    .navbar-custom .navbar-brand,
-    .navbar-custom .nav-link {
+    .navbar-custom .navbar-brand, .navbar-custom .nav-link {
       color: #fff !important;
+    }
+    .btn-primary {
+      background: linear-gradient(45deg, #1E90FF, #00BFFF);
+      border: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: scale(1.05);
+    }
+    .btn-primary.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .dark-theme {
+      background-color: #1A1A1A;
+      color: #fff;
+    }
+    .dark-theme #wheel-container {
+      background: linear-gradient(135deg, #333, #444);
+    }
+    .dark-theme .navbar-custom {
+      background: linear-gradient(90deg, #2c3e50, #34495e);
+    }
+    .dark-theme .btn-primary {
+      background: linear-gradient(45deg, #2c3e50, #3498db);
+    }
+    @media (max-width: 768px) {
+      #overlayButton, #winnerOverlay { font-size: 18px; }
+      #namesInput { font-size: 14px; }
+    }
+    #scoreboard .list-group-item {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, #e9ecef, #f8f9fa);
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 2px;
+      padding: 2px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    #scoreboard .list-group-item:hover {
+      transform: scale(1.02);
+    }
+    #scoreboard .order-number {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(45deg, #1E90FF, #00BFFF);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      margin-right: 10px;
     }
   </style>
 </head>
 <body>
-  <!-- Top Navigation with custom blue navbar -->
   <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Wheel Of List</a>
@@ -109,45 +162,41 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <div class="container-fluid">
     <div class="row">
-      <!-- Wheel Area -->
       <div class="col-md-8">
         <div id="wheel-container">
-          <!-- Instruction overlay (visible only if at least 2 names and not spinning/animating) -->
-          <div id="overlayText">Click to Spin!</div>
-          <!-- Pointer indicating the winning segment -->
+          <div id="overlayButton" class="btn btn-primary btn-lg">Spin Now!</div>
+          <div id="winnerOverlay"></div>
           <div id="pointer"></div>
           <canvas id="wheelCanvas"></canvas>
         </div>
       </div>
-      <!-- Sidebar -->
       <div class="col-md-4">
         <div class="p-3">
-          <!-- Scoreboard -->
           <div class="mb-3">
             <h5>Scoreboard</h5>
             <ul id="scoreboard" class="list-group"></ul>
           </div>
-          <!-- Names input area -->
           <textarea id="namesInput" class="form-control" rows="10" placeholder="Enter names, one per line"></textarea>
           <button id="updateNames" class="btn btn-primary btn-block mt-2">Update Wheel</button>
-          <!-- Ad banner placeholder -->
+          <button id="shareResult" class="btn btn-success btn-block mt-2">Share Result</button>
+          <select id="themeSelect" class="form-select mt-2">
+            <option value="light">Light Theme</option>
+            <option value="dark">Dark Theme</option>
+          </select>
           <div id="adsBanner" class="mt-3 text-center">
-            <div style="border: 1px solid #ccc; padding: 20px;">
-              Enjoy for free!!!
-            </div>
+            <div style="border: 1px solid #ccc; padding: 20px;">Enjoy for free!!!</div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <section id="about" style="padding: 60px 20px;">
     <div class="container">
       <h2>About the Spinner</h2>
       <p>Welcome to Wheel Of List – your interactive tool for random name selection! This spinner was designed to be simple, fun, and effective for classroom activities, raffles, or any event where you need to choose a random winner.</p>
-      
       <p><strong>How to Use the Spinner:</strong></p>
       <ul>
         <li><strong>Enter Your Names:</strong> On the right-hand side, you'll find a text area where you can enter names, one per line. Once you've added all the names, click the <em>Update Wheel</em> button to load them into the spinner.</li>
@@ -155,32 +204,24 @@
         <li><strong>Random Selection:</strong> As the wheel slows down, a pointer at the bottom of the spinner will indicate the winning segment. Once the wheel stops, the name aligned with the pointer will be selected as the winner.</li>
         <li><strong>Scoreboard:</strong> Each time a name is selected, it appears on the scoreboard on the right. In cases where multiple names are present, the winning name is removed from the wheel, and the process can be repeated until all names are selected.</li>
       </ul>
-      
       <p>This tool is perfect for spontaneous decision-making or adding a playful twist to your events. We hope you enjoy using the spinner and that it brings a fun and interactive element to your activities!</p>
-      
       <p>If you have any questions or feedback, please feel free to contact us. Happy spinning!</p>
     </div>
   </section>
-  
+
   <section id="who" style="padding: 60px 20px;">
     <div class="container">
       <h2>Who is Wheel of List For?</h2>
       <p>Wheel of List is designed for anyone who needs a simple yet effective tool for making random selections. Whether you're a teacher looking to engage your students, an event organizer needing a fair raffle system, or simply someone who loves interactive tools, this spinner is for you.</p>
-      
       <p><strong>Educators:</strong> Teachers and educators can use Wheel of List to choose students for activities, answer questions, or form teams. Its intuitive interface makes classroom management fun and engaging, while ensuring that every student gets an equal chance.</p>
-      
       <p><strong>Event Planners and Hosts:</strong> If you're organizing a giveaway, raffle, or game during an event, Wheel of List offers a fair and transparent way to select winners. Its random selection process removes any bias, making it a perfect addition to parties, conferences, and other gatherings.</p>
-      
       <p><strong>Business and Team Building:</strong> Use the spinner for icebreaker activities or team-building exercises. It can help generate ideas, assign tasks randomly, or even select employees for rewards, contributing to a more dynamic and inclusive workplace environment.</p>
-      
       <p><strong>Personal Use:</strong> Sometimes, decision-making can be challenging. Whether you're choosing a restaurant, deciding on a movie, or just playing a fun game with friends, Wheel of List offers an entertaining and practical solution.</p>
-      
       <p>The simplicity and customizability of Wheel of List make it a versatile tool suitable for a wide range of applications. Its clear interface and engaging animations ensure that it’s not only functional but also enjoyable to use.</p>
-      
       <p>Explore the possibilities and enjoy the fun, interactive experience that Wheel of List brings to your everyday decision-making or special events!</p>
     </div>
   </section>
-  
+
   <section id="randomness" style="padding: 60px 20px;">
     <div class="container">
       <h2>The Randomness Behind Wheel of List</h2>
@@ -189,9 +230,7 @@
       <p>Experience the magic of randomness and see how Wheel of List transforms the simple act of selection into an engaging and dynamic experience. Let luck guide your decisions, and enjoy the thrill of the unpredictable!</p>
     </div>
   </section>
-  
-  <!-- Additional Content Starts Here -->
-  
+
   <section id="curiosities" style="padding: 60px 20px;">
     <div class="container">
       <h2>Fun Facts and Curiosities about Randomness</h2>
@@ -199,7 +238,7 @@
       <p>Explore quirky trivia about randomness, such as the origins of the spinning wheel and how different cultures have used random selection in decision-making processes. Embrace the playful side of probability with our spinner and discover the unexpected stories behind everyday randomness.</p>
     </div>
   </section>
-  
+
   <section id="history" style="padding: 60px 20px;">
     <div class="container">
       <h2>The History of Spinners and Random Selection Tools</h2>
@@ -207,7 +246,7 @@
       <p>Over time, these tools have been refined with the advent of technology. Today, digital spinners like Wheel of List combine classic design with modern algorithms, ensuring fairness and adding a touch of entertainment. Delve into the rich history of these tools and appreciate how far they’ve come in making our lives more fun and interactive.</p>
     </div>
   </section>
-  
+
   <section id="customization" style="padding: 60px 20px;">
     <div class="container">
       <h2>Customizing Your Spinner Experience</h2>
@@ -215,7 +254,7 @@
       <p>Whether you want to assign prizes, select team members, or simply create an engaging game, our tool offers customizable options that cater to your needs. Experiment with different themes and settings to create a spinner that perfectly matches your event or personal style.</p>
     </div>
   </section>
-  
+
   <section id="science" style="padding: 60px 20px;">
     <div class="container">
       <h2>The Science Behind Random Selection</h2>
@@ -223,7 +262,7 @@
       <p>Learn about the role of pseudorandom number generators (PRNGs) and how they simulate true randomness. Understand the science that guarantees each entry has an equal opportunity to win, ensuring that our spinner meets high standards of fairness and reliability.</p>
     </div>
   </section>
-  
+
   <section id="applications" style="padding: 60px 20px;">
     <div class="container">
       <h2>Real-World Applications of Random Selection Tools</h2>
@@ -231,7 +270,7 @@
       <p>Explore how different industries incorporate randomness into decision-making processes, adding an element of surprise and impartiality. From academic settings to corporate environments, discover the versatile applications of our spinner in everyday life.</p>
     </div>
   </section>
-  
+
   <section id="testimonials" style="padding: 60px 20px;">
     <div class="container">
       <h2>User Testimonials and Success Stories</h2>
@@ -239,7 +278,7 @@
       <p>Read real-life success stories and testimonials from users who have integrated our spinner into their events, classrooms, and workplaces. Their experiences highlight how a simple tool can create memorable moments and foster a sense of community.</p>
     </div>
   </section>
-  
+
   <section id="fairplay" style="padding: 60px 20px;">
     <div class="container">
       <h2>Ensuring Fair Play and Transparency</h2>
@@ -247,7 +286,7 @@
       <p>Discover how we maintain trust by continuously testing and refining our random selection process. Our transparent approach ensures that all users can rely on the spinner to deliver unbiased results every time.</p>
     </div>
   </section>
-  
+
   <section id="future" style="padding: 60px 20px;">
     <div class="container">
       <h2>Future Developments and Exciting Features</h2>
@@ -255,7 +294,7 @@
       <p>Stay tuned for regular updates as we continue to innovate and bring you a more engaging, efficient, and fun random selection experience. Our roadmap is driven by user feedback and the evolving needs of modern events.</p>
     </div>
   </section>
-  
+
   <section id="faq" style="padding: 60px 20px;">
     <div class="container">
       <h2>Frequently Asked Questions (FAQ)</h2>
@@ -269,61 +308,48 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="bg-light text-center mt-3 p-3">
-    <a href="https://dionisio.dev" class="text-decoration-none">
-      Copyright © Dionisio Software
-    </a>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
   </footer>
 
-  <!-- Local Audio files -->
-  <audio id="tickSound" src="audio/ticks.mp3" preload="auto"></audio>
-  <audio id="whooshSound" src="audio/whoosh.mp3" preload="auto"></audio>
-  <audio id="twinkleSound" src="audio/twinkle.mp3" preload="auto"></audio>
-
-  <!-- Bootstrap 5 Bundle with Popper -->
+  <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Global variables and state
     let names = [];
     let originalNames = [];
     let colors = [];
     let angleCurrent = 0;
     let isSpinning = false;
-    let spinTimeout = null;
     let spinAngleStart = 0;
     let spinTime = 0;
     let spinTimeTotal = 0;
-    let tickInterval = null;
-    let animationStartTime = 0;
-    let isAnimatingWinner = false; // true when winner animation is running
+    let isAnimatingWinner = false;
+    let spinOrder = 0;
 
     const canvas = document.getElementById("wheelCanvas");
     const ctx = canvas.getContext("2d");
+    const spinSound = new Audio("audio/spin.mp3");
+    const winSound = new Audio("audio/win.mp3");
 
-    // Update overlay: show "Click to Spin!" only if there are at least 2 names and no spin or winner animation.
     function updateOverlay() {
-      const overlay = document.getElementById("overlayText");
-      if (names.length < 2 || isSpinning || isAnimatingWinner) {
-        overlay.style.display = "none";
-      } else {
-        overlay.style.display = "block";
-      }
+      const overlay = document.getElementById("overlayButton");
+      const winnerOverlay = document.getElementById("winnerOverlay");
+      overlay.style.display = (names.length >= 2 && !isSpinning && !isAnimatingWinner) ? "block" : "none";
+      if (!isAnimatingWinner) winnerOverlay.style.display = "none";
     }
 
-    // Initialize default names if none are provided.
     function initDefaultNames() {
       if (names.length === 0) {
         names = ["Alice", "Bob", "Carol", "Dave", "Eve"];
         originalNames = names.slice();
         colors = generateColors(names.length);
+        document.getElementById("namesInput").value = names.join("\n");
       }
     }
 
-    // Adjust canvas size and update pointer position.
     function resizeCanvas() {
       const container = document.getElementById("wheel-container");
-      const size = Math.min(container.offsetWidth, container.offsetHeight) - 20;
+      const size = Math.min(container.offsetWidth * 0.9, container.offsetHeight * 0.9);
       canvas.width = size;
       canvas.height = size;
       drawWheel();
@@ -331,33 +357,25 @@
     }
     window.addEventListener("resize", resizeCanvas);
 
-    // Update pointer position so its tip overlaps the bottom edge of the wheel.
     function updatePointerPosition() {
       const canvasRect = canvas.getBoundingClientRect();
       const centerY = canvasRect.top + canvas.height / 2;
       const outsideRadius = canvas.width / 2 - 10;
-      const circleBottom = centerY + outsideRadius;
-      const pointer = document.getElementById("pointer");
-      // Posiciona o pointer para que sua ponta (a parte superior) esteja sobre a borda inferior do círculo.
-      pointer.style.top = (circleBottom - 40) + "px"; // 40px é a altura total do pointer
+      document.getElementById("pointer").style.top = (centerY + outsideRadius - 40) + "px";
     }
 
-    // Generate colors for segments.
     function generateColors(count) {
-      const palette = [
-        "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231",
-        "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe",
-        "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000",
-        "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080"
-      ];
-      let result = [];
+      const colorPairs = [];
       for (let i = 0; i < count; i++) {
-        result.push(palette[i % palette.length]);
+        const hue = (i * 360 / count);
+        colorPairs.push({
+          start: `hsl(${hue}, 70%, 50%)`,
+          end: `hsl(${hue + 30}, 70%, 70%)`
+        });
       }
-      return result;
+      return colorPairs;
     }
 
-    // Draw the wheel with names.
     function drawWheel() {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
@@ -370,104 +388,106 @@
         ctx.arc(centerX, centerY, outsideRadius, 0, 2 * Math.PI);
         ctx.fill();
         ctx.fillStyle = "black";
-        ctx.font = "20px sans-serif";
+        ctx.font = "20px 'Quicksand', sans-serif";
         ctx.textAlign = "center";
         ctx.fillText("Enter names and update", centerX, centerY);
         updateOverlay();
         return;
       }
 
-      // Calculate the position for the names: centered between the central circle (radius 30) and the outer edge.
       const innerRadius = 30;
       const textRadius = innerRadius + ((outsideRadius - innerRadius) / 2);
       const arc = Math.PI * 2 / names.length;
       for (let i = 0; i < names.length; i++) {
         const angle = angleCurrent + i * arc;
-        ctx.fillStyle = colors[i];
+        const gradient = ctx.createLinearGradient(centerX - outsideRadius, centerY - outsideRadius, centerX + outsideRadius, centerY + outsideRadius);
+        gradient.addColorStop(0, colors[i].start);
+        gradient.addColorStop(1, colors[i].end);
+        ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc, false);
-        ctx.lineTo(centerX, centerY);
+        ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc);
         ctx.fill();
         ctx.save();
-        // Draw the name following the direction of the radius.
         ctx.fillStyle = "white";
         const textX = centerX + Math.cos(angle + arc / 2) * textRadius;
         const textY = centerY + Math.sin(angle + arc / 2) * textRadius;
         ctx.translate(textX, textY);
-        // Rotate the text so it follows the radial direction.
         ctx.rotate(angle + arc / 2);
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.font = "bold 40px sans-serif";
+        ctx.font = `bold ${canvas.width < 768 ? 20 : 40}px 'Quicksand', sans-serif`;
         ctx.fillText(names[i], 0, 0);
         ctx.restore();
       }
-      // Draw the central circle without stroke.
       ctx.beginPath();
       ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
       ctx.fillStyle = "#ffffff";
       ctx.fill();
-
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, outsideRadius + 10, 0, 2 * Math.PI);
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+      ctx.lineWidth = 5;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
+      ctx.stroke();
+      ctx.shadowBlur = 0;
       updateOverlay();
     }
 
-    // Update names when "Update Wheel" is clicked.
     document.getElementById("updateNames").addEventListener("click", () => {
+      const btn = document.getElementById("updateNames");
+      btn.classList.add("loading");
+      setTimeout(() => btn.classList.remove("loading"), 500);
       const inputText = document.getElementById("namesInput").value;
       names = inputText.split("\n").map(n => n.trim()).filter(n => n);
       if (names.length === 0) {
         originalNames = [];
-        updateOverlay();
+        spinOrder = 0;
+        document.getElementById("scoreboard").innerHTML = "";
         drawWheel();
         return;
       }
       originalNames = names.slice();
       colors = generateColors(names.length);
+      spinOrder = 0;
       document.getElementById("scoreboard").innerHTML = "";
       angleCurrent = 0;
-      document.getElementById("overlayText").style.display = "block";
       drawWheel();
       updatePointerPosition();
-      // Play whoosh sound after updating the wheel.
-      const whooshSound = document.getElementById("whooshSound");
-      if (whooshSound) {
-        setTimeout(() => { whooshSound.play().catch(err => console.log(err)); }, 100);
-      }
     });
 
-    // Start spinning the wheel.
+    let debounceTimeout;
+    document.getElementById("namesInput").addEventListener("input", () => {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => document.getElementById("updateNames").click(), 500);
+    });
+
     function spin() {
-      document.getElementById("overlayText").style.display = "none";
+      if (isSpinning || isAnimatingWinner || names.length < 2) return; // Impede novo giro durante animação
+      document.getElementById("overlayButton").style.display = "none";
       spinAngleStart = Math.random() * 10 + 10;
       spinTime = 0;
       spinTimeTotal = Math.random() * 3000 + 4000;
-      // Start tick sound at 150ms intervals.
-      tickInterval = setInterval(() => {
-        const tickSound = document.getElementById("tickSound");
-        if (tickSound) {
-          tickSound.play().catch(err => console.log(err));
-        }
-      }, 150);
-      rotateWheel();
+      isSpinning = true;
+      spinSound.loop = true;
+      spinSound.play();
+      requestAnimationFrame(rotateWheel);
     }
 
-    // Rotate the wheel with easing and slow down ticks near the end.
     function rotateWheel() {
+      if (!isSpinning) return;
       spinTime += 30;
-      // Stop tick sound when spinTime reaches 80% of spinTimeTotal.
-      if (spinTime >= 0.8 * spinTimeTotal && tickInterval) {
-        clearInterval(tickInterval);
-        tickInterval = null;
-      }
       if (spinTime >= spinTimeTotal) {
+        spinSound.pause();
+        spinSound.currentTime = 0;
         stopRotateWheel();
         return;
       }
       const spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
       angleCurrent += (spinAngle * Math.PI / 180);
       drawWheel();
-      spinTimeout = setTimeout(rotateWheel, 30);
+      requestAnimationFrame(rotateWheel);
     }
 
     function easeOut(t, b, c, d) {
@@ -475,7 +495,6 @@
       return c * (--t * t * t + 1) + b;
     }
 
-    // Compute the winning index (pointer fixed at 90°).
     function getWinningIndex() {
       const angleCurrentDeg = (angleCurrent * 180 / Math.PI) % 360;
       const pointerAngle = 90;
@@ -484,32 +503,22 @@
       return Math.floor(effectiveAngle / arc);
     }
 
-    // When the spin stops, handle the winning name.
     function stopRotateWheel() {
-      clearTimeout(spinTimeout);
-      if (tickInterval) {
-        clearInterval(tickInterval);
-        tickInterval = null;
-      }
-      const tickSound = document.getElementById("tickSound");
-      if (tickSound) {
-        tickSound.pause();
-        tickSound.currentTime = 0;
-      }
+      isSpinning = false;
       if (names.length === 1) {
-        // If only one name remains, add it immediately and reset.
         const lastName = names[0];
         addScoreboard(lastName);
-        names = [];
-        setTimeout(resetGame, 1000);
+        triggerWinnerAnimation(lastName, () => {
+          names = [];
+          setTimeout(resetGame, 1000);
+        });
       } else if (names.length === 2) {
-        // For exactly two names, spin normally; winner animated, then the remaining name is added.
         const index = getWinningIndex();
         const winningName = names[index];
         addScoreboard(winningName);
-        triggerFireworks(winningName, function() {
+        triggerWinnerAnimation(winningName, () => {
           names.splice(index, 1);
-          addScoreboard(names[0]);
+          addScoreboard(names[0]); // Adiciona o último nome ao placar sem animação
           names = [];
           resetGame();
         });
@@ -517,7 +526,7 @@
         const index = getWinningIndex();
         const winningName = names[index];
         addScoreboard(winningName);
-        triggerFireworks(winningName, function() {
+        triggerWinnerAnimation(winningName, () => {
           names.splice(index, 1);
           drawWheel();
           updatePointerPosition();
@@ -525,26 +534,22 @@
       }
     }
 
-    // Add the winning name to the scoreboard with its position.
     function addScoreboard(winner) {
+      spinOrder++;
       const scoreboardEl = document.getElementById("scoreboard");
-      const position = scoreboardEl.children.length + 1;
       const li = document.createElement("li");
-      li.className = "list-group-item list-group-item-success";
-      li.textContent = position + ". " + winner;
+      li.className = "list-group-item";
+      li.innerHTML = `<span class="order-number">${spinOrder}</span> ${winner}`;
       scoreboardEl.appendChild(li);
     }
 
-    // Winner animation with fireworks effect and pulsating winner text using twinkleSound.
-    // Agora o texto usa a mesma fonte e tamanho base da roleta (40px), com um fator de pulsação.
-    function triggerFireworks(winningName, callback) {
-      const twinkleSound = document.getElementById("twinkleSound");
-      if (twinkleSound) {
-        twinkleSound.play().catch(err => console.log(err));
-      }
+    function triggerWinnerAnimation(winningName, callback) {
       isAnimatingWinner = true;
-      document.getElementById("overlayText").style.display = "none";
-      animationStartTime = Date.now();
+      const winnerOverlay = document.getElementById("winnerOverlay");
+      winnerOverlay.textContent = `${winningName} Wins!`;
+      winnerOverlay.style.display = "block";
+      winSound.play();
+
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const particles = [];
@@ -560,7 +565,8 @@
       }
       const duration = 3000;
       const startTime = Date.now();
-      const animate = () => {
+
+      function animate() {
         const elapsed = Date.now() - startTime;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawWheel();
@@ -570,58 +576,68 @@
           p.alpha -= 0.02;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
-          ctx.fillStyle = "rgba(255,215,0," + Math.max(p.alpha, 0) + ")";
+          ctx.fillStyle = `rgba(255,215,0,${Math.max(p.alpha, 0)})`;
           ctx.fill();
         });
-        // Pulsação usando a mesma fonte base de 40px.
-        const baseFont = 40;
-        const scale = 1 + 0.5 * Math.abs(Math.sin((Date.now() - animationStartTime) / 200));
-        const fontSize = baseFont * scale;
-        ctx.font = "bold " + fontSize + "px sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        const textWidth = ctx.measureText(winningName).width;
-        const padding = 10;
-        ctx.fillStyle = "rgba(0,0,0,0.5)";
-        ctx.fillRect(centerX - textWidth / 2 - padding, centerY - fontSize / 2 - padding, textWidth + 2 * padding, fontSize + 2 * padding);
-        ctx.fillStyle = "white";
-        ctx.fillText(winningName, centerX, centerY);
+
         if (elapsed < duration) {
           requestAnimationFrame(animate);
         } else {
           isAnimatingWinner = false;
-          updateOverlay();
+          winnerOverlay.style.display = "none";
           drawWheel();
+          updateOverlay();
           if (callback) callback();
         }
-      };
+      }
       requestAnimationFrame(animate);
     }
 
-    // Reset the game (scoreboard is maintained).
     function resetGame() {
       names = [];
       originalNames = [];
       angleCurrent = 0;
+      isSpinning = false;
+      spinOrder = 0;
       drawWheel();
       updateOverlay();
     }
 
-    // On canvas click, if at least 2 names exist, start the spin; if only 1, add immediately.
-    canvas.addEventListener("click", function () {
-      if (isSpinning) return;
-      if (names.length >= 2) {
-        isSpinning = true;
+    document.getElementById("overlayButton").addEventListener("click", () => {
+      if (!isSpinning && !isAnimatingWinner && names.length >= 2) {
         spin();
-        setTimeout(() => { isSpinning = false; }, spinTimeTotal + 100);
-      } else if (names.length === 1) {
-        addScoreboard(names[0]);
-        names = [];
-        resetGame();
       }
     });
 
-    // Initialize with default names and draw the wheel.
+    canvas.addEventListener("click", () => {
+      if (!isSpinning && !isAnimatingWinner && names.length >= 2) {
+        spin();
+      } else if (!isSpinning && !isAnimatingWinner && names.length === 1) {
+        addScoreboard(names[0]);
+        triggerWinnerAnimation(names[0], () => {
+          names = [];
+          resetGame();
+        });
+      }
+    });
+
+    document.getElementById("shareResult").addEventListener("click", () => {
+      const result = Array.from(document.querySelectorAll("#scoreboard li")).map(li => li.textContent).join("\n");
+      const shareText = `Check out my Wheel of List results!\n${result}`;
+      navigator.clipboard.writeText(shareText).then(() => alert("Results copied to clipboard!"));
+    });
+
+    document.getElementById("themeSelect").addEventListener("change", (e) => {
+      document.body.classList.toggle("dark-theme", e.target.value === "dark");
+      drawWheel();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !isSpinning && !isAnimatingWinner && names.length >= 2) {
+        spin();
+      }
+    });
+
     initDefaultNames();
     resizeCanvas();
   </script>
