@@ -6,6 +6,7 @@ class DiceLoader {
     this.maxHistorySize = 10;
     this.isAnimating = false;
     this.winSound = new Audio("audio/win.mp3");
+    this.dice3D = null; // 3D dice renderer
     // Load history during construction
     this.loadHistory();
   }
@@ -54,9 +55,7 @@ class DiceLoader {
 
             <!-- Dice Animation Display -->
             <div class="dice-animation-section">
-              <div class="dice-board" id="diceBoard">
-                ${this.generateDiceHTML()}
-              </div>
+              <div id="dice3d-container" class="dice-3d-container" style="width: 100%; height: 400px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 12px; overflow: hidden;"></div>
             </div>
 
             <!-- Roll Button -->
@@ -99,6 +98,14 @@ class DiceLoader {
     `;
 
     container.style.display = 'block';
+    
+    // Initialize 3D dice renderer with correct count
+    setTimeout(() => {
+      if (!this.dice3D) {
+        this.dice3D = new Dice3D('dice3d-container', this.diceCount);
+        console.log(`[DiceLoader] 3D dice renderer initialized with ${this.diceCount} dice`);
+      }
+    }, 100);
   }
 
   deactivate() {
@@ -107,26 +114,12 @@ class DiceLoader {
       container.innerHTML = '';
       container.style.display = 'none';
     }
-  }
-
-  generateDiceHTML() {
-    let html = '';
-    for (let i = 0; i < this.diceCount; i++) {
-      html += `<div class="dice-item" id="dice-${i}">${this.renderDiceFace(1)}</div>`;
+    
+    // Dispose 3D renderer
+    if (this.dice3D) {
+      this.dice3D.dispose();
+      this.dice3D = null;
     }
-    return html;
-  }
-
-  renderDiceFace(value) {
-    const dots = {
-      1: '<div class="dice-face"><div class="dot center"></div></div>',
-      2: '<div class="dice-face"><div class="dot top-left"></div><div class="dot bottom-right"></div></div>',
-      3: '<div class="dice-face"><div class="dot top-left"></div><div class="dot center"></div><div class="dot bottom-right"></div></div>',
-      4: '<div class="dice-face"><div class="dot top-left"></div><div class="dot top-right"></div><div class="dot bottom-left"></div><div class="dot bottom-right"></div></div>',
-      5: '<div class="dice-face"><div class="dot top-left"></div><div class="dot top-right"></div><div class="dot center"></div><div class="dot bottom-left"></div><div class="dot bottom-right"></div></div>',
-      6: '<div class="dice-face"><div class="dot top-left"></div><div class="dot top-right"></div><div class="dot middle-left"></div><div class="dot middle-right"></div><div class="dot bottom-left"></div><div class="dot bottom-right"></div></div>'
-    };
-    return dots[value] || dots[1];
   }
 
   generateHistoryHTML() {
@@ -160,7 +153,12 @@ class DiceLoader {
       this.diceCount = count;
       document.getElementById('dice-count-slider').value = this.diceCount;
       document.getElementById('dice-count-display').textContent = this.diceCount;
-      document.getElementById('diceBoard').innerHTML = this.generateDiceHTML();
+      
+      // Update 3D dice if renderer exists
+      if (this.dice3D) {
+        this.dice3D.setDiceCount(this.diceCount);
+        console.log(`[DiceLoader] Updated to ${this.diceCount} dice`);
+      }
       
       // Hide results when changing dice count
       const resultsSection = document.getElementById('diceResults');
@@ -176,7 +174,20 @@ class DiceLoader {
     this.isAnimating = true;
     document.getElementById('roll-btn').disabled = true;
 
-    const dices = document.querySelectorAll('.dice-item');
+    // Generate random results BEFORE animation starts
+    const results = [];
+    for (let i = 0; i < this.diceCount; i++) {
+      const finalValue = Math.floor(Math.random() * 6) + 1;
+      results.push(finalValue);
+    }
+    
+    console.log('[DiceLoader] Generated values:', results);
+
+    // Animate 3D dice with the results
+    if (this.dice3D) {
+      this.dice3D.rollDice(results, 1000);
+    }
+
     const animationDuration = 1000;
     const startTime = Date.now();
 
@@ -184,41 +195,20 @@ class DiceLoader {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / animationDuration, 1);
 
-      dices.forEach((dice) => {
-        const randomValue = Math.floor(Math.random() * 6) + 1;
-        dice.innerHTML = this.renderDiceFace(randomValue);
-        
-        // Improve animation with more movement
-        const rotation = progress * 720 + (Math.random() * 20 - 10);
-        dice.style.transform = `rotateX(${rotation}deg) rotateY(${rotation}deg) scale(${1 + Math.sin(progress * Math.PI) * 0.1})`;
-      });
-
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
         // Finalize animation
-        this.finalizeRoll(dices);
+        this.finalizeRoll(results);
       }
     };
 
     animate();
   }
 
-  finalizeRoll(dices) {
-    const results = [];
+  finalizeRoll(results) {
     let total = 0;
-
-    dices.forEach((dice) => {
-      const finalValue = Math.floor(Math.random() * 6) + 1;
-      dice.innerHTML = this.renderDiceFace(finalValue);
-      
-      // Reset transform and add class
-      dice.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-      dice.classList.add('dice-landed');
-      
-      results.push(finalValue);
-      total += finalValue;
-    });
+    results.forEach(val => total += val);
 
     // Show results
     this.showResults(results, total);
@@ -230,11 +220,11 @@ class DiceLoader {
     this.winSound.currentTime = 0;
     this.winSound.play().catch(() => {});
 
-    // Re-enable button
+    // Re-enable button after 5 seconds (when dice unfreezes) or when user clicks again
     setTimeout(() => {
       this.isAnimating = false;
       document.getElementById('roll-btn').disabled = false;
-    }, 500);
+    }, 5500); // 5 seconds frozen + animation time
   }
 
   showResults(results, total) {
