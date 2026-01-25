@@ -328,10 +328,15 @@ resizeCanvas();
 function switchToTool(toolName) {
   // Esconder seção da roda
   const wheelSection = document.querySelector('.container-fluid > .row');
+  const quickToolsSection = document.querySelector('.quick-tools-section');
   const toolsContainer = document.getElementById('tools-container');
   
   if (wheelSection) {
     wheelSection.style.display = 'none';
+  }
+
+  if (quickToolsSection) {
+    quickToolsSection.style.display = 'none';
   }
 
   // Mostrar container de tools
@@ -349,16 +354,6 @@ function switchToTool(toolName) {
 }
 
 function backToWheel() {
-  const wheelSection = document.querySelector('.container-fluid > .row');
-  const toolsContainer = document.getElementById('tools-container');
-  
-  if (wheelSection) {
-    wheelSection.style.display = 'flex';
-  }
-
-  if (toolsContainer) {
-    toolsContainer.innerHTML = '';
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Reload da página para restaurar o estado original
+  location.reload();
 }
