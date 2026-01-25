@@ -323,3 +323,42 @@ document.addEventListener("keydown", (e) => {
 
 initDefaultNames();
 resizeCanvas();
+
+// ====== Module System ======
+function switchToTool(toolName) {
+  // Esconder seção da roda
+  const wheelSection = document.querySelector('.container-fluid > .row');
+  const toolsContainer = document.getElementById('tools-container');
+  
+  if (wheelSection) {
+    wheelSection.style.display = 'none';
+  }
+
+  // Mostrar container de tools
+  if (!toolsContainer) {
+    const container = document.createElement('div');
+    container.id = 'tools-container';
+    document.body.insertBefore(container, document.querySelector('section'));
+  }
+
+  // Carregar o tool
+  moduleManager.switchTo(toolName);
+
+  // Scrollar para o topo
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToWheel() {
+  const wheelSection = document.querySelector('.container-fluid > .row');
+  const toolsContainer = document.getElementById('tools-container');
+  
+  if (wheelSection) {
+    wheelSection.style.display = 'flex';
+  }
+
+  if (toolsContainer) {
+    toolsContainer.innerHTML = '';
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
