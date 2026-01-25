@@ -33,6 +33,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
               <li><a class="dropdown-item" href="#" onclick="switchToTool('randomNumberGenerator')">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="#" onclick="switchToTool('diceLoader')">🎰 Dice Roller</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item disabled" href="#">📅 Soon: More Tools...</a></li>
             </ul>
@@ -84,6 +85,12 @@
           <div class="tool-card-icon">🎲</div>
           <h4>Random Number Generator</h4>
           <p>Generate random numbers with min/max controls and history</p>
+          <div class="tool-card-arrow">→</div>
+        </div>
+        <div class="tool-card" onclick="switchToTool('diceLoader')">
+          <div class="tool-card-icon">🎰</div>
+          <h4>Dice Roller</h4>
+          <p>Roll multiple dices with animations and result history</p>
           <div class="tool-card-arrow">→</div>
         </div>
       </div>
@@ -215,6 +222,7 @@
   <script src="tools/module-manager.js"></script>
   <!-- Tools -->
   <script src="tools/number-generator.js"></script>
+  <script src="tools/dice-loader.js"></script>
   <!-- Custom Script -->
   <script src="script.js"></script>
 </body>

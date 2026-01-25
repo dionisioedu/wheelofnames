@@ -20,7 +20,6 @@ class RandomNumberGenerator {
 
   init() {
     this.setupDOM();
-    this.attachEventListeners();
     this.loadHistory();
   }
 
@@ -91,7 +90,7 @@ class RandomNumberGenerator {
                   🗑️
                 </button>
               </div>
-              <div class="history-list" id="history-list">
+              <div class="rng-history-list" id="history-list">
                 <p class="empty-history">No numbers generated yet</p>
               </div>
             </div>
@@ -145,6 +144,7 @@ class RandomNumberGenerator {
       });
 
       this.updateRangeDisplay();
+      this.renderHistory();
     }, 100);
   }
 
@@ -233,16 +233,21 @@ class RandomNumberGenerator {
 
   renderHistory() {
     const historyList = document.getElementById('history-list');
-    if (!historyList) return;
+    if (!historyList) {
+      console.error('[RNG] History list element NOT found');
+      return;
+    }
+    console.log(`[RNG] Rendering history in DOM (${this.history.length} items)`);
 
     if (this.history.length === 0) {
+      console.log('[RNG] History is empty, showing placeholder');
       historyList.innerHTML = '<p class="empty-history">No numbers generated yet</p>';
       return;
     }
 
-    historyList.innerHTML = this.history
+    const html = this.history
       .map((entry, index) => `
-        <div class="history-item" style="animation-delay: ${index * 50}ms;">
+        <div class="rng-history-item" style="animation-delay: ${index * 50}ms;">
           <div class="history-number">${entry.number}</div>
           <div class="history-info">
             <span class="history-range">${entry.min} - ${entry.max}</span>
@@ -254,6 +259,10 @@ class RandomNumberGenerator {
         </div>
       `)
       .join('');
+    
+    console.log('[RNG] HTML generated:', html.substring(0, 100) + '...');
+    historyList.innerHTML = html;
+    console.log('[RNG] innerHTML set. Current content:', historyList.innerHTML.substring(0, 100) + '...');
   }
 
   clearHistory() {
@@ -266,22 +275,30 @@ class RandomNumberGenerator {
 
   saveHistory() {
     localStorage.setItem('rng-history', JSON.stringify(this.history));
+    console.log(`[RNG] Saved ${this.history.length} history items`);
   }
 
   loadHistory() {
     const saved = localStorage.getItem('rng-history');
     if (saved) {
       this.history = JSON.parse(saved);
-      setTimeout(() => this.renderHistory(), 150);
+      console.log(`[RNG] Loaded ${this.history.length} history items`);
+    } else {
+      console.log('[RNG] No history found in localStorage');
     }
   }
 
   activate() {
     const container = document.getElementById('tools-container');
-    if (container && !document.getElementById('number-generator-section')) {
+    if (!container) return;
+    
+    // Render HTML once
+    if (!document.getElementById('number-generator-section')) {
       container.innerHTML = this.html;
-      this.attachEventListeners();
     }
+    
+    // Then attach listeners and render history
+    this.attachEventListeners();
     
     const section = document.getElementById('number-generator-section');
     if (section) {

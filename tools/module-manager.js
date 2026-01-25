@@ -36,6 +36,10 @@ class ModuleManager {
     return this.activeModule;
   }
 
+  getActiveTool() {
+    return this.activeModule;
+  }
+
   listModules() {
     return Object.keys(this.modules);
   }
