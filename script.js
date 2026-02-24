@@ -36,6 +36,62 @@ function tryLoadAudio(path, assignTo) {
 tryLoadAudio('audio/spin.mp3', 'spin');
 tryLoadAudio('audio/win.mp3', 'win');
 
+function getBaseUrl() {
+  return window.location.origin + window.location.pathname;
+}
+
+function base64UrlEncode(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = "";
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+function base64UrlDecode(b64url) {
+  const b64 = b64url.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((b64url.length + 3) % 4);
+  const binary = atob(b64);
+  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function syncUrlWithItems(list) {
+  try {
+    const url = new URL(window.location.href);
+    if (list && list.length) {
+      const payload = list.join("\n");
+      url.searchParams.set("items", base64UrlEncode(payload));
+    } else {
+      url.searchParams.delete("items");
+    }
+    // Keep current hash (for sections like #about), but don't add history entries
+    history.replaceState(null, "", url.toString());
+  } catch (e) {}
+}
+
+function readItemsFromUrl() {
+  try {
+    const url = new URL(window.location.href);
+    const encoded = url.searchParams.get("items");
+    if (!encoded) return null;
+    const decoded = base64UrlDecode(encoded);
+    const list = decoded.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+    return list.length ? list : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function showToast(message) {
+  try {
+    const body = document.getElementById("appToastBody");
+    const el = document.getElementById("appToast");
+    if (!body || !el || !window.bootstrap) return;
+    body.textContent = message;
+    const toast = bootstrap.Toast.getOrCreateInstance(el, { delay: 2200 });
+    toast.show();
+  } catch (e) {}
+}
+
 function updateOverlay() {
   const overlay = document.getElementById("overlayButton");
   const winnerOverlay = document.getElementById("winnerOverlay");
@@ -65,6 +121,7 @@ function resizeCanvas() {
   // Update visuals that depend on canvas size and position
   drawWheel();
   updatePointerPosition();
+  syncUrlWithItems(originalNames);
 
   // Center overlay (spin button) over canvas
   const overlay = document.getElementById('overlayButton');
@@ -229,6 +286,7 @@ document.getElementById("updateNames").addEventListener("click", () => {
     spinOrder = 0;
     document.getElementById("scoreboard").innerHTML = "";
     drawWheel();
+    syncUrlWithItems([]);
     return;
   }
   originalNames = names.slice();
@@ -238,12 +296,49 @@ document.getElementById("updateNames").addEventListener("click", () => {
   angleCurrent = 0;
   drawWheel();
   updatePointerPosition();
+  syncUrlWithItems(originalNames);
 });
 
 let debounceTimeout;
 document.getElementById("namesInput").addEventListener("input", () => {
   clearTimeout(debounceTimeout);
   debounceTimeout = setTimeout(() => document.getElementById("updateNames").click(), 500);
+
+document.getElementById("removeDuplicates").addEventListener("click", () => {
+  const input = document.getElementById("namesInput");
+  const lines = input.value.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+  const seen = new Set();
+  const unique = [];
+  for (const item of lines) {
+    const key = item.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      unique.push(item);
+    }
+  }
+  input.value = unique.join("\n");
+  document.getElementById("updateNames").click();
+  showToast("Duplicates removed.");
+});
+
+document.getElementById("shuffleNames").addEventListener("click", () => {
+  const input = document.getElementById("namesInput");
+  const lines = input.value.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+  for (let i = lines.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [lines[i], lines[j]] = [lines[j], lines[i]];
+  }
+  input.value = lines.join("\n");
+  document.getElementById("updateNames").click();
+  showToast("Shuffled.");
+});
+
+document.getElementById("loadSample").addEventListener("click", () => {
+  const sample = ["Alice", "Bob", "Carol", "Dave", "Eve", "Frank", "Grace", "Heidi"];
+  document.getElementById("namesInput").value = sample.join("\n");
+  document.getElementById("updateNames").click();
+  showToast("Sample loaded.");
+});
 });
 
 function spin() {
@@ -438,11 +533,52 @@ canvas.addEventListener("click", () => {
   }
 });
 
-document.getElementById("shareResult").addEventListener("click", () => {
-  const result = Array.from(document.querySelectorAll("#scoreboard li")).map(li => li.textContent).join("\n");
-  const shareText = `Check out my Wheel of List results!\n${result}`;
-  navigator.clipboard.writeText(shareText).then(() => alert("Results copied to clipboard!"));
+document.getElementById("shareResult").addEventListener("click", async () => {
+  const resultLines = Array.from(document.querySelectorAll("#scoreboard li"))
+    .map(li => li.textContent.trim())
+    .filter(Boolean);
+
+  const result = resultLines.join("\n");
+
+  const shareUrl = new URL(getBaseUrl());
+  if (originalNames && originalNames.length) {
+    shareUrl.searchParams.set("items", base64UrlEncode(originalNames.join("\n")));
+  }
+
+  const shareText = result
+    ? ("Check out my Wheel Of List results!\n\n" + result)
+    : "Try Wheel Of List — a free spinner for draws, classrooms, raffles and games.";
+
+  // Prefer native share on mobile
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: "Wheel Of List", text: shareText, url: shareUrl.toString() });
+      showToast("Shared!");
+      return;
+    }
+  } catch (e) {
+    // user cancelled, ignore
+  }
+
+  // Fallback: copy share text + link
+  const fallback = shareText + "\n\n" + shareUrl.toString();
+  try {
+    await navigator.clipboard.writeText(fallback);
+    showToast("Copied to clipboard.");
+  } catch (e) {
+    // Old fallback
+    const ta = document.createElement("textarea");
+    ta.value = fallback;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    showToast("Copied to clipboard.");
+  }
 });
+
 
 document.getElementById("themeSelect").addEventListener("change", (e) => {
   document.body.classList.toggle("dark-theme", e.target.value === "dark");
@@ -457,6 +593,7 @@ document.addEventListener("keydown", (e) => {
 
 initDefaultNames();
 resizeCanvas();
+syncUrlWithItems(originalNames);
 
 // ====== Module System ======
 function switchToTool(toolName) {

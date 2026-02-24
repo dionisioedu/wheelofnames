@@ -8,14 +8,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="canonical" href="/">
+  <link rel="canonical" href="https://wheeloflist.com/">
   <!-- Open Graph / Social -->
   <meta property="og:title" content="Wheel Of List — Free Spinner for Draws & Classroom" />
   <meta property="og:description" content="Enter names, spin the wheel and pick a random winner. Customize, save and share your wheel." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="" id="og-url" />
+  <meta property="og:site_name" content="Wheel Of List" />
+  <meta property="og:image" content="https://wheeloflist.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:creator" content="@DionisioDev" />
+  <meta name="twitter:image" content="https://wheeloflist.com/og.png" />
   <!-- JSON-LD will be filled dynamically with the current URL -->
   <meta name="viewport" content="initial-scale=1, maximum-scale=5, minimum-scale=1, width=device-width">
   <meta name="theme-color" content="#3369e8">
@@ -51,11 +56,47 @@
     "url": ""
   }
   </script>
+<script type="application/ld+json" id="app-jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Wheel Of List",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "description": "Free and easy to use spinner. Enter names, spin the wheel to pick a random winner. Customize the look and feel, save and share your wheel.",
+  "url": "https://wheeloflist.com/"
+}
+</script>
+<script type="application/ld+json" id="faq-jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I use Wheel of List for multiple events?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Absolutely! You can easily reset the spinner and load a new list of names for each event or activity." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the random selection truly unbiased?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The spinner uses algorithms designed to give every entry an equal chance of being selected." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I customize the appearance of the spinner?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can switch themes and the wheel will adapt visually while keeping the selection fair." }
+    }
+  ]
+}
+</script>
+
   <script>
     // Fill dynamic URL values for Open Graph and JSON-LD (keeps template portable)
     (function(){
       try{
-        var url = window.location.href;
+        var baseUrl = window.location.origin + window.location.pathname;
+        var url = baseUrl;
         var og = document.getElementById('og-url');
         if(og) og.setAttribute('content', url);
         var jsonLd = document.getElementById('site-jsonld');
@@ -119,6 +160,11 @@
           <label for="namesInput" class="form-label">Names (one per line)</label>
           <textarea id="namesInput" class="form-control" rows="10" placeholder="Enter names, one per line"></textarea>
           <button id="updateNames" class="btn btn-primary btn-block mt-2" type="button">Update Wheel</button>
+<div class="d-flex gap-2 mt-2 flex-wrap">
+  <button id="removeDuplicates" class="btn btn-outline-secondary btn-sm" type="button">Remove duplicates</button>
+  <button id="shuffleNames" class="btn btn-outline-secondary btn-sm" type="button">Shuffle</button>
+  <button id="loadSample" class="btn btn-outline-secondary btn-sm" type="button">Load sample</button>
+</div>
           <button id="shareResult" class="btn btn-success btn-block mt-2">Share Result</button>
           <select id="themeSelect" class="form-select mt-2">
             <option value="light">Light Theme</option>
@@ -267,6 +313,16 @@
       <p>If you have additional questions, feel free to contact our support team for further assistance.</p>
     </div>
   </section>
+
+<!-- Toasts -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+  <div id="appToast" class="toast align-items-center text-bg-dark border-0" role="status" aria-live="polite" aria-atomic="true">
+    <div class="d-flex">
+      <div id="appToastBody" class="toast-body">Done.</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 
   <footer class="bg-light text-center mt-3 p-3">
     <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
