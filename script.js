@@ -90,6 +90,114 @@ function showToast(message) {
     const toast = bootstrap.Toast.getOrCreateInstance(el, { delay: 2200 });
     toast.show();
   } catch (e) {}
+
+function getScoreboardWinners() {
+  const items = Array.from(document.querySelectorAll("#scoreboard li"));
+  return items
+    .map(li => li.dataset.winner || li.textContent.replace(/^\s*\d+\s*/, "").trim())
+    .filter(Boolean);
+}
+
+function getLatestWinner() {
+  const winners = getScoreboardWinners();
+  return winners.length ? winners[winners.length - 1] : "";
+}
+
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (e) {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      return true;
+    } catch (e2) {
+      return false;
+    }
+  }
+}
+
+// Generates a shareable image (PNG) combining the wheel snapshot + latest winner + URL.
+async function generateShareImageBlob() {
+  const W = 1200;
+  const H = 630;
+  const out = document.createElement("canvas");
+  out.width = W;
+  out.height = H;
+  const octx = out.getContext("2d");
+
+  // Background
+  const bg = octx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, "#0b1220");
+  bg.addColorStop(1, "#142a44");
+  octx.fillStyle = bg;
+  octx.fillRect(0, 0, W, H);
+
+  // Title
+  octx.fillStyle = "rgba(255,255,255,0.95)";
+  octx.font = "700 56px Quicksand, system-ui, -apple-system, Segoe UI, Roboto, Arial";
+  octx.fillText("Wheel Of List", 64, 96);
+
+  // Subtext / URL
+  const url = getBaseUrl();
+  octx.fillStyle = "rgba(255,255,255,0.78)";
+  octx.font = "500 26px Quicksand, system-ui, -apple-system, Segoe UI, Roboto, Arial";
+  octx.fillText(url.replace(/\/$/, ""), 64, 138);
+
+  // Winner
+  const winner = getLatestWinner();
+  octx.fillStyle = "rgba(255,255,255,0.92)";
+  octx.font = "700 42px Quicksand, system-ui, -apple-system, Segoe UI, Roboto, Arial";
+  octx.fillText(winner ? `Winner: ${winner}` : "Spin to pick a winner!", 64, 220);
+
+  // Wheel snapshot (right side)
+  const padding = 52;
+  const wheelSize = Math.min(520, H - padding * 2);
+  const wheelX = W - wheelSize - padding;
+  const wheelY = Math.floor((H - wheelSize) / 2);
+
+  // Soft card behind wheel
+  octx.fillStyle = "rgba(255,255,255,0.08)";
+  roundRect(octx, wheelX - 18, wheelY - 18, wheelSize + 36, wheelSize + 36, 28);
+  octx.fill();
+
+  // Draw wheel (current on-screen canvas)
+  try {
+    octx.drawImage(canvas, wheelX, wheelY, wheelSize, wheelSize);
+  } catch (e) {
+    // If drawImage fails (rare), draw a placeholder circle
+    octx.beginPath();
+    octx.arc(wheelX + wheelSize/2, wheelY + wheelSize/2, wheelSize/2, 0, Math.PI * 2);
+    octx.fillStyle = "rgba(255,255,255,0.15)";
+    octx.fill();
+  }
+
+  // Footer hint
+  octx.fillStyle = "rgba(255,255,255,0.70)";
+  octx.font = "500 22px Quicksand, system-ui, -apple-system, Segoe UI, Roboto, Arial";
+  octx.fillText("Try it free • Paste your list • Spin • Share", 64, H - 64);
+
+  return await new Promise(resolve => out.toBlob(resolve, "image/png", 0.92));
+}
+
+function roundRect(ctx2, x, y, w, h, r) {
+  const rr = Math.min(r, w / 2, h / 2);
+  ctx2.beginPath();
+  ctx2.moveTo(x + rr, y);
+  ctx2.arcTo(x + w, y, x + w, y + h, rr);
+  ctx2.arcTo(x + w, y + h, x, y + h, rr);
+  ctx2.arcTo(x, y + h, x, y, rr);
+  ctx2.arcTo(x, y, x + w, y, rr);
+  ctx2.closePath();
+}
+
 }
 
 function updateOverlay() {
@@ -451,8 +559,43 @@ function addScoreboard(winner) {
   const scoreboardEl = document.getElementById("scoreboard");
   const li = document.createElement("li");
   li.className = "list-group-item";
+  li.dataset.winner = winner;
   li.innerHTML = `<span class="order-number">${spinOrder}</span> ${winner}`;
   scoreboardEl.appendChild(li);
+}
+
+async function copyToClipboard(text) {
+  if (!text) {
+    showToast("Nothing to copy.");
+    return false;
+  }
+
+  // Modern clipboard API (works in secure contexts: https)
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (e) {
+    // fallback below
+  }
+
+  // Fallback for older browsers
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    ta.style.top = "0";
+    ta.setAttribute("readonly", "");
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
 }
 
 function triggerWinnerAnimation(winningName, callback) {
@@ -579,6 +722,59 @@ document.getElementById("shareResult").addEventListener("click", async () => {
   }
 });
 
+document.getElementById("copyWinner").addEventListener("click", async () => {
+  const winner = getLatestWinner();
+  if (!winner) {
+    showToast("No winner yet.");
+    return;
+  }
+  const ok = await copyToClipboard(winner);
+  showToast(ok ? "Winner copied." : "Copy failed.");
+});
+
+document.getElementById("copyRanking").addEventListener("click", async () => {
+  const winners = getScoreboardWinners();
+  if (!winners.length) {
+    showToast("No results yet.");
+    return;
+  }
+  const text = winners.map((w, i) => `${i + 1}. ${w}`).join("\n");
+  const ok = await copyToClipboard(text);
+  showToast(ok ? "Ranking copied." : "Copy failed.");
+});
+
+document.getElementById("downloadShareImage").addEventListener("click", async () => {
+  try {
+    const blob = await generateShareImageBlob();
+    if (!blob) {
+      showToast("Could not generate image.");
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "wheeloflist.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    showToast("Image downloaded.");
+  } catch (e) {
+    showToast("Could not generate image.");
+  }
+});
+
+function getScoreboardWinners() {
+  return Array.from(document.querySelectorAll("#scoreboard li"))
+    .map(li => li.dataset.winner || li.textContent.replace(/^\d+\s*/, '').trim())
+    .filter(Boolean);
+}
+
+function getLatestWinner() {
+  const winners = getScoreboardWinners();
+  if (!winners.length) return null;
+  return winners[winners.length - 1];
+}
 
 document.getElementById("themeSelect").addEventListener("change", (e) => {
   document.body.classList.toggle("dark-theme", e.target.value === "dark");

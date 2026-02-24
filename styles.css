@@ -1410,3 +1410,10 @@ html, body {
   #wheel-container { height: auto; min-height: 360px; padding-bottom: 24px; }
   .col-md-4 .p-3 { padding-top: 12px !important; }
 }
+
+
+/* Share actions */
+#shareActions .btn { white-space: nowrap; }
+@media (max-width: 576px) {
+  #shareActions .btn { flex: 1 1 auto; }
+}

@@ -166,7 +166,13 @@
   <button id="loadSample" class="btn btn-outline-secondary btn-sm" type="button">Load sample</button>
 </div>
           <button id="shareResult" class="btn btn-success btn-block mt-2">Share Result</button>
-          <select id="themeSelect" class="form-select mt-2">
+          
+<div class="d-flex gap-2 mt-2 flex-wrap" id="shareActions">
+  <button id="copyWinner" class="btn btn-outline-success btn-sm" type="button" title="Copy the latest winner">Copy winner</button>
+  <button id="copyRanking" class="btn btn-outline-success btn-sm" type="button" title="Copy the full scoreboard">Copy ranking</button>
+  <button id="downloadShareImage" class="btn btn-outline-success btn-sm" type="button" title="Download a shareable image (PNG)">Download image</button>
+</div>
+<select id="themeSelect" class="form-select mt-2">
             <option value="light">Light Theme</option>
             <option value="dark">Dark Theme</option>
           </select>
