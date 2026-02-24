@@ -1,6 +1,6 @@
 /**
- * Random Number Generator - Ferramenta para gerar números aleatórios
- * Com histórico, temas, e excelente UX
+ * Random Number Generator - tool to generate random numbers
+ * Includes history, simple UI and accessibility improvements
  */
 
 class RandomNumberGenerator {
@@ -11,9 +11,9 @@ class RandomNumberGenerator {
     this.maxHistorySize = 10;
     this.isGenerating = false;
     
-    // Audio elements
-    this.spinSound = new Audio("audio/spin.mp3");
-    this.winSound = new Audio("audio/win.mp3");
+    // Audio elements: play with safe guards to avoid runtime errors if files are missing
+    this.spinSound = null;
+    this.winSound = null;
     
     this.init();
   }
@@ -45,16 +45,17 @@ class RandomNumberGenerator {
           <div class="number-generator-wrapper">
             <!-- Input Section -->
             <div class="generator-inputs">
-              <div class="input-group">
-                <label for="min-value">Minimum</label>
-                <input 
-                  type="number" 
-                  id="min-value" 
-                  class="generator-input" 
-                  value="1" 
-                  placeholder="Minimum"
-                >
-              </div>
+                <div class="input-group">
+                  <label for="min-value">Minimum</label>
+                  <input 
+                    type="number" 
+                    id="min-value" 
+                    class="generator-input" 
+                    value="1" 
+                    placeholder="Minimum"
+                    aria-label="Minimum value"
+                  >
+                </div>
 
               <div class="input-group">
                 <label for="max-value">Maximum</label>
@@ -67,7 +68,7 @@ class RandomNumberGenerator {
                 >
               </div>
 
-              <button class="btn btn-primary generator-btn" id="generate-btn">
+              <button class="btn btn-primary generator-btn" id="generate-btn" aria-label="Generate random number">
                 <span class="btn-text">Generate Number</span>
                 <span class="btn-icon">🎲</span>
               </button>
@@ -188,9 +189,8 @@ class RandomNumberGenerator {
         result.classList.add('generated');
         btn.classList.remove('loading');
 
-        // Play win sound
-        this.winSound.currentTime = 0;
-        this.winSound.play();
+        // Play win sound (guarded)
+        try { if (this.winSound) { this.winSound.currentTime = 0; this.winSound.play().catch(()=>{}); } } catch(e){}
 
         // Adicionar ao histórico
         this.addToHistory(finalNumber, min, max);

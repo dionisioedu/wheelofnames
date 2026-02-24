@@ -5,7 +5,7 @@ class DiceLoader {
     this.history = [];
     this.maxHistorySize = 10;
     this.isAnimating = false;
-    this.winSound = new Audio("audio/win.mp3");
+    this.winSound = null; // play guarded to avoid missing file errors
     this.dice3D = null; // 3D dice renderer
     // Load history during construction
     this.loadHistory();
@@ -60,7 +60,7 @@ class DiceLoader {
 
             <!-- Roll Button -->
             <div class="dice-button-section">
-              <button class="btn btn-primary dice-roll-btn" id="roll-btn" onclick="moduleManager.getActiveTool().rollDices()">
+              <button class="btn btn-primary dice-roll-btn" id="roll-btn" onclick="moduleManager.getActiveTool().rollDices()" aria-label="Roll dices">
                 <span class="btn-text">Roll Dices</span>
                 <span class="btn-icon">🎲</span>
               </button>
@@ -101,10 +101,12 @@ class DiceLoader {
     
     // Initialize 3D dice renderer with correct count
     setTimeout(() => {
-      if (!this.dice3D) {
-        this.dice3D = new Dice3D('dice3d-container', this.diceCount);
-        console.log(`[DiceLoader] 3D dice renderer initialized with ${this.diceCount} dice`);
-      }
+      try {
+        if (!this.dice3D && typeof Dice3D !== 'undefined') {
+          this.dice3D = new Dice3D('dice3d-container', this.diceCount);
+          console.log(`[DiceLoader] 3D dice renderer initialized with ${this.diceCount} dice`);
+        }
+      } catch(e){ console.warn('[DiceLoader] Dice3D init failed', e); }
     }, 100);
   }
 
@@ -217,8 +219,7 @@ class DiceLoader {
     this.addToHistory(results, total);
 
     // Play sound
-    this.winSound.currentTime = 0;
-    this.winSound.play().catch(() => {});
+    try { if (this.winSound) { this.winSound.currentTime = 0; this.winSound.play().catch(()=>{}); } } catch(e){}
 
     // Re-enable button after 5 seconds (when dice unfreezes) or when user clicks again
     setTimeout(() => {

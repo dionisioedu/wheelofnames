@@ -8,11 +8,33 @@ let spinTime = 0;
 let spinTimeTotal = 0;
 let isAnimatingWinner = false;
 let spinOrder = 0;
+let highlightIndex = null;
+let lastTickIndex = null;
+let audioCtx = null;
 
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas.getContext("2d");
-const spinSound = new Audio("audio/spin.mp3");
-const winSound = new Audio("audio/win.mp3");
+// Audio objects are loaded only if files exist to avoid 404 errors.
+let spinSound = { play: () => {}, pause: () => {}, loop: false, currentTime: 0 };
+let winSound = { play: () => {}, pause: () => {}, loop: false, currentTime: 0 };
+
+// Attempt to load audio files (HEAD check) and replace the stubs when available.
+function tryLoadAudio(path, assignTo) {
+  try {
+    fetch(path, { method: 'HEAD' }).then(res => {
+      if (res.ok) {
+        try {
+          const a = new Audio(path);
+          // preserve object reference assignment
+          if (assignTo === 'spin') spinSound = a;
+          if (assignTo === 'win') winSound = a;
+        } catch (e) { /* ignore audio creation errors */ }
+      }
+    }).catch(() => {});
+  } catch (e) {}
+}
+tryLoadAudio('audio/spin.mp3', 'spin');
+tryLoadAudio('audio/win.mp3', 'win');
 
 function updateOverlay() {
   const overlay = document.getElementById("overlayButton");
@@ -32,19 +54,58 @@ function initDefaultNames() {
 
 function resizeCanvas() {
   const container = document.getElementById("wheel-container");
-  const size = Math.min(container.offsetWidth * 0.9, container.offsetHeight * 0.9);
+  // Use client sizes for more accurate layout calculations
+  const containerRect = container.getBoundingClientRect();
+  const maxSize = Math.min(containerRect.width, containerRect.height) * 0.9;
+  const size = Math.floor(maxSize);
   canvas.width = size;
   canvas.height = size;
+  canvas.style.width = size + 'px';
+  canvas.style.height = size + 'px';
+  // Update visuals that depend on canvas size and position
   drawWheel();
   updatePointerPosition();
+
+  // Center overlay (spin button) over canvas
+  const overlay = document.getElementById('overlayButton');
+  if (overlay) {
+    const canvasRect = canvas.getBoundingClientRect();
+    // position relative to container to avoid page-coordinate issues
+    const relLeft = (canvasRect.left - containerRect.left) + (canvasRect.width / 2);
+    const relTop = (canvasRect.top - containerRect.top) + (canvasRect.height / 2);
+    overlay.style.left = relLeft + 'px';
+    overlay.style.top = relTop + 'px';
+    overlay.style.transform = 'translate(-50%, -50%)';
+  }
+
+  // Update center knob element size/position
+  const centerEl = document.getElementById('wheel-center');
+  if (centerEl) {
+    const knobSize = Math.max(48, Math.floor(size * 0.12));
+    centerEl.style.width = knobSize + 'px';
+    centerEl.style.height = knobSize + 'px';
+    const canvasRect = canvas.getBoundingClientRect();
+    const relLeft = (canvasRect.left - containerRect.left) + (canvasRect.width / 2);
+    const relTop = (canvasRect.top - containerRect.top) + (canvasRect.height / 2);
+    centerEl.style.left = relLeft + 'px';
+    centerEl.style.top = relTop + 'px';
+    centerEl.style.transform = 'translate(-50%, -50%)';
+  }
 }
 window.addEventListener("resize", resizeCanvas);
 
 function updatePointerPosition() {
   const canvasRect = canvas.getBoundingClientRect();
-  const centerY = canvasRect.top + canvas.height / 2;
-  const outsideRadius = canvas.width / 2 - 10;
-  document.getElementById("pointer").style.top = (centerY + outsideRadius - 40) + "px";
+  const container = document.getElementById('wheel-container');
+  const containerRect = container.getBoundingClientRect();
+  const pointer = document.getElementById("pointer");
+
+  // Simple positioning: pointer at bottom of wheel
+  const relLeft = (canvasRect.left - containerRect.left) + (canvasRect.width / 2);
+  const relTop = (canvasRect.top - containerRect.top) + canvasRect.height - 30;
+
+  pointer.style.left = relLeft + 'px';
+  pointer.style.top = relTop + 'px';
 }
 
 function generateColors(count) {
@@ -91,6 +152,7 @@ function drawWheel() {
     ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc);
     ctx.fill();
+    // Draw slice label with auto-scaling font to better fit long text
     ctx.save();
     ctx.fillStyle = "white";
     const textX = centerX + Math.cos(angle + arc / 2) * textRadius;
@@ -99,22 +161,60 @@ function drawWheel() {
     ctx.rotate(angle + arc / 2);
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `bold ${canvas.width < 768 ? 20 : 40}px 'Quicksand', sans-serif`;
+    // Determine max arc width available for text (approx)
+    const arcLength = outsideRadius * arc;
+    let fontSize = canvas.width < 768 ? 20 : 40;
+    ctx.font = `bold ${fontSize}px 'Quicksand', sans-serif`;
+    let measured = ctx.measureText(names[i]).width;
+    // Reduce font until it fits within 80% of the arc length
+    while (measured > arcLength * 0.8 && fontSize > 10) {
+      fontSize -= 1;
+      ctx.font = `bold ${fontSize}px 'Quicksand', sans-serif`;
+      measured = ctx.measureText(names[i]).width;
+    }
     ctx.fillText(names[i], 0, 0);
     ctx.restore();
+    // If this slice is the highlighted winner, draw an accent border
+    if (highlightIndex !== null && i === highlightIndex) {
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      // Scale the slice by ~20% (increase radius)
+      const scaleUp = 1.2;
+      ctx.arc(centerX, centerY, outsideRadius * scaleUp, angle, angle + arc);
+      ctx.closePath();
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = 'rgba(255,255,255,0.8)';
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      ctx.lineWidth = 1;
+    }
   }
+  // Central circle is rendered via the overlay `#wheel-center` element for richer visuals.
+  // Draw a textured/contrasting rim for the wheel to improve separation from white background
+  ctx.save();
+  const ringWidth = Math.max(8, Math.floor(canvas.width * 0.015));
+  const grad = ctx.createLinearGradient(centerX - outsideRadius, centerY - outsideRadius, centerX + outsideRadius, centerY + outsideRadius);
+  grad.addColorStop(0, '#ffffff');
+  grad.addColorStop(0.45, '#f5f7fa');
+  grad.addColorStop(0.6, '#e9eef5');
+  grad.addColorStop(1, '#e0e6ee');
+  ctx.lineWidth = ringWidth;
+  ctx.strokeStyle = grad;
+  ctx.shadowColor = 'rgba(0,0,0,0.12)';
+  ctx.shadowBlur = 14;
   ctx.beginPath();
-  ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(centerX, centerY, outsideRadius + 10, 0, 2 * Math.PI);
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
-  ctx.lineWidth = 5;
-  ctx.shadowBlur = 20;
-  ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
+  ctx.arc(centerX, centerY, outsideRadius + (ringWidth / 2), 0, 2 * Math.PI);
   ctx.stroke();
+  // subtle inner rim for contrast
   ctx.shadowBlur = 0;
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, outsideRadius + (ringWidth / 2) - 4, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.restore();
   updateOverlay();
 }
 
@@ -147,7 +247,9 @@ document.getElementById("namesInput").addEventListener("input", () => {
 });
 
 function spin() {
-  if (isSpinning || isAnimatingWinner || names.length < 2) return; // Impede novo giro durante animação
+  if (isSpinning || isAnimatingWinner || names.length < 2) return; // Prevent new spin while animation is running
+  // Clear any previous highlight
+  highlightIndex = null;
   document.getElementById("overlayButton").style.display = "none";
   spinAngleStart = Math.random() * 10 + 10;
   spinTime = 0;
@@ -160,6 +262,7 @@ function spin() {
 
 function rotateWheel() {
   if (!isSpinning) return;
+  // Use elapsed time for smoother animation
   spinTime += 30;
   if (spinTime >= spinTimeTotal) {
     spinSound.pause();
@@ -169,8 +272,35 @@ function rotateWheel() {
   }
   const spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
   angleCurrent += (spinAngle * Math.PI / 180);
+  // Normalize angle to avoid large numbers
+  angleCurrent = angleCurrent % (2 * Math.PI);
+  // Detect slice crossing for tick sound
+  if (names.length > 0) {
+    const currentIndex = getWinningIndex();
+    if (lastTickIndex === null) lastTickIndex = currentIndex;
+    if (currentIndex !== lastTickIndex) {
+      playTick();
+      lastTickIndex = currentIndex;
+    }
+  }
   drawWheel();
   requestAnimationFrame(rotateWheel);
+}
+
+function playTick(){
+  // small click using WebAudio to avoid missing audio file dependencies
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'square';
+    o.frequency.value = 1200;
+    g.gain.value = 0.02;
+    o.connect(g);
+    g.connect(audioCtx.destination);
+    o.start();
+    setTimeout(()=>{ o.stop(); }, 30);
+  }catch(e){}
 }
 
 function easeOut(t, b, c, d) {
@@ -198,21 +328,25 @@ function stopRotateWheel() {
   } else if (names.length === 2) {
     const index = getWinningIndex();
     const winningName = names[index];
+    highlightIndex = index;
     addScoreboard(winningName);
     triggerWinnerAnimation(winningName, () => {
       names.splice(index, 1);
-      addScoreboard(names[0]); // Adiciona o último nome ao placar sem animação
+      addScoreboard(names[0]); // Add the last name to the scoreboard without animation
       names = [];
       resetGame();
     });
   } else if (names.length >= 3) {
     const index = getWinningIndex();
     const winningName = names[index];
+    highlightIndex = index;
     addScoreboard(winningName);
     triggerWinnerAnimation(winningName, () => {
       names.splice(index, 1);
       drawWheel();
       updatePointerPosition();
+      // remove highlight once the wheel updates
+      highlightIndex = null;
     });
   }
 }
@@ -326,7 +460,7 @@ resizeCanvas();
 
 // ====== Module System ======
 function switchToTool(toolName) {
-  // Esconder seção da roda
+  // Hide the wheel section
   const wheelSection = document.querySelector('.container-fluid > .row');
   const quickToolsSection = document.querySelector('.quick-tools-section');
   const toolsContainer = document.getElementById('tools-container');
@@ -339,21 +473,21 @@ function switchToTool(toolName) {
     quickToolsSection.style.display = 'none';
   }
 
-  // Mostrar container de tools
+  // Show tools container
   if (!toolsContainer) {
     const container = document.createElement('div');
     container.id = 'tools-container';
     document.body.insertBefore(container, document.querySelector('section'));
   }
 
-  // Carregar o tool
+  // Load the requested tool
   moduleManager.switchTo(toolName);
 
-  // Scrollar para o topo
+  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function backToWheel() {
-  // Reload da página para restaurar o estado original
+  // Reload the page to restore the original state
   location.reload();
 }

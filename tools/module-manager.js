@@ -1,6 +1,6 @@
 /**
- * Module Manager - Gerencia as ferramentas/módulos da aplicação
- * Permite adicionar, remover e controlar ferramentas facilmente
+ * Module Manager - Manages application tools/modules
+ * Allows registering, switching and controlling tools easily
  */
 
 class ModuleManager {

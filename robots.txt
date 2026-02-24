@@ -1,0 +1,6 @@
+# Allow indexing of the public site. Replace example.com with your production domain.
+User-agent: *
+Allow: /
+
+# Point to the sitemap (update hostname before publishing)
+Sitemap: https://example.com/sitemap.xml
