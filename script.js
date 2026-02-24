@@ -303,6 +303,7 @@ let debounceTimeout;
 document.getElementById("namesInput").addEventListener("input", () => {
   clearTimeout(debounceTimeout);
   debounceTimeout = setTimeout(() => document.getElementById("updateNames").click(), 500);
+});
 
 document.getElementById("removeDuplicates").addEventListener("click", () => {
   const input = document.getElementById("namesInput");
@@ -338,7 +339,6 @@ document.getElementById("loadSample").addEventListener("click", () => {
   document.getElementById("namesInput").value = sample.join("\n");
   document.getElementById("updateNames").click();
   showToast("Sample loaded.");
-});
 });
 
 function spin() {
