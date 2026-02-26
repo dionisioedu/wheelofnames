@@ -138,8 +138,13 @@ function showToast(message) {
 
 function updateOverlay() {
   const overlay = document.getElementById("overlayButton");
+  const emptyOverlay = document.getElementById("emptyWheelOverlay");
   const winnerOverlay = document.getElementById("winnerOverlay");
+
   overlay.style.display = names.length >= 2 && !isSpinning && !isAnimatingWinner ? "block" : "none";
+  if (emptyOverlay) {
+    emptyOverlay.style.display = names.length === 0 && !isSpinning && !isAnimatingWinner ? "block" : "none";
+  }
   if (!isAnimatingWinner) winnerOverlay.style.display = "none";
 }
 
@@ -236,6 +241,16 @@ function resizeCanvas() {
     overlay.style.transform = "translate(-50%, -50%)";
   }
 
+  const emptyOverlay = document.getElementById("emptyWheelOverlay");
+  if (emptyOverlay) {
+    const canvasRect = canvas.getBoundingClientRect();
+    const relLeft = canvasRect.left - containerRect.left + canvasRect.width / 2;
+    const relTop  = canvasRect.top  - containerRect.top  + canvasRect.height / 2;
+    emptyOverlay.style.left = relLeft + "px";
+    emptyOverlay.style.top  = relTop + "px";
+    emptyOverlay.style.transform = "translate(-50%, -50%)";
+  }
+
   // Update center knob element size/position
   const centerEl = document.getElementById("wheel-center");
   if (centerEl) {
@@ -291,11 +306,6 @@ function drawWheel() {
     ctx.beginPath();
     ctx.arc(centerX, centerY, outsideRadius, 0, 2 * Math.PI);
     ctx.fill();
-
-    ctx.fillStyle = "black";
-    ctx.font = "20px 'Quicksand', sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("Enter names and update", centerX, centerY);
     updateOverlay();
     return;
   }
@@ -947,7 +957,11 @@ document.addEventListener("keydown", (e) => {
 
   if (isTypingField) return;
 
-  if (e.key === "Enter" && !isSpinning && !isAnimatingWinner && names.length >= 2) {
+  const isSpace = e.code === "Space" || e.key === " ";
+  const isEnter = e.key === "Enter";
+
+  if ((isSpace || isEnter) && !isSpinning && !isAnimatingWinner && names.length >= 2) {
+    if (isSpace) e.preventDefault();
     spin();
   }
 });

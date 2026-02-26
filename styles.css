@@ -62,6 +62,20 @@ html, body {
   animation: bounce 1.5s infinite;
 }
 
+#emptyWheelOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 30;
+  display: none;
+  border-radius: 10px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 #winnerOverlay {
   position: absolute;
   top: 50%;
@@ -126,7 +140,7 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  #overlayButton, #winnerOverlay { font-size: 18px; }
+  #overlayButton, #winnerOverlay, #emptyWheelOverlay { font-size: 18px; }
   #namesInput { font-size: 14px; }
 }
 
