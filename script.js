@@ -32,6 +32,10 @@ const TOOL_ROUTES = {
 const ROUTE_TO_TOOL = {
   "random-number": "randomNumberGenerator",
   "dice-roller": "diceLoader",
+  "randomnumbergenerator": "randomNumberGenerator",
+  "diceloader": "diceLoader",
+  "random_number": "randomNumberGenerator",
+  "dice_roller": "diceLoader",
 };
 
 let currentView = "wheel";
@@ -111,8 +115,11 @@ function getToolFromLocation() {
   try {
     const url = new URL(window.location.href);
 
-    const toolParam = (url.searchParams.get("tool") || "").trim().toLowerCase();
+    const toolParamRaw = (url.searchParams.get("tool") || "").trim().toLowerCase();
+    const toolParam = toolParamRaw.replace(/^\/+|\/+$/g, "");
     if (toolParam && ROUTE_TO_TOOL[toolParam]) return ROUTE_TO_TOOL[toolParam];
+    const toolParamSlug = toolParam.replace(/[^a-z0-9_-]+/g, "-");
+    if (toolParamSlug && ROUTE_TO_TOOL[toolParamSlug]) return ROUTE_TO_TOOL[toolParamSlug];
 
     const path = url.pathname.toLowerCase().replace(/\/+$/, "");
     const segment = path.split("/").filter(Boolean).pop() || "";
@@ -122,6 +129,30 @@ function getToolFromLocation() {
   } catch (e) {
     return null;
   }
+}
+
+function isToolRegistered(toolName) {
+  try {
+    return !!(window.moduleManager && moduleManager.modules && moduleManager.modules[toolName]);
+  } catch (e) {
+    return false;
+  }
+}
+
+function ensureInitialToolOpen(toolName, attempt = 0) {
+  if (!toolName) return;
+
+  if (isToolRegistered(toolName)) {
+    navigateToTool(toolName, { updateUrl: false, historyMode: "replace", scroll: false });
+    return;
+  }
+
+  if (attempt >= 20) {
+    console.warn(`[Route] Tool module not available: ${toolName}`);
+    return;
+  }
+
+  setTimeout(() => ensureInitialToolOpen(toolName, attempt + 1), 120);
 }
 
 function getRouteFromLocation() {
@@ -1162,7 +1193,11 @@ document.addEventListener("keydown", (e) => {
   applyNamesFromTextarea();
 
   const initialRoute = getRouteFromLocation();
-  renderRoute(initialRoute);
+  if (initialRoute.type === "tool" && initialRoute.toolName) {
+    ensureInitialToolOpen(initialRoute.toolName);
+  } else {
+    renderRoute(initialRoute);
+  }
 
   try {
     const hasToolQuery = new URL(window.location.href).searchParams.has("tool");
