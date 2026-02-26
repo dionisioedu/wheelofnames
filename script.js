@@ -19,6 +19,11 @@ let shareSnapshotNames = [];
 let blinkActive = false;     // only during winner animation
 let blinkOn = false;         // toggles light/dark
 
+const STORAGE_KEYS = {
+  theme: "wheeloflist_theme",
+  names: "wheeloflist_names",
+};
+
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -88,6 +93,35 @@ function readItemsFromUrl() {
   } catch (e) {
     return null;
   }
+}
+
+// ---------------- Local storage helpers ----------------
+function getStoredValue(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    return null;
+  }
+}
+
+function setStoredValue(key, value) {
+  try {
+    if (value === null || value === undefined || value === "") {
+      localStorage.removeItem(key);
+      return;
+    }
+    localStorage.setItem(key, value);
+  } catch (e) {}
+}
+
+function applyStoredTheme() {
+  const savedTheme = getStoredValue(STORAGE_KEYS.theme);
+  const theme = savedTheme === "dark" ? "dark" : "light";
+
+  document.body.classList.toggle("dark-theme", theme === "dark");
+
+  const themeSelect = document.getElementById("themeSelect");
+  if (themeSelect) themeSelect.value = theme;
 }
 
 // ---------------- UI helpers ----------------
@@ -162,11 +196,14 @@ function findWinnerIndexInList(winner, list) {
 
 // ---------------- Wheel init & sizing ----------------
 function initDefaultNames() {
-  if (names.length === 0) {
+  const inputEl = document.getElementById("namesInput");
+  const hasInputContent = inputEl && inputEl.value.trim().length > 0;
+
+  if (names.length === 0 && !hasInputContent) {
     names = ["Alice", "Bob", "Carol", "Dave", "Eve"];
     originalNames = names.slice();
     colors = generateColors(names.length);
-    document.getElementById("namesInput").value = names.join("\n");
+    inputEl.value = names.join("\n");
   }
 }
 
@@ -365,6 +402,7 @@ function applyNamesFromTextarea() {
 
   const inputText = document.getElementById("namesInput").value;
   names = inputText.split("\n").map((n) => n.trim()).filter(Boolean);
+  setStoredValue(STORAGE_KEYS.names, names.join("\n"));
 
   if (names.length === 0) {
     originalNames = [];
@@ -890,12 +928,25 @@ document.getElementById("downloadShareImage").addEventListener("click", async ()
 
 // ---------------- Theme ----------------
 document.getElementById("themeSelect").addEventListener("change", (e) => {
-  document.body.classList.toggle("dark-theme", e.target.value === "dark");
+  const selectedTheme = e.target.value === "dark" ? "dark" : "light";
+  document.body.classList.toggle("dark-theme", selectedTheme === "dark");
+  setStoredValue(STORAGE_KEYS.theme, selectedTheme);
   drawWheel();
 });
 
 // Keyboard
 document.addEventListener("keydown", (e) => {
+  const target = e.target;
+  const tagName = target && target.tagName ? target.tagName.toLowerCase() : "";
+  const isTypingField =
+    (target && target.isContentEditable) ||
+    tagName === "input" ||
+    tagName === "textarea" ||
+    tagName === "select" ||
+    tagName === "button";
+
+  if (isTypingField) return;
+
   if (e.key === "Enter" && !isSpinning && !isAnimatingWinner && names.length >= 2) {
     spin();
   }
@@ -903,9 +954,16 @@ document.addEventListener("keydown", (e) => {
 
 // ---------------- Init ----------------
 (function init() {
+  applyStoredTheme();
+
   const fromUrl = readItemsFromUrl();
   if (fromUrl && fromUrl.length) {
     document.getElementById("namesInput").value = fromUrl.join("\n");
+  } else {
+    const storedNames = getStoredValue(STORAGE_KEYS.names);
+    if (storedNames && storedNames.trim()) {
+      document.getElementById("namesInput").value = storedNames;
+    }
   }
 
   initDefaultNames();
