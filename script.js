@@ -24,6 +24,18 @@ const STORAGE_KEYS = {
   names: "wheeloflist_names",
 };
 
+const TOOL_ROUTES = {
+  randomNumberGenerator: "/random-number/",
+  diceLoader: "/dice-roller/",
+};
+
+const ROUTE_TO_TOOL = {
+  "random-number": "randomNumberGenerator",
+  "dice-roller": "diceLoader",
+};
+
+let currentView = "wheel";
+
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -93,6 +105,169 @@ function readItemsFromUrl() {
   } catch (e) {
     return null;
   }
+}
+
+function getToolFromLocation() {
+  try {
+    const url = new URL(window.location.href);
+
+    const toolParam = (url.searchParams.get("tool") || "").trim().toLowerCase();
+    if (toolParam && ROUTE_TO_TOOL[toolParam]) return ROUTE_TO_TOOL[toolParam];
+
+    const path = url.pathname.toLowerCase().replace(/\/+$/, "");
+    const segment = path.split("/").filter(Boolean).pop() || "";
+    if (segment && ROUTE_TO_TOOL[segment]) return ROUTE_TO_TOOL[segment];
+
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function getRouteFromLocation() {
+  const toolFromLocation = getToolFromLocation();
+  if (toolFromLocation) {
+    return { type: "tool", toolName: toolFromLocation };
+  }
+  return { type: "wheel" };
+}
+
+function setUrlForTool(toolName, mode = "push") {
+  const routePath = TOOL_ROUTES[toolName];
+  if (!routePath) return;
+
+  try {
+    const url = new URL(window.location.href);
+    url.pathname = routePath;
+    url.searchParams.delete("tool");
+
+    if (mode === "replace") {
+      history.replaceState(null, "", url.toString());
+    } else {
+      history.pushState(null, "", url.toString());
+    }
+  } catch (e) {}
+}
+
+function setUrlForWheel(mode = "push") {
+  try {
+    const url = new URL(window.location.href);
+    url.pathname = "/";
+    url.searchParams.delete("tool");
+
+    if (mode === "replace") {
+      history.replaceState(null, "", url.toString());
+    } else {
+      history.pushState(null, "", url.toString());
+    }
+  } catch (e) {}
+}
+
+function ensureToolsContainer() {
+  let toolsContainer = document.getElementById("tools-container");
+  if (!toolsContainer) {
+    toolsContainer = document.createElement("div");
+    toolsContainer.id = "tools-container";
+    document.body.insertBefore(toolsContainer, document.querySelector("section"));
+  }
+  return toolsContainer;
+}
+
+function showWheelView() {
+  const wheelSection = document.querySelector(".container-fluid > .row");
+  const quickToolsSection = document.querySelector(".quick-tools-section");
+  const toolsContainer = document.getElementById("tools-container");
+
+  if (wheelSection) wheelSection.style.display = "";
+  if (quickToolsSection) quickToolsSection.style.display = "";
+
+  const activeTool = moduleManager.getActiveTool?.();
+  activeTool?.deactivate?.();
+  if (moduleManager && Object.prototype.hasOwnProperty.call(moduleManager, "activeModule")) {
+    moduleManager.activeModule = null;
+  }
+
+  if (toolsContainer) {
+    toolsContainer.innerHTML = "";
+    toolsContainer.style.display = "none";
+  }
+
+  currentView = "wheel";
+}
+
+function showToolView(toolName) {
+  const wheelSection = document.querySelector(".container-fluid > .row");
+  const quickToolsSection = document.querySelector(".quick-tools-section");
+  const toolsContainer = ensureToolsContainer();
+
+  if (wheelSection) wheelSection.style.display = "none";
+  if (quickToolsSection) quickToolsSection.style.display = "none";
+  if (toolsContainer) toolsContainer.style.display = "block";
+
+  moduleManager.switchTo(toolName);
+  currentView = "tool";
+}
+
+function renderRoute(route) {
+  if (route.type === "tool" && route.toolName) {
+    showToolView(route.toolName);
+  } else {
+    showWheelView();
+  }
+}
+
+function navigateToTool(toolName, options = {}) {
+  const historyMode = options.historyMode || "push";
+  const scroll = options.scroll !== false;
+
+  renderRoute({ type: "tool", toolName });
+
+  if (options.updateUrl !== false) {
+    setUrlForTool(toolName, historyMode);
+  }
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+function navigateToWheel(options = {}) {
+  const historyMode = options.historyMode || "push";
+  const scroll = options.scroll !== false;
+
+  renderRoute({ type: "wheel" });
+
+  if (options.updateUrl !== false) {
+    setUrlForWheel(historyMode);
+  }
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+function bindNavigationLinks() {
+  document.addEventListener("click", (e) => {
+    const anchor = e.target.closest("a[data-nav]");
+    if (!anchor) return;
+
+    if (e.defaultPrevented || e.button !== 0) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const nav = (anchor.getAttribute("data-nav") || "").trim();
+    if (!nav) return;
+
+    e.preventDefault();
+
+    if (nav === "wheel") {
+      navigateToWheel({ updateUrl: true, historyMode: "push", scroll: true });
+      return;
+    }
+
+    if (ROUTE_TO_TOOL[nav]) {
+      navigateToTool(ROUTE_TO_TOOL[nav], { updateUrl: true, historyMode: "push", scroll: true });
+    }
+  });
 }
 
 // ---------------- Local storage helpers ----------------
@@ -960,7 +1135,7 @@ document.addEventListener("keydown", (e) => {
   const isSpace = e.code === "Space" || e.key === " ";
   const isEnter = e.key === "Enter";
 
-  if ((isSpace || isEnter) && !isSpinning && !isAnimatingWinner && names.length >= 2) {
+  if ((isSpace || isEnter) && currentView === "wheel" && !isSpinning && !isAnimatingWinner && names.length >= 2) {
     if (isSpace) e.preventDefault();
     spin();
   }
@@ -968,6 +1143,8 @@ document.addEventListener("keydown", (e) => {
 
 // ---------------- Init ----------------
 (function init() {
+  bindNavigationLinks();
+
   applyStoredTheme();
 
   const fromUrl = readItemsFromUrl();
@@ -983,27 +1160,32 @@ document.addEventListener("keydown", (e) => {
   initDefaultNames();
   resizeCanvas();
   applyNamesFromTextarea();
+
+  const initialRoute = getRouteFromLocation();
+  renderRoute(initialRoute);
+
+  try {
+    const hasToolQuery = new URL(window.location.href).searchParams.has("tool");
+    if (hasToolQuery && initialRoute.type === "tool") {
+      setUrlForTool(initialRoute.toolName, "replace");
+    }
+  } catch (e) {}
+
+  window.addEventListener("popstate", () => {
+    const route = getRouteFromLocation();
+    renderRoute(route);
+  });
 })();
 
 // ====== Module System ======
-function switchToTool(toolName) {
-  const wheelSection = document.querySelector(".container-fluid > .row");
-  const quickToolsSection = document.querySelector(".quick-tools-section");
-  const toolsContainer = document.getElementById("tools-container");
-
-  if (wheelSection) wheelSection.style.display = "none";
-  if (quickToolsSection) quickToolsSection.style.display = "none";
-
-  if (!toolsContainer) {
-    const container = document.createElement("div");
-    container.id = "tools-container";
-    document.body.insertBefore(container, document.querySelector("section"));
-  }
-
-  moduleManager.switchTo(toolName);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function switchToTool(toolName, options = {}) {
+  navigateToTool(toolName, {
+    updateUrl: options.updateUrl !== false,
+    historyMode: options.historyMode || "push",
+    scroll: options.scroll !== false,
+  });
 }
 
 function backToWheel() {
-  location.reload();
+  navigateToWheel({ updateUrl: true, historyMode: "push", scroll: true });
 }

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <base href="/">
   <title>Wheel Of List</title>
   <meta name="description" content="Free and easy to use spinner. Enter names, spin the wheel to pick a random winner. Customize the look and feel, save and share your wheel.">
   <meta name="robots" content="index, follow">
@@ -115,7 +116,7 @@
   <!-- quick tools toolbar removed (tools accessible from top nav) -->
   <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#wheel" onclick="backToWheel(); return false;" style="cursor: pointer;">🎡 Wheel Of List</a>
+      <a class="navbar-brand" href="/" data-nav="wheel" style="cursor: pointer;">🎡 Wheel Of List</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -126,8 +127,8 @@
               Tools
             </a>
             <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
-              <li><a class="dropdown-item" href="#" onclick="switchToTool('randomNumberGenerator')">🎲 Random Number Generator</a></li>
-              <li><a class="dropdown-item" href="#" onclick="switchToTool('diceLoader')">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/random-number/" data-nav="random-number">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/" data-nav="dice-roller">🎰 Dice Roller</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item disabled" href="#">📅 Soon: More Tools...</a></li>
             </ul>
@@ -190,18 +191,18 @@
     <div class="container">
       <h3 class="quick-tools-title">Explore More Tools</h3>
       <div class="tools-grid">
-        <div class="tool-card" role="button" tabindex="0" onclick="switchToTool('randomNumberGenerator')" onkeydown="if(event.key==='Enter'||event.key===' ') { switchToTool('randomNumberGenerator'); }">
+        <a class="tool-card" href="/random-number/" data-nav="random-number">
           <div class="tool-card-icon">🎲</div>
           <h4>Random Number Generator</h4>
           <p>Generate random numbers with min/max controls and history</p>
           <div class="tool-card-arrow">→</div>
-        </div>
-        <div class="tool-card" role="button" tabindex="0" onclick="switchToTool('diceLoader')" onkeydown="if(event.key==='Enter'||event.key===' ') { switchToTool('diceLoader'); }">
+        </a>
+        <a class="tool-card" href="/dice-roller/" data-nav="dice-roller">
           <div class="tool-card-icon">🎰</div>
           <h4>Dice Roller</h4>
           <p>Roll multiple dices with animations and result history</p>
           <div class="tool-card-arrow">→</div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
