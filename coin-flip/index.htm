@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Coin Flip — Flip a Coin Online, Heads or Tails | Wheel Of List</title>
+  <meta name="description" content="Flip a coin online with a realistic 3D animation. Instant heads or tails, running stats and flip history. Free, fair 50/50 odds — settle any decision in one click.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/coin-flip/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Coin Flip — Flip a Coin Online, Heads or Tails">
+  <meta property="og:description" content="Flip a coin online with a realistic 3D animation. Instant heads or tails with fair 50/50 odds.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/coin-flip/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Coin Flip",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online coin flipper with 3D animation, fair 50/50 odds, running statistics and flip history.",
+    "url": "https://wheeloflist.com/coin-flip/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wheeloflist.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://wheeloflist.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Coin Flip", "item": "https://wheeloflist.com/coin-flip/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the online coin flip really 50/50?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each flip is an independent draw with exactly 50% probability for heads and 50% for tails. Unlike a physical coin, there is no weight bias, no catching technique and no edge landings." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can previous flips influence the next one?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Every flip is independent. Even after five heads in a row, the next flip is still exactly 50/50 — believing otherwise is known as the gambler's fallacy." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I decide between more than two options?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A coin handles two options. For three or more, use the Wheel of List spinner — add one entry per option and spin." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it keep statistics?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — it tracks your heads and tails totals, percentages and current streak, stored locally in your browser." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    .coin-scene { perspective: 1000px; width: 200px; height: 200px; margin: 0 auto 25px; }
+    .coin { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 2.4s cubic-bezier(0.2, 0.75, 0.3, 1); cursor: pointer; }
+    .coin-face { position: absolute; inset: 0; border-radius: 50%; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-size: 4.5rem; font-weight: 900; box-shadow: inset 0 0 20px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.3); }
+    .coin-heads { background: radial-gradient(circle at 32% 30%, #ffe98a, #f5c518 62%, #c9990a); color: #7a5c00; }
+    .coin-tails { background: radial-gradient(circle at 32% 30%, #ececec, #c4c4c4 62%, #8f8f8f); color: #545454; transform: rotateY(180deg); }
+    .coin-result { font-size: 2.4rem; font-weight: 900; text-align: center; min-height: 3rem; margin-bottom: 10px; }
+    .coin-stats { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .coin-stat { background: rgba(30,144,255,0.08); border-radius: 10px; padding: 10px 18px; text-align: center; min-width: 110px; }
+    .dark-theme .coin-stat { background: rgba(255,255,255,0.06); }
+    .coin-stat b { display: block; font-size: 1.4rem; }
+    .coin-history-strip { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 18px; font-size: 1.5rem; min-height: 2rem; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>🪙 Coin Flip</h2>
+        <p class="tools-subtitle">Heads or tails? One click settles it</p>
+      </div>
+      <div class="tools-content">
+        <div class="coin-scene">
+          <div class="coin" id="coin" role="button" aria-label="Flip the coin" tabindex="0">
+            <div class="coin-face coin-heads">H</div>
+            <div class="coin-face coin-tails">T</div>
+          </div>
+        </div>
+        <div class="coin-result" id="coin-result" role="status" aria-live="polite">&nbsp;</div>
+        <div style="text-align:center;">
+          <button class="btn btn-primary generator-btn" id="flip-btn" type="button">
+            <span class="btn-text">Flip Coin</span>
+            <span class="btn-icon">🪙</span>
+          </button>
+        </div>
+        <div class="coin-stats">
+          <div class="coin-stat"><b id="stat-heads">0</b>Heads</div>
+          <div class="coin-stat"><b id="stat-tails">0</b>Tails</div>
+          <div class="coin-stat"><b id="stat-streak">–</b>Streak</div>
+        </div>
+        <div class="coin-history-strip" id="coin-history" aria-label="Last flips"></div>
+        <div style="text-align:center; margin-top:14px;">
+          <button class="btn btn-outline-secondary btn-sm" id="reset-stats" type="button">Reset stats</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Flip a Coin Online</h1>
+    <p>No coin in your pocket? Flip one here. Click the coin (or the button) and a realistic 3D coin spins through the air before landing on <strong>heads</strong> or <strong>tails</strong> — a perfect 50/50 every time. The tool keeps a running count of your results, tracks your current streak, and shows your recent flips at a glance.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to use it</h2>
+    <ol>
+      <li><strong>Click the coin</strong> — or hit the Flip Coin button, or press Space/Enter.</li>
+      <li><strong>Watch it spin</strong> — the animation ends on the true result.</li>
+      <li><strong>Read the result</strong> — heads or tails, announced below the coin.</li>
+      <li><strong>Track your stats</strong> — totals, percentages and streaks update automatically and stay saved in your browser.</li>
+    </ol>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">When a coin flip is the right tool</h2>
+    <ul>
+      <li><strong>Two options, zero drama:</strong> pizza or sushi, walk or gym, call or text — flip and commit.</li>
+      <li><strong>Sports and games:</strong> who kicks off, who goes first, who picks the map.</li>
+      <li><strong>Breaking deadlocks:</strong> when a group is split 50/50, an unbiased coin is the fastest fair referee.</li>
+      <li><strong>Teaching probability:</strong> flip 20 times and chart the results — a hands-on lesson in randomness, streaks and the law of large numbers.</li>
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Fairer than a real coin</h2>
+    <p>Physical coin flips are famously imperfect: research by mathematicians at Stanford showed a real coin has roughly a 51% bias toward the side that starts facing up, and catching technique can push results further. A digital flip has none of that — each result is an independent draw with exactly 50% probability per side. It also can't land on its edge, roll under the couch, or get "best two out of three"-ed by a sore loser (well, that last one is still up to you).</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">About streaks</h2>
+    <p>Five heads in a row doesn't make tails "due" — the next flip is still exactly 50/50. Expecting randomness to self-correct in the short run is the classic <em>gambler's fallacy</em>. Streaks are a normal feature of true randomness: in 100 flips, a run of six or more of the same side is more likely than not. Watch your streak counter and see it happen.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Is it really 50/50?</strong><br>Yes — each flip is an independent uniform draw. No weight bias, no technique, no edge cases.</p>
+    <p><strong>Can I flip for more than two options?</strong><br>Use the <a href="/">Wheel of List spinner</a> for 3+ options, or the <a href="/yes-no-wheel/">Yes or No Wheel</a> if you want the wheel experience for a binary choice.</p>
+    <p><strong>Are my stats shared anywhere?</strong><br>No — everything stays in your browser's local storage.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">Related Tools</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/yes-no-wheel/">
+          <div class="tool-card-icon">❓</div>
+          <h4>Yes or No Wheel</h4>
+          <p>Spin a wheel for your binary decisions — with an optional Maybe</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/">
+          <div class="tool-card-icon">🎡</div>
+          <h4>Wheel Spinner</h4>
+          <p>More than two options? Put them all on the wheel</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/random-number/">
+          <div class="tool-card-icon">🎲</div>
+          <h4>Random Number Generator</h4>
+          <p>Draw a number in any range you need</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  (function(){
+    var coin = document.getElementById('coin');
+    var resultEl = document.getElementById('coin-result');
+    var flipBtn = document.getElementById('flip-btn');
+    var rot = 0;
+    var flipping = false;
+    var stats = { heads: 0, tails: 0, streakSide: null, streakLen: 0, recent: [] };
+
+    try {
+      var saved = localStorage.getItem('coinflip-stats');
+      if (saved) stats = JSON.parse(saved);
+    } catch (e) {}
+
+    function save(){ try{ localStorage.setItem('coinflip-stats', JSON.stringify(stats)); }catch(e){} }
+
+    function render(){
+      document.getElementById('stat-heads').textContent = stats.heads;
+      document.getElementById('stat-tails').textContent = stats.tails;
+      document.getElementById('stat-streak').textContent = stats.streakLen ? (stats.streakLen + '× ' + (stats.streakSide === 'H' ? 'Heads' : 'Tails')) : '–';
+      document.getElementById('coin-history').textContent = (stats.recent || []).map(function(s){ return s === 'H' ? '🟡' : '⚪'; }).join(' ');
+    }
+
+    function flip(){
+      if (flipping) return;
+      flipping = true;
+      resultEl.innerHTML = '&nbsp;';
+      flipBtn.classList.add('loading');
+      var heads = Math.random() < 0.5;
+      var base = rot - (rot % 360);
+      rot = base + 5 * 360 + (heads ? 0 : 180);
+      coin.style.transform = 'rotateY(' + rot + 'deg)';
+      setTimeout(function(){
+        var side = heads ? 'H' : 'T';
+        resultEl.textContent = heads ? '🟡 Heads!' : '⚪ Tails!';
+        if (heads) stats.heads++; else stats.tails++;
+        if (stats.streakSide === side) stats.streakLen++;
+        else { stats.streakSide = side; stats.streakLen = 1; }
+        stats.recent = (stats.recent || []).concat(side).slice(-10);
+        save();
+        render();
+        flipBtn.classList.remove('loading');
+        flipping = false;
+      }, 2450);
+    }
+
+    coin.addEventListener('click', flip);
+    coin.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+    flipBtn.addEventListener('click', flip);
+    document.addEventListener('keydown', function(e){
+      if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement !== coin) { e.preventDefault(); flip(); }
+    });
+    document.getElementById('reset-stats').addEventListener('click', function(){
+      stats = { heads: 0, tails: 0, streakSide: null, streakLen: 0, recent: [] };
+      save(); render();
+    });
+    render();
+  })();
+  </script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

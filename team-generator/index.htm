@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Random Team Generator — Split Names into Groups | Wheel Of List</title>
+  <meta name="description" content="Free random team generator. Paste a list of names and split them into fair, random teams or groups in one click. Perfect for sports, classrooms and projects.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/team-generator/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Random Team Generator — Split Names into Groups">
+  <meta property="og:description" content="Paste names, choose team size or count, get fair random teams instantly. Free, no sign-up.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/team-generator/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Random Team Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free random team generator. Paste names and split them into fair random teams by team count or team size.",
+    "url": "https://wheeloflist.com/team-generator/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wheeloflist.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://wheeloflist.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Team Generator", "item": "https://wheeloflist.com/team-generator/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the team generator keep teams fair?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Names are shuffled with the Fisher-Yates algorithm — the gold standard for unbiased shuffling — then dealt into teams in order, like dealing cards. Every arrangement is equally likely." }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens when names don't divide evenly?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Extra people are distributed one per team from the first team on, so team sizes never differ by more than one." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I re-shuffle if I don't like the result?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — hit Generate again for a completely new random arrangement. Each shuffle is independent." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my list uploaded anywhere?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Everything runs in your browser. Your list is saved only in your device's local storage for convenience." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    .tg-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; }
+    @media (max-width: 768px) { .tg-wrap { grid-template-columns: 1fr; gap: 30px; } }
+    .tg-teams { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .tg-team { background: #fff; border: 2px solid #e0e0e0; border-radius: 12px; padding: 14px 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .dark-theme .tg-team { background: #3a3a3a; border-color: #555; }
+    .tg-team h5 { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+    .tg-team ul { margin: 0; padding-left: 20px; }
+    .tg-team li { margin-bottom: 2px; }
+    .tg-count { font-size: 0.85rem; color: #888; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>👥 Random Team Generator</h2>
+        <p class="tools-subtitle">Paste names, get fair teams — no arguments</p>
+      </div>
+      <div class="tools-content">
+        <div class="tg-wrap">
+          <div class="generator-inputs">
+            <div class="input-group">
+              <label for="tg-names">Names (one per line)</label>
+              <textarea id="tg-names" class="generator-input" rows="10" placeholder="Alice&#10;Bob&#10;Carol&#10;Dave&#10;Eve&#10;Frank"></textarea>
+            </div>
+            <div class="input-group">
+              <label for="tg-mode">Split by</label>
+              <select id="tg-mode" class="generator-input">
+                <option value="teams">Number of teams</option>
+                <option value="size">Players per team</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="tg-value" id="tg-value-label">Number of teams</label>
+              <input type="number" id="tg-value" class="generator-input" value="2" min="1">
+            </div>
+            <button class="btn btn-primary generator-btn" id="tg-generate" type="button">
+              <span class="btn-text">Generate Teams</span>
+              <span class="btn-icon">👥</span>
+            </button>
+          </div>
+          <div>
+            <div class="tg-teams" id="tg-output"></div>
+            <div style="margin-top:16px; display:none; gap:10px; flex-wrap:wrap;" id="tg-actions">
+              <button class="btn btn-outline-secondary btn-sm" id="tg-reshuffle" type="button">🔀 Shuffle again</button>
+              <button class="btn btn-outline-success btn-sm" id="tg-copy" type="button">📋 Copy teams</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Random Team Generator</h1>
+    <p>Picking teams by hand always ends the same way: someone feels last-picked, someone claims the sides are stacked, and it takes five minutes you didn't have. Paste your list of names here, choose how many teams you want — or how many people per team — and get a fair, random split in one click. Don't like the draw? Shuffle again.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to use it</h2>
+    <ol>
+      <li><strong>Paste or type names</strong> — one per line. Blank lines are ignored.</li>
+      <li><strong>Choose your split</strong> — a fixed number of teams, or a fixed team size.</li>
+      <li><strong>Generate</strong> — teams appear instantly, sized as evenly as possible.</li>
+      <li><strong>Copy or re-shuffle</strong> — copy the result to share, or roll a fresh arrangement.</li>
+    </ol>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Where it shines</h2>
+    <ul>
+      <li><strong>PE classes and pickup games:</strong> football, futsal, volleyball — fair sides in seconds, no captains, no politics.</li>
+      <li><strong>Classrooms:</strong> random project groups mix students who wouldn't normally work together.</li>
+      <li><strong>Work:</strong> split a workshop into breakout groups, assign code review pairs, form hackathon teams.</li>
+      <li><strong>Game night:</strong> charades, trivia, Pictionary — random teams keep couples and best friends honest.</li>
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How the shuffle works</h2>
+    <p>Behind the button is the <strong>Fisher–Yates shuffle</strong> — the classic algorithm computer scientists use when every possible ordering must be equally likely. Your list is shuffled once, then dealt into teams in order, exactly like dealing a deck of cards. When the count doesn't divide evenly, leftover players are spread one per team from the top, so sizes never differ by more than one. No arrangement is more likely than any other — which is precisely what "fair" means.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Can teams end up unbalanced in skill?</strong><br>Random means random — it balances expectations, not skill ratings. For skill-balanced teams you'd need seeding; for settling who plays with whom without arguments, random is the fairest referee there is.</p>
+    <p><strong>Is there a limit on names?</strong><br>No practical limit — hundreds of names work fine.</p>
+    <p><strong>Need to pick just one person instead?</strong><br>That's a job for the <a href="/">Wheel of List spinner</a> or the <a href="/raffle-picker/">Raffle Picker</a>.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">Related Tools</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/">
+          <div class="tool-card-icon">🎡</div>
+          <h4>Wheel Spinner</h4>
+          <p>Pick a single winner from your list with a spin</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/raffle-picker/">
+          <div class="tool-card-icon">🏆</div>
+          <h4>Raffle Picker</h4>
+          <p>Draw one or more winners from a list of entries</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/coin-flip/">
+          <div class="tool-card-icon">🪙</div>
+          <h4>Coin Flip</h4>
+          <p>Which team kicks off? Flip for it</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  (function(){
+    var namesEl = document.getElementById('tg-names');
+    var modeEl = document.getElementById('tg-mode');
+    var valueEl = document.getElementById('tg-value');
+    var valueLabel = document.getElementById('tg-value-label');
+    var output = document.getElementById('tg-output');
+    var actions = document.getElementById('tg-actions');
+    var lastTeams = null;
+
+    try { var saved = localStorage.getItem('tg-names'); if (saved) namesEl.value = saved; } catch(e) {}
+
+    modeEl.addEventListener('change', function(){
+      valueLabel.textContent = modeEl.value === 'teams' ? 'Number of teams' : 'Players per team';
+    });
+
+    function shuffle(arr){
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+      }
+      return arr;
+    }
+
+    function generate(){
+      var names = namesEl.value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+      if (names.length < 2) { alert('Enter at least 2 names (one per line).'); return; }
+      try { localStorage.setItem('tg-names', namesEl.value); } catch(e) {}
+
+      var v = parseInt(valueEl.value, 10) || 2;
+      var teamCount;
+      if (modeEl.value === 'teams') {
+        teamCount = Math.max(1, Math.min(v, names.length));
+      } else {
+        teamCount = Math.max(1, Math.ceil(names.length / Math.max(1, v)));
+      }
+
+      var pool = shuffle(names.slice());
+      var teams = [];
+      for (var i = 0; i < teamCount; i++) teams.push([]);
+      pool.forEach(function(name, idx){ teams[idx % teamCount].push(name); });
+      lastTeams = teams;
+      render(teams);
+    }
+
+    function render(teams){
+      output.innerHTML = teams.map(function(members, i){
+        return '<div class="tg-team" style="animation: fadeInUp 0.4s ease ' + (i * 80) + 'ms both;">' +
+          '<h5>⚑ Team ' + (i + 1) + ' <span class="tg-count">(' + members.length + ')</span></h5>' +
+          '<ul>' + members.map(function(m){ return '<li>' + m.replace(/</g, '&lt;') + '</li>'; }).join('') + '</ul>' +
+        '</div>';
+      }).join('');
+      actions.style.display = 'flex';
+    }
+
+    document.getElementById('tg-generate').addEventListener('click', generate);
+    document.getElementById('tg-reshuffle').addEventListener('click', generate);
+    document.getElementById('tg-copy').addEventListener('click', function(){
+      if (!lastTeams) return;
+      var text = lastTeams.map(function(m, i){ return 'Team ' + (i + 1) + ': ' + m.join(', '); }).join('\n');
+      navigator.clipboard.writeText(text).then(function(){
+        var btn = document.getElementById('tg-copy');
+        btn.textContent = '✅ Copied!';
+        setTimeout(function(){ btn.textContent = '📋 Copy teams'; }, 1500);
+      });
+    });
+  })();
+  </script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

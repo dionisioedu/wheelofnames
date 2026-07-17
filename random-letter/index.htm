@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Random Letter Generator — A to Z Picker | Wheel Of List</title>
+  <meta name="description" content="Free random letter generator. Draw a random letter from A to Z, vowels only or consonants only — great for word games, learning activities and creative prompts.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/random-letter/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Random Letter Generator — A to Z Picker">
+  <meta property="og:description" content="Draw a random letter from A to Z, vowels or consonants. Great for word games and learning.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/random-letter/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Random Letter Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free random letter generator: full alphabet, vowels only or consonants only, with history.",
+    "url": "https://wheeloflist.com/random-letter/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wheeloflist.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://wheeloflist.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Random Letter Generator", "item": "https://wheeloflist.com/random-letter/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which letters can the generator draw?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The full English alphabet A-Z, vowels only (A, E, I, O, U) or consonants only. Each letter in the chosen set has an equal chance." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I get the same letter twice in a row?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — every draw is independent, so repeats can happen just like rolling the same number on a die twice." }
+      },
+      {
+        "@type": "Question",
+        "name": "What games work well with random letters?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Scattergories and Stop/City-Country-River style games, name games, 'I spy', alphabet learning drills, improv prompts and drawing challenges." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>🔤 Random Letter Generator</h2>
+        <p class="tools-subtitle">A to Z, at the mercy of chance</p>
+      </div>
+      <div class="tools-content">
+        <div class="number-generator-wrapper">
+          <div class="generator-inputs">
+            <div class="input-group">
+              <label for="rl-set">Letter set</label>
+              <select id="rl-set" class="generator-input">
+                <option value="all">Full alphabet (A–Z)</option>
+                <option value="vowels">Vowels only (A, E, I, O, U)</option>
+                <option value="consonants">Consonants only</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="rl-case">Letter case</label>
+              <select id="rl-case" class="generator-input">
+                <option value="upper">Uppercase</option>
+                <option value="lower">Lowercase</option>
+              </select>
+            </div>
+            <button class="btn btn-primary generator-btn" id="rl-generate" type="button">
+              <span class="btn-text">Generate Letter</span>
+              <span class="btn-icon">🔤</span>
+            </button>
+          </div>
+          <div class="generator-display">
+            <div class="number-display-container">
+              <div class="number-label">Random Letter</div>
+              <div class="number-display" id="rl-result">-</div>
+              <div class="number-range" id="rl-set-display">Full alphabet (A–Z)</div>
+            </div>
+          </div>
+          <div class="generator-history">
+            <div class="history-header">
+              <h4>📊 History (last 10)</h4>
+              <button class="btn-icon-small" id="rl-clear" title="Clear history" type="button">🗑️</button>
+            </div>
+            <div class="coin-history-strip" id="rl-history" style="display:flex;gap:10px;justify-content:flex-start;flex-wrap:wrap;font-size:1.6rem;font-weight:700;min-height:2rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Random Letter Generator</h1>
+    <p>"Words starting with… <em>Q</em>. Go!" Whether you're playing Stop (City-Country-River), Scattergories, or drilling the alphabet with a five-year-old, sometimes you just need one honest random letter. Pick your set — full alphabet, vowels, or consonants — hit generate, and let the letters fly before one lands.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to use it</h2>
+    <ol>
+      <li><strong>Choose a letter set</strong> — full A–Z, vowels only, or consonants only.</li>
+      <li><strong>Pick the case</strong> — uppercase for game boards, lowercase for reading practice.</li>
+      <li><strong>Generate</strong> — the display cycles through letters before settling on one.</li>
+      <li><strong>Play</strong> — your last 10 letters stay visible so nobody can claim you cheated.</li>
+    </ol>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Game ideas</h2>
+    <ul>
+      <li><strong>Stop / Scattergories:</strong> draw a letter, everyone writes a name, city, animal, food… fastest or most original answers win.</li>
+      <li><strong>Word chains:</strong> next word must start with the drawn letter — great for road trips.</li>
+      <li><strong>Alphabet learning:</strong> draw a letter, the kid finds three objects around the house that start with it.</li>
+      <li><strong>Improv and drawing prompts:</strong> the letter picks your character, place or object.</li>
+      <li><strong>Vocabulary workouts:</strong> language learners — draw a consonant, list 10 words in your target language.</li>
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Equal odds for every letter</h2>
+    <p>Each letter in your chosen set has exactly the same chance: 1 in 26 for the full alphabet, 1 in 5 for vowels, 1 in 21 for consonants. That's worth noting because real language is nothing like uniform — in English text, E appears about 170 times more often than the rarest letters. A fair generator gives Q, X and Z their moment, which is precisely what makes letter games spicy.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Can I get the same letter twice in a row?</strong><br>Yes — draws are independent, like dice rolls. Rare, but perfectly normal.</p>
+    <p><strong>Can I exclude letters we already used?</strong><br>Not yet — for no-repeat draws, put the letters you still need on the <a href="/">Wheel of List spinner</a>, which removes each result automatically.</p>
+    <p><strong>Does it support accented or non-English alphabets?</strong><br>Currently the 26-letter English alphabet, which covers most games played worldwide.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">Related Tools</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/random-number/">
+          <div class="tool-card-icon">🎲</div>
+          <h4>Random Number Generator</h4>
+          <p>Numbers instead of letters — any range you need</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/">
+          <div class="tool-card-icon">🎡</div>
+          <h4>Wheel Spinner</h4>
+          <p>Put specific letters or words on a wheel and spin</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/dice-roller/">
+          <div class="tool-card-icon">🎰</div>
+          <h4>Dice Roller</h4>
+          <p>Roll up to ten 3D dice for your board games</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  (function(){
+    var SETS = {
+      all: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+      vowels: ['A','E','I','O','U'],
+      consonants: 'BCDFGHJKLMNPQRSTVWXYZ'.split('')
+    };
+    var LABELS = { all: 'Full alphabet (A–Z)', vowels: 'Vowels (A, E, I, O, U)', consonants: 'Consonants only' };
+    var setEl = document.getElementById('rl-set');
+    var caseEl = document.getElementById('rl-case');
+    var result = document.getElementById('rl-result');
+    var btn = document.getElementById('rl-generate');
+    var busy = false;
+    var history = [];
+    try { var s = localStorage.getItem('rl-history'); if (s) history = JSON.parse(s); } catch(e) {}
+
+    function fmt(ch){ return caseEl.value === 'lower' ? ch.toLowerCase() : ch; }
+
+    function renderHistory(){
+      document.getElementById('rl-history').textContent = history.join('  ');
+    }
+
+    setEl.addEventListener('change', function(){
+      document.getElementById('rl-set-display').textContent = LABELS[setEl.value];
+    });
+
+    function generate(){
+      if (busy) return;
+      busy = true;
+      btn.classList.add('loading');
+      result.classList.add('generating');
+      var pool = SETS[setEl.value];
+      var count = 0;
+      var interval = setInterval(function(){
+        result.textContent = fmt(pool[Math.floor(Math.random() * pool.length)]);
+        count++;
+        if (count > 14) {
+          clearInterval(interval);
+          var final = fmt(pool[Math.floor(Math.random() * pool.length)]);
+          result.textContent = final;
+          result.classList.remove('generating');
+          result.classList.add('generated');
+          history.unshift(final);
+          history = history.slice(0, 10);
+          try { localStorage.setItem('rl-history', JSON.stringify(history)); } catch(e) {}
+          renderHistory();
+          setTimeout(function(){ result.classList.remove('generated'); busy = false; btn.classList.remove('loading'); }, 600);
+        }
+      }, 40);
+    }
+
+    btn.addEventListener('click', generate);
+    document.addEventListener('keydown', function(e){
+      if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'SELECT') { e.preventDefault(); generate(); }
+    });
+    document.getElementById('rl-clear').addEventListener('click', function(){
+      history = [];
+      try { localStorage.setItem('rl-history', '[]'); } catch(e) {}
+      renderHistory();
+    });
+    renderHistory();
+  })();
+  </script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

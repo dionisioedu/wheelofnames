@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Yes or No Wheel — Spin for a Decision | Wheel Of List</title>
+  <meta name="description" content="Can't decide? Spin the free Yes or No wheel and let it answer for you. Choose 2, 3 or 6 segments, add a Maybe, and get an instant unbiased decision.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/yes-no-wheel/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Yes or No Wheel — Spin for a Decision">
+  <meta property="og:description" content="Spin the free Yes or No wheel and let it decide. Optional Maybe segment, instant unbiased answers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/yes-no-wheel/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Yes or No Wheel",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free yes or no decision wheel with optional Maybe segment. Spin for an instant unbiased answer.",
+    "url": "https://wheeloflist.com/yes-no-wheel/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wheeloflist.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://wheeloflist.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Yes or No Wheel", "item": "https://wheeloflist.com/yes-no-wheel/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the yes or no wheel fair?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. In Yes/No mode both answers occupy exactly half of the wheel, giving each a 50% chance. In Maybe mode, each of the three answers gets one third." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the 6-segment mode change?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nothing about the odds — it's still 50/50. Six alternating segments just make the spin more visually exciting than two big halves." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I ask any question?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Any question you can phrase as yes-or-no. For choices with several options, use the Wheel of List name spinner instead." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Completely free, no sign-up, unlimited spins." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    .ynw-wrap { position: relative; width: min(380px, 86vw); margin: 0 auto; }
+    #ynwCanvas { width: 100%; height: auto; display: block; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; background: #fff; }
+    .ynw-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(180deg); width: 40px; height: 34px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background: #1E90FF; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4)); z-index: 5; }
+    .ynw-result { font-size: 2.6rem; font-weight: 900; text-align: center; min-height: 3.4rem; margin: 18px 0 6px; }
+    .ynw-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .ynw-stats { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+    .ynw-stat { background: rgba(30,144,255,0.08); border-radius: 10px; padding: 8px 16px; text-align: center; min-width: 90px; }
+    .dark-theme .ynw-stat { background: rgba(255,255,255,0.06); }
+    .ynw-stat b { display: block; font-size: 1.3rem; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>❓ Yes or No Wheel</h2>
+        <p class="tools-subtitle">Ask your question, spin, accept your fate</p>
+      </div>
+      <div class="tools-content">
+        <div class="ynw-wrap">
+          <div class="ynw-pointer" aria-hidden="true"></div>
+          <canvas id="ynwCanvas" width="400" height="400" aria-label="Yes or no wheel"></canvas>
+        </div>
+        <div class="ynw-result" id="ynw-result" role="status" aria-live="polite">&nbsp;</div>
+        <div style="text-align:center;">
+          <button class="btn btn-primary generator-btn" id="spin-btn" type="button">
+            <span class="btn-text">Spin the Wheel</span>
+            <span class="btn-icon">❓</span>
+          </button>
+        </div>
+        <div class="ynw-controls" role="radiogroup" aria-label="Wheel mode">
+          <button class="btn btn-outline-secondary btn-sm mode-btn active" data-mode="6" type="button">Yes / No</button>
+          <button class="btn btn-outline-secondary btn-sm mode-btn" data-mode="maybe" type="button">Yes / No / Maybe</button>
+        </div>
+        <div class="ynw-stats">
+          <div class="ynw-stat"><b id="stat-yes">0</b>Yes</div>
+          <div class="ynw-stat"><b id="stat-no">0</b>No</div>
+          <div class="ynw-stat"><b id="stat-maybe">0</b>Maybe</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Yes or No Wheel</h1>
+    <p>Some questions don't need a committee — they need an answer. Type nothing, sign up for nothing: just think of your question, spin the wheel, and get a clean <strong>Yes</strong> or <strong>No</strong>. If you like leaving a little room for destiny to hedge, switch to the three-way mode and let <strong>Maybe</strong> join the game.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to use it</h2>
+    <ol>
+      <li><strong>Think of a yes/no question</strong> — say it out loud for maximum ceremony.</li>
+      <li><strong>Pick a mode</strong> — classic Yes/No (50/50) or Yes/No/Maybe (a third each).</li>
+      <li><strong>Spin</strong> — click the wheel or the button.</li>
+      <li><strong>Accept the answer</strong> — that was the deal, remember?</li>
+    </ol>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Why a wheel instead of a coin?</h2>
+    <p>Mathematically, the Yes/No mode is identical to a <a href="/coin-flip/">coin flip</a> — a fair 50/50. The difference is the experience: the wheel builds suspense as it slows down, makes group decisions feel like a game show, and lets you add a third outcome when a hard yes-or-no feels too brutal. Teachers use it for quick class votes, streamers for chat decisions, and the rest of us for deciding whether to order dessert (the wheel says yes surprisingly often).</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Good questions for the wheel</h2>
+    <ul>
+      <li>Should I order in tonight?</li>
+      <li>Gym now or later? (phrase it as "gym now?")</li>
+      <li>Should we watch a movie or keep scrolling for 45 minutes? ("start the movie?")</li>
+      <li>Do I really need another coffee?</li>
+      <li>Should I text them back right now?</li>
+    </ul>
+    <p>For questions with more than two answers — where to eat, what to play, who goes first — use the full <a href="/">Wheel of List spinner</a> and add as many options as you want.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Is it biased?</h2>
+    <p>No. The wheel's landing position is drawn from a uniform random distribution, so each segment's chance is exactly proportional to its size: 50/50 in Yes/No mode, one-third each with Maybe. The six alternating segments in classic mode are purely cosmetic — three Yes and three No slices still add up to half the wheel each. And no, spinning harder doesn't change your odds. We checked.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Can the wheel be wrong?</strong><br>The wheel is never wrong. The wheel merely reveals what you already knew — check whether you feel relief or disappointment when it stops.</p>
+    <p><strong>Same question, best of three?</strong><br>Allowed, but each spin is independent — and we both know you'll stop at the answer you wanted.</p>
+    <p><strong>Does it work on mobile?</strong><br>Yes, in any modern browser, no app needed.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">Related Tools</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/coin-flip/">
+          <div class="tool-card-icon">🪙</div>
+          <h4>Coin Flip</h4>
+          <p>The classic 50/50 — heads or tails in one click</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/">
+          <div class="tool-card-icon">🎡</div>
+          <h4>Wheel Spinner</h4>
+          <p>Build a wheel with your own options — as many as you like</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/random-number/">
+          <div class="tool-card-icon">🎲</div>
+          <h4>Random Number Generator</h4>
+          <p>Need a number instead of an answer? Draw one here</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  (function(){
+    var canvas = document.getElementById('ynwCanvas');
+    var ctx = canvas.getContext('2d');
+    var resultEl = document.getElementById('ynw-result');
+    var spinBtn = document.getElementById('spin-btn');
+    var mode = '6';
+    var rot = 0;               // current rotation in degrees
+    var spinning = false;
+    var stats = { yes: 0, no: 0, maybe: 0 };
+    try { var s = localStorage.getItem('ynw-stats'); if (s) stats = JSON.parse(s); } catch(e) {}
+
+    var MODES = {
+      '6':     { labels: ['Yes','No','Yes','No','Yes','No'], colors: ['#22c55e','#ef4444','#22c55e','#ef4444','#22c55e','#ef4444'] },
+      'maybe': { labels: ['Yes','No','Maybe'],               colors: ['#22c55e','#ef4444','#f59e0b'] }
+    };
+
+    function draw(rotDeg){
+      var cfg = MODES[mode];
+      var n = cfg.labels.length;
+      var seg = 360 / n;
+      var cx = 200, cy = 200, r = 195;
+      ctx.clearRect(0, 0, 400, 400);
+      for (var i = 0; i < n; i++) {
+        var start = (rotDeg + i * seg) * Math.PI / 180;
+        var end = (rotDeg + (i + 1) * seg) * Math.PI / 180;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, start, end);
+        ctx.closePath();
+        ctx.fillStyle = cfg.colors[i];
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        // label
+        var mid = (rotDeg + (i + 0.5) * seg) * Math.PI / 180;
+        ctx.save();
+        ctx.translate(cx + Math.cos(mid) * r * 0.62, cy + Math.sin(mid) * r * 0.62);
+        ctx.rotate(mid + Math.PI / 2);
+        ctx.fillStyle = '#fff';
+        ctx.font = '900 ' + (n > 3 ? 30 : 36) + 'px Quicksand, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(cfg.labels[i], 0, 0);
+        ctx.restore();
+      }
+      // hub
+      ctx.beginPath();
+      ctx.arc(cx, cy, 26, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff';
+      ctx.fill();
+      ctx.strokeStyle = '#d0d0d0';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function renderStats(){
+      document.getElementById('stat-yes').textContent = stats.yes;
+      document.getElementById('stat-no').textContent = stats.no;
+      document.getElementById('stat-maybe').textContent = stats.maybe;
+    }
+
+    function winnerAt(rotDeg){
+      var cfg = MODES[mode];
+      var n = cfg.labels.length;
+      var seg = 360 / n;
+      // pointer is at the top = 270deg in canvas coordinates
+      var local = ((270 - rotDeg) % 360 + 360) % 360;
+      return cfg.labels[Math.floor(local / seg)];
+    }
+
+    function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+
+    function spin(){
+      if (spinning) return;
+      spinning = true;
+      resultEl.innerHTML = '&nbsp;';
+      spinBtn.classList.add('loading');
+      var duration = 3800;
+      var startRot = rot;
+      var delta = 4 * 360 + Math.random() * 720; // 4-6 turns
+      var t0 = performance.now();
+      function frame(now){
+        var t = Math.min((now - t0) / duration, 1);
+        rot = (startRot + delta * easeOutCubic(t)) % 360000;
+        draw(rot % 360);
+        if (t < 1) { requestAnimationFrame(frame); }
+        else {
+          var w = winnerAt(rot % 360);
+          resultEl.textContent = (w === 'Yes' ? '✅ ' : w === 'No' ? '❌ ' : '🤔 ') + w + '!';
+          stats[w.toLowerCase()]++;
+          try { localStorage.setItem('ynw-stats', JSON.stringify(stats)); } catch(e) {}
+          renderStats();
+          spinBtn.classList.remove('loading');
+          spinning = false;
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    document.querySelectorAll('.mode-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if (spinning) return;
+        document.querySelectorAll('.mode-btn').forEach(function(b){ b.classList.remove('active', 'btn-secondary'); b.classList.add('btn-outline-secondary'); });
+        btn.classList.add('active');
+        mode = btn.getAttribute('data-mode');
+        resultEl.innerHTML = '&nbsp;';
+        draw(rot % 360);
+      });
+    });
+
+    canvas.addEventListener('click', spin);
+    spinBtn.addEventListener('click', spin);
+    document.addEventListener('keydown', function(e){
+      if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') { e.preventDefault(); spin(); }
+    });
+
+    draw(0);
+    renderStats();
+  })();
+  </script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

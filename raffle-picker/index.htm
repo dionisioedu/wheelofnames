@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Raffle Picker — Draw Random Winners from a List | Wheel Of List</title>
+  <meta name="description" content="Free online raffle picker. Paste your entries, choose how many winners, and draw them fairly with one click. Perfect for giveaways, contests and prize draws.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/raffle-picker/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Raffle Picker — Draw Random Winners from a List">
+  <meta property="og:description" content="Paste entries, choose how many winners, draw them fairly in one click. Free giveaway picker.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/raffle-picker/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Raffle Picker",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online raffle and giveaway picker. Paste entries and draw one or more random winners without repeats.",
+    "url": "https://wheeloflist.com/raffle-picker/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wheeloflist.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://wheeloflist.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Raffle Picker", "item": "https://wheeloflist.com/raffle-picker/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can one entry win twice?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No — winners are drawn without replacement, so each entry can win at most once per draw. If you allow multiple entries per person, that person's chances rise proportionally." }
+      },
+      {
+        "@type": "Question",
+        "name": "How many winners can I draw?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Any number up to the total entries. Winners are announced in draw order — 1st, 2nd, 3rd and so on — useful when prizes differ." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the draw fair and unbiased?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The list is shuffled with the Fisher-Yates algorithm and the first N entries win — every entry has an identical chance." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use it for Instagram or YouTube giveaways?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — paste your participant list (one per line) and draw. For legally regulated lotteries, check your local rules first; this tool is for informal giveaways." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    .rp-wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; align-items: start; }
+    @media (max-width: 768px) { .rp-wrap { grid-template-columns: 1fr; gap: 30px; } }
+    .rp-drum { font-size: 1.8rem; font-weight: 800; text-align: center; min-height: 2.6rem; margin-bottom: 14px; color: #1E90FF; }
+    .rp-winners { list-style: none; padding: 0; margin: 0; }
+    .rp-winner { background: #fff; border: 2px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); animation: fadeInUp 0.4s ease both; }
+    .dark-theme .rp-winner { background: #3a3a3a; border-color: #555; }
+    .rp-medal { font-size: 1.4rem; }
+    .rp-name { font-weight: 700; font-size: 1.1rem; }
+    .rp-entries-count { font-size: 0.9rem; color: #888; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>🏆 Raffle Picker</h2>
+        <p class="tools-subtitle">Paste entries, draw winners, crown champions</p>
+      </div>
+      <div class="tools-content">
+        <div class="rp-wrap">
+          <div class="generator-inputs">
+            <div class="input-group">
+              <label for="rp-entries">Entries (one per line)</label>
+              <textarea id="rp-entries" class="generator-input" rows="10" placeholder="Alice&#10;Bob&#10;Carol&#10;Dave&#10;Eve"></textarea>
+              <div class="rp-entries-count" id="rp-count"></div>
+            </div>
+            <div class="input-group">
+              <label for="rp-winners-n">Number of winners</label>
+              <input type="number" id="rp-winners-n" class="generator-input" value="1" min="1">
+            </div>
+            <div class="form-check" style="margin-bottom: 4px;">
+              <input class="form-check-input" type="checkbox" id="rp-dedupe" checked>
+              <label class="form-check-label" for="rp-dedupe">Remove duplicate entries before drawing</label>
+            </div>
+            <button class="btn btn-primary generator-btn" id="rp-draw" type="button">
+              <span class="btn-text">Draw Winners</span>
+              <span class="btn-icon">🏆</span>
+            </button>
+          </div>
+          <div>
+            <div class="rp-drum" id="rp-drum">&nbsp;</div>
+            <ol class="rp-winners" id="rp-output"></ol>
+            <div style="margin-top:14px; display:none;" id="rp-actions">
+              <button class="btn btn-outline-success btn-sm" id="rp-copy" type="button">📋 Copy winners</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Raffle &amp; Giveaway Winner Picker</h1>
+    <p>Running a giveaway and need winners nobody can argue with? Paste your entries — one per line — tell the picker how many winners you need, and hit draw. After a quick drum-roll through the entries, your winners appear in order: first place, second, third and beyond. Copy the list, announce it, done.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to use it</h2>
+    <ol>
+      <li><strong>Paste your entries</strong> — participant names, usernames, ticket numbers or emails, one per line.</li>
+      <li><strong>Set the number of winners</strong> — 1 for a single prize, or as many as you have prizes.</li>
+      <li><strong>Deduplicate (optional)</strong> — keep the checkbox on for one entry per person, or turn it off to let multiple entries count as extra chances.</li>
+      <li><strong>Draw</strong> — winners are announced in order with no repeats within a draw.</li>
+      <li><strong>Copy the results</strong> — paste them into your announcement post or story.</li>
+    </ol>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Built for giveaways</h2>
+    <ul>
+      <li><strong>Social media giveaways:</strong> export or paste your commenters/followers and draw publicly on stream or screen-recording for transparency.</li>
+      <li><strong>Events and meetups:</strong> door prize draws from the attendee list — no paper tickets needed.</li>
+      <li><strong>Classrooms and offices:</strong> who presents first, who gets the extra day off, who takes the last donut.</li>
+      <li><strong>Multiple prizes:</strong> draw 3 winners at once — the order decides who picks their prize first.</li>
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How the draw works</h2>
+    <p>The picker shuffles your entire list with the <strong>Fisher–Yates algorithm</strong> — the standard for unbiased shuffles — and takes the first N entries as winners. This is mathematically equivalent to pulling tickets from a perfectly mixed hat, with two upgrades: it can't be sleight-of-handed, and it never drops a ticket behind the table. Winners are drawn <em>without replacement</em>, so no entry can win twice in the same draw. If someone has three entries, they hold three tickets — exactly as it should be.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Is this legal for lotteries?</strong><br>For informal giveaways, yes. Regulated lotteries and promotions have jurisdiction-specific rules (registration, notaries, etc.) — check yours before running a paid-entry draw.</p>
+    <p><strong>Want more suspense?</strong><br>For a single winner with maximum drama, put the entries on the <a href="/">Wheel of List spinner</a> and spin it live.</p>
+    <p><strong>Is my list private?</strong><br>Yes — everything runs in your browser. Nothing is uploaded.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">Related Tools</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/">
+          <div class="tool-card-icon">🎡</div>
+          <h4>Wheel Spinner</h4>
+          <p>Draw a single winner live with a spinning wheel</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/team-generator/">
+          <div class="tool-card-icon">👥</div>
+          <h4>Team Generator</h4>
+          <p>Split your participants into random groups</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/random-number/">
+          <div class="tool-card-icon">🎲</div>
+          <h4>Random Number Generator</h4>
+          <p>Draw by ticket number instead of name</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  (function(){
+    var entriesEl = document.getElementById('rp-entries');
+    var winnersN = document.getElementById('rp-winners-n');
+    var dedupe = document.getElementById('rp-dedupe');
+    var drum = document.getElementById('rp-drum');
+    var output = document.getElementById('rp-output');
+    var actions = document.getElementById('rp-actions');
+    var drawBtn = document.getElementById('rp-draw');
+    var countEl = document.getElementById('rp-count');
+    var busy = false;
+    var lastWinners = null;
+    var MEDALS = ['🥇','🥈','🥉'];
+
+    try { var saved = localStorage.getItem('rp-entries'); if (saved) entriesEl.value = saved; } catch(e) {}
+
+    function getEntries(){
+      var list = entriesEl.value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+      if (dedupe.checked) {
+        var seen = {};
+        list = list.filter(function(x){ var k = x.toLowerCase(); if (seen[k]) return false; seen[k] = 1; return true; });
+      }
+      return list;
+    }
+
+    function updateCount(){
+      var n = getEntries().length;
+      countEl.textContent = n ? n + ' entr' + (n === 1 ? 'y' : 'ies') : '';
+    }
+    entriesEl.addEventListener('input', updateCount);
+    dedupe.addEventListener('change', updateCount);
+
+    function shuffle(arr){
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+      }
+      return arr;
+    }
+
+    function draw(){
+      if (busy) return;
+      var entries = getEntries();
+      if (entries.length < 2) { alert('Enter at least 2 entries (one per line).'); return; }
+      var n = Math.max(1, Math.min(parseInt(winnersN.value, 10) || 1, entries.length));
+      try { localStorage.setItem('rp-entries', entriesEl.value); } catch(e) {}
+
+      busy = true;
+      drawBtn.classList.add('loading');
+      output.innerHTML = '';
+      actions.style.display = 'none';
+
+      // suspense: cycle names in the drum
+      var ticks = 0;
+      var maxTicks = 28;
+      var interval = setInterval(function(){
+        drum.textContent = entries[Math.floor(Math.random() * entries.length)];
+        ticks++;
+        if (ticks >= maxTicks) {
+          clearInterval(interval);
+          var winners = shuffle(entries.slice()).slice(0, n);
+          lastWinners = winners;
+          drum.textContent = '🎉 Winners! 🎉';
+          output.innerHTML = winners.map(function(w, i){
+            var medal = MEDALS[i] || '🎖️';
+            return '<li class="rp-winner" style="animation-delay:' + (i * 250) + 'ms;">' +
+              '<span class="rp-medal">' + medal + '</span>' +
+              '<span class="rp-name">' + w.replace(/</g, '&lt;') + '</span>' +
+            '</li>';
+          }).join('');
+          actions.style.display = 'block';
+          drawBtn.classList.remove('loading');
+          busy = false;
+        }
+      }, 70);
+    }
+
+    drawBtn.addEventListener('click', draw);
+    document.getElementById('rp-copy').addEventListener('click', function(){
+      if (!lastWinners) return;
+      var text = lastWinners.map(function(w, i){ return (i + 1) + '. ' + w; }).join('\n');
+      navigator.clipboard.writeText(text).then(function(){
+        var btn = document.getElementById('rp-copy');
+        btn.textContent = '✅ Copied!';
+        setTimeout(function(){ btn.textContent = '📋 Copy winners'; }, 1500);
+      });
+    });
+    updateCount();
+  })();
+  </script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>
