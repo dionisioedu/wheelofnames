@@ -19,6 +19,38 @@ html, body {
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
+#wheel-container:fullscreen {
+  border-radius: 0;
+  height: 100vh;
+}
+
+#fullscreenBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 40;
+  border: none;
+  background: rgba(255,255,255,0.75);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+#fullscreenBtn:hover {
+  transform: scale(1.1);
+  background: #fff;
+}
+
+.dark-theme #fullscreenBtn {
+  background: rgba(60,60,60,0.8);
+  color: #eee;
+}
+
 /* Ensure the wheel column centers the wheel on wide and narrow screens */
 .container-fluid > .row > .col-md-8 {
   display: flex;

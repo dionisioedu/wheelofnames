@@ -128,6 +128,7 @@
         var idx = winnerIndex(rot % 360);
         var winner = entries[idx];
         resultEl.textContent = '🎉 ' + winner;
+        try { if (window.confettiBurst) window.confettiBurst({ count: 120 }); } catch (e) {}
         spinBtn.classList.remove('loading');
         spinning = false;
         if (document.getElementById('ww-remove').checked) {

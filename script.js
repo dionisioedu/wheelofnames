@@ -721,7 +721,7 @@ function spin() {
   isSpinning = true;
 
   spinSound.loop = true;
-  spinSound.play();
+  try { const sp = spinSound.play(); if (sp && sp.catch) sp.catch(() => {}); } catch (e) {}
 
   requestAnimationFrame(rotateWheel);
 }
@@ -839,7 +839,9 @@ function triggerWinnerAnimation(winningName, callback) {
   winnerOverlay.textContent = `${winningName} Wins!`;
   winnerOverlay.style.display = "block";
 
-  winSound.play();
+  try { if (window.confettiBurst) window.confettiBurst(); } catch (e) {}
+
+  try { const p = winSound.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
 
   // Enable blink during the animation
   blinkActive = true;

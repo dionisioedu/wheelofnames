@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tournament Bracket Generator — Free Single Elimination Maker | Wheel Of List</title>
+  <meta name="description" content="Free tournament bracket generator. Paste names, get an instant single-elimination bracket with byes, click or randomize winners, and crown a champion.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/tournament/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Tournament Bracket Generator — Free Single Elimination Maker">
+  <meta property="og:description" content="Paste names, get an instant knockout bracket, click or randomize winners, crown a champion.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/tournament/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Tournament Bracket Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free single-elimination tournament bracket generator with byes, manual or random winner selection and champion celebration.",
+    "url": "https://wheeloflist.com/tournament/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wheeloflist.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://wheeloflist.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Tournament Bracket", "item": "https://wheeloflist.com/tournament/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many players can the bracket handle?",
+        "acceptedAnswer": { "@type": "Answer", "text": "From 2 to 64 participants. When the count isn't a power of two, the generator adds byes automatically so top-seeded slots skip round one." }
+      },
+      {
+        "@type": "Question",
+        "name": "How are matchups decided?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Entries are shuffled with the Fisher-Yates algorithm before seeding, so pairings are completely random. Re-create the bracket for a new draw." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can matches be decided randomly?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — every match has a dice button that picks a random winner 50/50, or you can click the actual winner if you're playing real games." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I change a result after advancing?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — click a different winner in any decided match and all downstream results that depended on it are cleared automatically." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    .tb-setup { max-width: 560px; margin: 0 auto; }
+    .tb-bracket { display: flex; gap: 26px; overflow-x: auto; padding: 20px 6px 30px; align-items: stretch; }
+    .tb-round { display: flex; flex-direction: column; justify-content: space-around; gap: 14px; min-width: 190px; }
+    .tb-round-title { text-align: center; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .dark-theme .tb-round-title { color: #aaa; }
+    .tb-match { background: #fff; border: 2px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .dark-theme .tb-match { background: #3a3a3a; border-color: #555; }
+    .tb-slot { padding: 8px 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; transition: background 0.15s ease; min-height: 38px; }
+    .tb-slot + .tb-slot { border-top: 1px solid #eee; }
+    .dark-theme .tb-slot + .tb-slot { border-top-color: #555; }
+    .tb-slot:hover:not(.tb-empty):not(.tb-bye) { background: rgba(30,144,255,0.1); }
+    .tb-slot.tb-winner { background: rgba(34,197,94,0.15); font-weight: 700; }
+    .tb-slot.tb-loser { opacity: 0.45; text-decoration: line-through; }
+    .tb-slot.tb-empty, .tb-slot.tb-bye { color: #aaa; cursor: default; font-style: italic; }
+    .tb-rand { border: none; background: none; font-size: 0.95rem; cursor: pointer; padding: 2px 6px; opacity: 0.6; }
+    .tb-rand:hover { opacity: 1; transform: scale(1.15); }
+    .tb-champion { text-align: center; font-size: 1.8rem; font-weight: 900; margin: 10px 0 4px; min-height: 2.6rem; }
+    .tb-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/tournament/">🏟️ Tournament Bracket</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>🏟️ Tournament Bracket</h2>
+        <p class="tools-subtitle">From a list of names to a crowned champion</p>
+      </div>
+      <div class="tools-content">
+        <div class="tb-setup" id="tb-setup">
+          <div class="input-group" style="display:flex;flex-direction:column;gap:8px;">
+            <label for="tb-names" style="font-weight:600;">Participants (one per line, 2–64)</label>
+            <textarea id="tb-names" class="generator-input" rows="8" placeholder="Alice&#10;Bob&#10;Carol&#10;Dave&#10;Eve&#10;Frank"></textarea>
+          </div>
+          <div style="text-align:center; margin-top:14px;">
+            <button class="btn btn-primary generator-btn" id="tb-create" type="button">
+              <span class="btn-text">Create Bracket</span>
+              <span class="btn-icon">🏟️</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="tb-area" style="display:none;">
+          <div class="tb-champion" id="tb-champion">&nbsp;</div>
+          <div class="tb-actions">
+            <button class="btn btn-outline-secondary btn-sm" id="tb-randall" type="button">🎲 Randomize remaining</button>
+            <button class="btn btn-outline-success btn-sm" id="tb-copy" type="button">📋 Copy results</button>
+            <button class="btn btn-outline-secondary btn-sm" id="tb-new" type="button">↺ New bracket</button>
+          </div>
+          <div class="tb-bracket" id="tb-bracket"></div>
+          <p style="text-align:center; font-size:0.9rem; color:#888;">Click a name to advance them · 🎲 decides a match at random</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Tournament Bracket Generator</h1>
+    <p>Office ping-pong championship, FIFA night, spelling bee, best-meme contest — everything is more official with a bracket. Paste your participants, hit create, and get a clean single-elimination bracket with random seeding. Play real matches and click the winners, or let the dice decide everything and crown a champion in thirty seconds — confetti included.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to use it</h2>
+    <ol>
+      <li><strong>Paste participants</strong> — 2 to 64 names, one per line.</li>
+      <li><strong>Create the bracket</strong> — names are shuffled and seeded randomly; byes are added automatically when the count isn't a power of two.</li>
+      <li><strong>Decide matches</strong> — click the winner of each real game, or hit 🎲 on any match for a random result.</li>
+      <li><strong>Crown the champion</strong> — the final winner gets the banner and the confetti. Copy the full results to share.</li>
+    </ol>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Byes, seeding and fairness</h2>
+    <p>Single elimination needs a power-of-two field: 4, 8, 16, 32 or 64. With, say, 11 players, the generator rounds up to 16 and hands out 5 <em>byes</em> — free passes through round one. Byes are assigned by the same random shuffle as the matchups, so no one can accuse the organizer of favoritism. Every bracket re-creation is a fresh Fisher–Yates shuffle, the same unbiased algorithm behind our <a href="/team-generator/">Team Generator</a> and <a href="/raffle-picker/">Raffle Picker</a>.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Ways to run it</h2>
+    <ul>
+      <li><strong>Real tournaments:</strong> project the bracket, play the games, click winners as they happen. Changed a result by mistake? Click the other name — downstream matches reset automatically.</li>
+      <li><strong>Pure luck mode:</strong> "Randomize remaining" simulates the whole tournament instantly — perfect for raffles with knockout drama instead of a simple draw.</li>
+      <li><strong>Hybrid:</strong> decide the early rounds by dice, play the finals for real. Maximum stakes, minimum scheduling.</li>
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Does it support double elimination or round robin?</strong><br>Not yet — single elimination covers most casual tournaments. For round-robin-style repeated random picks, the <a href="/">wheel spinner</a> with winner removal works great.</p>
+    <p><strong>Are the matchups really random?</strong><br>Yes — a Fisher–Yates shuffle seeds the bracket, so all pairings are equally likely. Re-create for a new draw.</p>
+    <p><strong>Can I save the bracket?</strong><br>Copy the results text anytime. The bracket also stays on screen until you leave or reset the page.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">Related Tools</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/team-generator/">
+          <div class="tool-card-icon">👥</div>
+          <h4>Team Generator</h4>
+          <p>Split players into teams before the tournament starts</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/coin-flip/">
+          <div class="tool-card-icon">🪙</div>
+          <h4>Coin Flip</h4>
+          <p>Who plays first? Settle it the classic way</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/">
+          <div class="tool-card-icon">🎡</div>
+          <h4>Wheel Spinner</h4>
+          <p>Draw prizes or pick players with a spin</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tournament/" class="text-decoration-none mx-2">Tournament Bracket</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/confetti.js"></script>
+  <script>
+  (function(){
+    var namesEl = document.getElementById('tb-names');
+    var bracketEl = document.getElementById('tb-bracket');
+    var champEl = document.getElementById('tb-champion');
+    var rounds = [];   // rounds[r][i] = { a, b, winner } ; a/b null = TBD, '__BYE__' = bye
+    var BYE = '__BYE__';
+
+    try { var saved = localStorage.getItem('tb-names'); if (saved) namesEl.value = saved; } catch(e) {}
+
+    function shuffle(arr){
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+      }
+      return arr;
+    }
+
+    function roundName(r, total){
+      var remaining = total - r;
+      if (remaining === 1) return 'Final';
+      if (remaining === 2) return 'Semifinals';
+      if (remaining === 3) return 'Quarterfinals';
+      return 'Round ' + (r + 1);
+    }
+
+    function create(){
+      var names = namesEl.value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+      if (names.length < 2) { alert('Enter at least 2 participants.'); return; }
+      if (names.length > 64) { alert('Maximum 64 participants.'); return; }
+      try { localStorage.setItem('tb-names', namesEl.value); } catch(e) {}
+
+      var P = 2;
+      while (P < names.length) P *= 2;
+      var pool = shuffle(names.slice());
+      var matchCount = P / 2;
+      var byes = P - names.length;
+
+      // Build round 0: assign one bye per match starting from the last match
+      rounds = [];
+      var r0 = [];
+      var idx = 0;
+      for (var m = 0; m < matchCount; m++) {
+        var hasBye = m >= matchCount - byes;
+        var a = pool[idx++];
+        var b = hasBye ? BYE : pool[idx++];
+        r0.push({ a: a, b: b, winner: b === BYE ? a : null });
+      }
+      rounds.push(r0);
+      var size = matchCount;
+      while (size > 1) {
+        size = size / 2;
+        var rr = [];
+        for (var k = 0; k < size; k++) rr.push({ a: null, b: null, winner: null });
+        rounds.push(rr);
+      }
+      propagate();
+      document.getElementById('tb-setup').style.display = 'none';
+      document.getElementById('tb-area').style.display = 'block';
+      render();
+    }
+
+    // Recompute slots of rounds > 0 from previous winners; clear stale winners
+    function propagate(){
+      for (var r = 1; r < rounds.length; r++) {
+        for (var i = 0; i < rounds[r].length; i++) {
+          var match = rounds[r][i];
+          var na = rounds[r-1][2*i].winner;
+          var nb = rounds[r-1][2*i+1].winner;
+          if (match.a !== na || match.b !== nb) {
+            if (match.winner && match.winner !== na && match.winner !== nb) match.winner = null;
+            if (match.a !== na && match.winner === match.a) match.winner = null;
+            if (match.b !== nb && match.winner === match.b) match.winner = null;
+            match.a = na;
+            match.b = nb;
+          }
+        }
+      }
+    }
+
+    function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+    function slotHtml(match, r, i, who){
+      var name = match[who];
+      var cls = 'tb-slot';
+      var label;
+      if (name === null) { cls += ' tb-empty'; label = '—'; }
+      else if (name === BYE) { cls += ' tb-bye'; label = 'bye'; }
+      else {
+        label = esc(name);
+        if (match.winner === name) cls += ' tb-winner';
+        else if (match.winner && match.winner !== name) cls += ' tb-loser';
+      }
+      return '<div class="' + cls + '" data-r="' + r + '" data-i="' + i + '" data-who="' + who + '">' +
+        '<span>' + label + '</span>' +
+        (who === 'a' && name !== null && match.a !== null && match.b !== null && match.b !== BYE && !match.winner
+          ? '<button class="tb-rand" data-r="' + r + '" data-i="' + i + '" title="Random winner">🎲</button>' : '') +
+      '</div>';
+    }
+
+    function render(){
+      propagate();
+      var html = '';
+      for (var r = 0; r < rounds.length; r++) {
+        html += '<div class="tb-round"><div class="tb-round-title">' + roundName(r, rounds.length) + '</div>';
+        for (var i = 0; i < rounds[r].length; i++) {
+          html += '<div class="tb-match">' + slotHtml(rounds[r][i], r, i, 'a') + slotHtml(rounds[r][i], r, i, 'b') + '</div>';
+        }
+        html += '</div>';
+      }
+      bracketEl.innerHTML = html;
+
+      var final = rounds[rounds.length - 1][0];
+      if (final.winner) {
+        champEl.textContent = '🏆 ' + final.winner + ' is the champion!';
+        try { if (window.confettiBurst) window.confettiBurst({ count: 220 }); } catch(e) {}
+      } else {
+        champEl.innerHTML = '&nbsp;';
+      }
+    }
+
+    function decide(r, i, winner){
+      var match = rounds[r][i];
+      if (!match.a || !match.b || match.a === BYE || match.b === BYE) return;
+      if (winner !== match.a && winner !== match.b) return;
+      match.winner = winner;
+      render();
+    }
+
+    bracketEl.addEventListener('click', function(e){
+      var rand = e.target.closest('.tb-rand');
+      if (rand) {
+        var r = +rand.getAttribute('data-r'), i = +rand.getAttribute('data-i');
+        var m = rounds[r][i];
+        decide(r, i, Math.random() < 0.5 ? m.a : m.b);
+        return;
+      }
+      var slot = e.target.closest('.tb-slot');
+      if (!slot) return;
+      var name = rounds[+slot.getAttribute('data-r')][+slot.getAttribute('data-i')][slot.getAttribute('data-who')];
+      if (name && name !== BYE) decide(+slot.getAttribute('data-r'), +slot.getAttribute('data-i'), name);
+    });
+
+    document.getElementById('tb-create').addEventListener('click', create);
+    document.getElementById('tb-new').addEventListener('click', function(){
+      document.getElementById('tb-area').style.display = 'none';
+      document.getElementById('tb-setup').style.display = 'block';
+      champEl.innerHTML = '&nbsp;';
+    });
+    document.getElementById('tb-randall').addEventListener('click', function(){
+      for (var r = 0; r < rounds.length; r++) {
+        propagate();
+        for (var i = 0; i < rounds[r].length; i++) {
+          var m = rounds[r][i];
+          if (!m.winner && m.a && m.b && m.a !== BYE && m.b !== BYE) {
+            m.winner = Math.random() < 0.5 ? m.a : m.b;
+          }
+        }
+      }
+      render();
+    });
+    document.getElementById('tb-copy').addEventListener('click', function(){
+      var lines = [];
+      for (var r = 0; r < rounds.length; r++) {
+        lines.push(roundName(r, rounds.length) + ':');
+        for (var i = 0; i < rounds[r].length; i++) {
+          var m = rounds[r][i];
+          if (!m.a && !m.b) continue;
+          var a = m.a === BYE ? 'bye' : (m.a || 'TBD');
+          var b = m.b === BYE ? 'bye' : (m.b || 'TBD');
+          lines.push('  ' + a + ' vs ' + b + (m.winner ? ' → ' + m.winner : ''));
+        }
+      }
+      var final = rounds[rounds.length - 1][0];
+      if (final.winner) lines.push('Champion: 🏆 ' + final.winner);
+      navigator.clipboard.writeText(lines.join('\n')).then(function(){
+        var btn = document.getElementById('tb-copy');
+        btn.textContent = '✅ Copied!';
+        setTimeout(function(){ btn.textContent = '📋 Copy results'; }, 1500);
+      });
+    });
+  })();
+  </script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

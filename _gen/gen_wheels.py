@@ -24,6 +24,7 @@ NAV = '''  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
               <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
               <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
               <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/tournament/">🏟️ Tournament Bracket</a></li>
               <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
@@ -46,6 +47,7 @@ FOOTER = '''  <footer class="bg-light text-center mt-3 p-4">
       <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
       <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
       <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tournament/" class="text-decoration-none mx-2">Tournament Bracket</a>
       <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
       <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
     </div>
