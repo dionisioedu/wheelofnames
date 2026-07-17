@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Birthday Paradox: 23 People, Even Odds | Wheel Of List Blog</title>
+  <meta name="description" content="In a room of just 23 people there's a 50% chance two share a birthday. It feels wrong, it's mathematically airtight, and it even breaks cryptography.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/blog/birthday-paradox/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="The Birthday Paradox: 23 People, Even Odds">
+  <meta property="og:description" content="In a room of just 23 people there's a 50% chance two share a birthday. It feels wrong, it's mathematically airtight, and it even breaks cryptography.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wheeloflist.com/blog/birthday-paradox/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta property="article:published_time" content="2026-07-17">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Birthday Paradox: 23 People, Even Odds",
+  "description": "In a room of just 23 people there's a 50% chance two share a birthday. It feels wrong, it's mathematically airtight, and it even breaks cryptography.",
+  "author": {
+    "@type": "Person",
+    "name": "Eduardo Dionisio",
+    "url": "https://dionisio.dev"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dionisio Software",
+    "url": "https://dionisio.dev"
+  },
+  "datePublished": "2026-07-17",
+  "dateModified": "2026-07-17",
+  "mainEntityOfPage": "https://wheeloflist.com/blog/birthday-paradox/",
+  "image": "https://wheeloflist.com/og.jpg"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://wheeloflist.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "The Birthday Paradox: 23 People, Even Odds",
+      "item": "https://wheeloflist.com/blog/birthday-paradox/"
+    }
+  ]
+}
+  </script>
+  <style>
+    .article-body { max-width: 760px; margin: 0 auto; font-size: 1.06rem; line-height: 1.75; }
+    .article-body h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 0.5rem; }
+    .article-body h2 { font-size: 1.45rem; margin-top: 2.2rem; margin-bottom: 0.8rem; }
+    .article-meta { color: #888; font-size: 0.9rem; margin-bottom: 1.8rem; }
+    .article-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .article-body th, .article-body td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    .article-body th { background: rgba(30,144,255,0.08); }
+    .dark-theme .article-body th, .dark-theme .article-body td { border-color: #555; }
+    .cta-box { background: linear-gradient(135deg, rgba(30,144,255,0.08), rgba(0,191,255,0.08)); border: 2px solid #1E90FF; border-radius: 14px; padding: 22px 26px; margin: 2.2rem 0; }
+    .cta-box h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .cta-box p { margin-bottom: 0.9rem; }
+    blockquote { border-left: 4px solid #1E90FF; padding-left: 16px; color: #666; font-style: italic; }
+    .dark-theme blockquote { color: #aaa; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/tournament/">🏟️ Tournament Bracket</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding: 40px 20px;">
+    <article class="article-body">
+      <h1>The Birthday Paradox: 23 People, Even Odds</h1>
+      <div class="article-meta">By Eduardo Dionisio · July 17, 2026 · 2 min read</div>
+
+<p>How many people do you need in a room before it's more likely than not that two of them share a birthday? Intuition mumbles something like 180. The correct answer is <strong>23</strong>. With 50 people the probability hits 97%; with 70 it's 99.9%. This result is so reliably offensive to human intuition that it's been a classroom staple for a century — and the reason it offends is the most instructive part.</p>
+
+<h2>Why intuition fails</h2>
+<p>When you hear the question, your brain quietly substitutes an easier one: "what's the chance someone shares <em>my</em> birthday?" That is indeed small — about 6% in a room of 23. But the paradox asks about <em>any pair</em> matching, and pairs multiply brutally: 23 people form 253 distinct pairs. Each pair is a fresh lottery ticket for a match. You're not playing 23 tickets; you're playing 253.</p>
+
+<h2>The actual math, gently</h2>
+<p>Compute the probability of <em>no</em> match and subtract from 1. Person two must dodge 1 birthday (364/365), person three must dodge 2 (363/365), and so on. Multiply the chain out to person 23 and the "everyone dodges everyone" probability falls to about 0.493 — meaning a 50.7% chance of at least one match. No trick, just multiplication grinding intuition into dust.</p>
+
+<h2>Try it at your next event</h2>
+<p>Any gathering of 25+ people is a live demonstration waiting to happen. Classrooms are perfect: a teacher with 30 students has about a 70% chance of a birthday match — ask everyone to shout their birthday month by month and watch the collision land. Wedding tables, office all-hands, five-a-side leagues: the paradox performs almost anywhere people gather in double digits.</p>
+<div class="cta-box"><h3>Run a birthday-paradox lottery</h3><p>Draw random numbers 1-365 and see how quickly you get a repeat — it rarely takes more than 25 draws.</p><a class="btn btn-primary" href="/random-number/">Try it with the generator →</a></div>
+<h2>Where it gets serious: breaking codes</h2>
+<p>Cryptographers know the paradox as the <strong>birthday attack</strong>. A digital signature scheme is safe only if nobody can find two different documents with the same fingerprint (hash). Naively, a 64-bit fingerprint offers 2⁶⁴ possibilities — but the birthday math means collisions appear after only about 2³² random attempts, the square root. The paradox halves the effective strength of every hash function, which is why modern systems use fingerprints so long that even the square root is astronomical.</p>
+
+<h2>The general lesson</h2>
+<p>Coincidences are cheap. The birthday paradox is the flagship example of a broad truth: with enough pairs, matches are inevitable — same lottery numbers twice in a year somewhere on Earth, two strangers with the same PIN in one office, déjà vu-grade flukes of every kind. The right question about a coincidence is never "what were the odds of this?" but "how many chances did it have to happen?" The second number is always, always bigger than it feels.</p>
+
+    </article>
+
+    <section class="quick-tools-section" style="margin-top:3.5rem; max-width: 1000px; margin-left:auto; margin-right:auto;">
+      <h3 class="quick-tools-title">Keep Reading</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/blog/gamblers-fallacy/">
+          <div class="tool-card-icon">🎰</div>
+          <h4>The Gambler's Fallacy: Why Streaks Lie</h4>
+          <p>In 1913, black hit 26 times in a row at Monte Carlo and gamblers lost fortunes betting red…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/monty-hall-problem/">
+          <div class="tool-card-icon">🚪</div>
+          <h4>The Monty Hall Problem: Always Switch</h4>
+          <p>Three doors, one car, one opened goat — and the most argued-about probability puzzle ever.…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/how-random-number-generators-work/">
+          <div class="tool-card-icon">💻</div>
+          <h4>How Computers Fake Randomness (and Why It's Fine)</h4>
+          <p>Computers are deterministic machines, yet they shuffle playlists and run lotteries. PRNGs,…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tournament/" class="text-decoration-none mx-2">Tournament Bracket</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/blog/" class="text-decoration-none mx-2">Blog</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

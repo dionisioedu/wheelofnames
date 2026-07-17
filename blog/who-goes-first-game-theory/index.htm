@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Who Goes First? A Surprisingly Deep Question | Wheel Of List Blog</title>
+  <meta name="description" content="First-move advantage is real, measured and bigger than you think — in chess, Monopoly, Catan and even rock-paper-scissors. Here's what to do about it.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/blog/who-goes-first-game-theory/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Who Goes First? A Surprisingly Deep Question">
+  <meta property="og:description" content="First-move advantage is real, measured and bigger than you think — in chess, Monopoly, Catan and even rock-paper-scissors. Here's what to do about it.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wheeloflist.com/blog/who-goes-first-game-theory/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta property="article:published_time" content="2026-07-17">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Who Goes First? A Surprisingly Deep Question",
+  "description": "First-move advantage is real, measured and bigger than you think — in chess, Monopoly, Catan and even rock-paper-scissors. Here's what to do about it.",
+  "author": {
+    "@type": "Person",
+    "name": "Eduardo Dionisio",
+    "url": "https://dionisio.dev"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dionisio Software",
+    "url": "https://dionisio.dev"
+  },
+  "datePublished": "2026-07-17",
+  "dateModified": "2026-07-17",
+  "mainEntityOfPage": "https://wheeloflist.com/blog/who-goes-first-game-theory/",
+  "image": "https://wheeloflist.com/og.jpg"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://wheeloflist.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Who Goes First? A Surprisingly Deep Question",
+      "item": "https://wheeloflist.com/blog/who-goes-first-game-theory/"
+    }
+  ]
+}
+  </script>
+  <style>
+    .article-body { max-width: 760px; margin: 0 auto; font-size: 1.06rem; line-height: 1.75; }
+    .article-body h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 0.5rem; }
+    .article-body h2 { font-size: 1.45rem; margin-top: 2.2rem; margin-bottom: 0.8rem; }
+    .article-meta { color: #888; font-size: 0.9rem; margin-bottom: 1.8rem; }
+    .article-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .article-body th, .article-body td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    .article-body th { background: rgba(30,144,255,0.08); }
+    .dark-theme .article-body th, .dark-theme .article-body td { border-color: #555; }
+    .cta-box { background: linear-gradient(135deg, rgba(30,144,255,0.08), rgba(0,191,255,0.08)); border: 2px solid #1E90FF; border-radius: 14px; padding: 22px 26px; margin: 2.2rem 0; }
+    .cta-box h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .cta-box p { margin-bottom: 0.9rem; }
+    blockquote { border-left: 4px solid #1E90FF; padding-left: 16px; color: #666; font-style: italic; }
+    .dark-theme blockquote { color: #aaa; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/tournament/">🏟️ Tournament Bracket</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding: 40px 20px;">
+    <article class="article-body">
+      <h1>Who Goes First? A Surprisingly Deep Question</h1>
+      <div class="article-meta">By Eduardo Dionisio · July 17, 2026 · 2 min read</div>
+
+<p>Every game night begins with a small ritual of injustice: someone gets to go first. We wave it off — "it's just a game" — but first-move advantage is real, measurable, and in some games enormous. Taking it seriously is the difference between a fair evening and a quietly rigged one.</p>
+
+<h2>How big is the edge?</h2>
+<ul>
+<li><strong>Chess:</strong> White scores about 54-56% across millions of master games — a persistent edge from a single extra tempo.</li>
+<li><strong>Monopoly:</strong> the first player buys from a fully stocked board. In a four-player game, simulations put player one's win rate several points above player four's.</li>
+<li><strong>Connect Four:</strong> solved in 1988 — the first player wins with perfect play, full stop.</li>
+<li><strong>Catan:</strong> first placement picks the best settlement spot on the whole board. The snake draft (1-2-3-4-4-3-2-1) exists precisely to soften this.</li>
+<li><strong>Tic-tac-toe:</strong> first player can't lose with correct play, which is why the game dies the moment children solve it.</li>
+</ul>
+<p>Some games invert it: in bidding games and Uno-style shedding games, moving later means more information. Either way, turn order is rarely neutral.</p>
+
+<h2>Bad solutions humans love</h2>
+<p>"Youngest goes first" taxes the oldest sibling forever. "Whoever won last time goes last" sounds fair but creates rubber-band dynamics that punish winning. "Roll a die, highest starts" is decent but degenerates into re-roll arguments over ties. And "I'll just let you go first" is a favor — meaning it creates a debt, meaning it's not free. The common failure: every deterministic rule encodes somebody's advantage, and everybody at the table knows it.</p>
+
+<h2>Good solutions from game design</h2>
+<p><strong>Random selection, visibly performed.</strong> The gold standard. No memory, no bias, no debt. The key word is <em>visibly</em> — fairness that can't be seen doesn't reduce arguments.</p>
+<p><strong>Snake drafts</strong> for anything with sequential picks: 1-2-3-4 then 4-3-2-1. First pick is offset by last pick in the next round.</p>
+<p><strong>Auction the advantage:</strong> in heavier board games, players bid victory points for turn order — the edge goes to whoever values it most and they pay market price for it.</p>
+<p><strong>Rotate deterministically after a random start:</strong> randomize game one, then pass the starting player left each game. One roll of fairness, then zero overhead forever.</p>
+<div class="cta-box"><h3>Settle it in five seconds</h3><p>Names on the wheel, one spin, no arguments — and winners get removed so everyone starts once before anyone starts twice.</p><a class="btn btn-primary" href="/">Spin for turn order →</a></div>
+<h2>The deeper point</h2>
+<p>Kids argue about going first because they intuit what game theorists later proved: order is value. The mature response isn't to pretend otherwise — it's to price the advantage and distribute it fairly. Randomize the start, rotate thereafter, snake the drafts. Ninety seconds of mechanism design buys you a whole evening without the phrase "that's not fair." Cheap at twice the price.</p>
+
+    </article>
+
+    <section class="quick-tools-section" style="margin-top:3.5rem; max-width: 1000px; margin-left:auto; margin-right:auto;">
+      <h3 class="quick-tools-title">Keep Reading</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/blog/dice-probability-guide/">
+          <div class="tool-card-icon">🎲</div>
+          <h4>Dice Probability 101: Why 7 Rules the Table</h4>
+          <p>One die is flat, two dice make a pyramid, and that pyramid quietly runs Catan, Craps and M…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/birthday-paradox/">
+          <div class="tool-card-icon">🎂</div>
+          <h4>The Birthday Paradox: 23 People, Even Odds</h4>
+          <p>In a room of just 23 people there's a 50% chance two share a birthday. It feels wrong, it'…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/gamblers-fallacy/">
+          <div class="tool-card-icon">🎰</div>
+          <h4>The Gambler's Fallacy: Why Streaks Lie</h4>
+          <p>In 1913, black hit 26 times in a row at Monte Carlo and gamblers lost fortunes betting red…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tournament/" class="text-decoration-none mx-2">Tournament Bracket</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/blog/" class="text-decoration-none mx-2">Blog</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Monty Hall Problem: Always Switch | Wheel Of List Blog</title>
+  <meta name="description" content="Three doors, one car, one opened goat — and the most argued-about probability puzzle ever. Switching doubles your odds, and here's the version that finally clicks.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/blog/monty-hall-problem/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="The Monty Hall Problem: Always Switch">
+  <meta property="og:description" content="Three doors, one car, one opened goat — and the most argued-about probability puzzle ever. Switching doubles your odds, and here's the version that finally clicks.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wheeloflist.com/blog/monty-hall-problem/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta property="article:published_time" content="2026-07-17">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Monty Hall Problem: Always Switch",
+  "description": "Three doors, one car, one opened goat — and the most argued-about probability puzzle ever. Switching doubles your odds, and here's the version that finally clicks.",
+  "author": {
+    "@type": "Person",
+    "name": "Eduardo Dionisio",
+    "url": "https://dionisio.dev"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dionisio Software",
+    "url": "https://dionisio.dev"
+  },
+  "datePublished": "2026-07-17",
+  "dateModified": "2026-07-17",
+  "mainEntityOfPage": "https://wheeloflist.com/blog/monty-hall-problem/",
+  "image": "https://wheeloflist.com/og.jpg"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://wheeloflist.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "The Monty Hall Problem: Always Switch",
+      "item": "https://wheeloflist.com/blog/monty-hall-problem/"
+    }
+  ]
+}
+  </script>
+  <style>
+    .article-body { max-width: 760px; margin: 0 auto; font-size: 1.06rem; line-height: 1.75; }
+    .article-body h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 0.5rem; }
+    .article-body h2 { font-size: 1.45rem; margin-top: 2.2rem; margin-bottom: 0.8rem; }
+    .article-meta { color: #888; font-size: 0.9rem; margin-bottom: 1.8rem; }
+    .article-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .article-body th, .article-body td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    .article-body th { background: rgba(30,144,255,0.08); }
+    .dark-theme .article-body th, .dark-theme .article-body td { border-color: #555; }
+    .cta-box { background: linear-gradient(135deg, rgba(30,144,255,0.08), rgba(0,191,255,0.08)); border: 2px solid #1E90FF; border-radius: 14px; padding: 22px 26px; margin: 2.2rem 0; }
+    .cta-box h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .cta-box p { margin-bottom: 0.9rem; }
+    blockquote { border-left: 4px solid #1E90FF; padding-left: 16px; color: #666; font-style: italic; }
+    .dark-theme blockquote { color: #aaa; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/tournament/">🏟️ Tournament Bracket</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding: 40px 20px;">
+    <article class="article-body">
+      <h1>The Monty Hall Problem: Always Switch</h1>
+      <div class="article-meta">By Eduardo Dionisio · July 17, 2026 · 2 min read</div>
+
+<p>You're on a game show. Three doors: one hides a car, two hide goats. You pick door 1. The host — who knows where the car is — opens door 3, revealing a goat, and asks: "want to switch to door 2?" Most people shrug: two doors left, 50/50, switching changes nothing. Most people are wrong. <strong>Switching wins two times out of three</strong>, and this little puzzle once made a thousand PhDs write angry letters.</p>
+
+<h2>The intuition that finally works</h2>
+<p>Forget the opened door for a second. Your original pick captured the car with probability 1/3 — nothing the host does can retroactively change that. Which means the car is <em>somewhere in the other two doors</em> with probability 2/3. When the host (who never reveals the car) opens one of those two doors, he isn't generating new randomness — he's <em>funneling that entire 2/3 into the one remaining closed door</em>. Switching is simply collecting it.</p>
+<p>Still itchy? Scale it up: 100 doors, you pick one, the host opens 98 goat doors and leaves door 47 conspicuously shut. Your first pick was right 1% of the time. Would you seriously stay?</p>
+
+<h2>The detail everyone misses</h2>
+<p>The answer depends entirely on the host's <em>rules</em>, not just his actions. Monty knows the car's location, always opens a goat door, and always offers the switch. If instead the host opened a random door that merely <em>happened</em> to show a goat, the odds genuinely would be 50/50. Same visible events, different information content — because a constrained choice reveals more than a lucky one. This is the puzzle's deepest lesson: <strong>how</strong> information was produced matters as much as the information itself.</p>
+
+<h2>The great pile-on of 1990</h2>
+<p>When Marilyn vos Savant published the correct answer in <em>Parade</em>, she received some ten thousand letters, roughly a thousand from people with doctorates, many dripping with condescension, nearly all wrong. Even the great Paul Erdős refused to accept it until shown a computer simulation. Take comfort: if this puzzle bends your brain, you're in Hall-of-Fame company.</p>
+<div class="cta-box"><h3>Simulate it yourself</h3><p>Put 'Car, Goat, Goat' on the wheel and play host 20 times — switching wins about 13 of them. Simulation beats argument.</p><a class="btn btn-primary" href="/">Build the three-door wheel →</a></div>
+<h2>Why it matters off-stage</h2>
+<p>Monty Hall is the cleanest known demonstration that evidence depends on process. A medical test result, a survived company in a success study, a suspiciously specific alibi — each means something different depending on the rule that produced it. Survivorship bias, publication bias and selection effects are all Monty in disguise: someone opened the goat doors before you arrived. The master question, on the game show and off: <em>what could I have been shown instead, and why wasn't I?</em></p>
+
+    </article>
+
+    <section class="quick-tools-section" style="margin-top:3.5rem; max-width: 1000px; margin-left:auto; margin-right:auto;">
+      <h3 class="quick-tools-title">Keep Reading</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/blog/how-random-number-generators-work/">
+          <div class="tool-card-icon">💻</div>
+          <h4>How Computers Fake Randomness (and Why It's Fine)</h4>
+          <p>Computers are deterministic machines, yet they shuffle playlists and run lotteries. PRNGs,…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/random-pickers-classroom/">
+          <div class="tool-card-icon">🏫</div>
+          <h4>10 Ways Teachers Use Random Pickers in Class</h4>
+          <p>Cold-calling without dread, fair groups without politics, vocabulary games without prep — …</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/run-a-fair-giveaway/">
+          <div class="tool-card-icon">🎁</div>
+          <h4>How to Run a Giveaway Nobody Calls Rigged</h4>
+          <p>Clear rules, a visible draw, and proof you can point to afterwards — a practical playbook …</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tournament/" class="text-decoration-none mx-2">Tournament Bracket</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/blog/" class="text-decoration-none mx-2">Blog</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

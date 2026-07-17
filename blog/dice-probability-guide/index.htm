@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dice Probability 101: Why 7 Rules the Table | Wheel Of List Blog</title>
+  <meta name="description" content="One die is flat, two dice make a pyramid, and that pyramid quietly runs Catan, Craps and Monopoly. The essential numbers, no math degree required.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/blog/dice-probability-guide/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Dice Probability 101: Why 7 Rules the Table">
+  <meta property="og:description" content="One die is flat, two dice make a pyramid, and that pyramid quietly runs Catan, Craps and Monopoly. The essential numbers, no math degree required.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wheeloflist.com/blog/dice-probability-guide/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta property="article:published_time" content="2026-07-17">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Dice Probability 101: Why 7 Rules the Table",
+  "description": "One die is flat, two dice make a pyramid, and that pyramid quietly runs Catan, Craps and Monopoly. The essential numbers, no math degree required.",
+  "author": {
+    "@type": "Person",
+    "name": "Eduardo Dionisio",
+    "url": "https://dionisio.dev"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dionisio Software",
+    "url": "https://dionisio.dev"
+  },
+  "datePublished": "2026-07-17",
+  "dateModified": "2026-07-17",
+  "mainEntityOfPage": "https://wheeloflist.com/blog/dice-probability-guide/",
+  "image": "https://wheeloflist.com/og.jpg"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://wheeloflist.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Dice Probability 101: Why 7 Rules the Table",
+      "item": "https://wheeloflist.com/blog/dice-probability-guide/"
+    }
+  ]
+}
+  </script>
+  <style>
+    .article-body { max-width: 760px; margin: 0 auto; font-size: 1.06rem; line-height: 1.75; }
+    .article-body h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 0.5rem; }
+    .article-body h2 { font-size: 1.45rem; margin-top: 2.2rem; margin-bottom: 0.8rem; }
+    .article-meta { color: #888; font-size: 0.9rem; margin-bottom: 1.8rem; }
+    .article-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .article-body th, .article-body td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    .article-body th { background: rgba(30,144,255,0.08); }
+    .dark-theme .article-body th, .dark-theme .article-body td { border-color: #555; }
+    .cta-box { background: linear-gradient(135deg, rgba(30,144,255,0.08), rgba(0,191,255,0.08)); border: 2px solid #1E90FF; border-radius: 14px; padding: 22px 26px; margin: 2.2rem 0; }
+    .cta-box h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .cta-box p { margin-bottom: 0.9rem; }
+    blockquote { border-left: 4px solid #1E90FF; padding-left: 16px; color: #666; font-style: italic; }
+    .dark-theme blockquote { color: #aaa; }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/tournament/">🏟️ Tournament Bracket</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding: 40px 20px;">
+    <article class="article-body">
+      <h1>Dice Probability 101: Why 7 Rules the Table</h1>
+      <div class="article-meta">By Eduardo Dionisio · July 17, 2026 · 2 min read</div>
+
+<p>A single die is probability at its most boring: every face, exactly 1 in 6, about 16.7%. No number is hot, none is due, and the die has no memory. The interesting things start happening the moment you add a second die — because sums don't inherit that flatness. They form a pyramid, and that pyramid secretly runs half the games in your closet.</p>
+
+<h2>The two-dice pyramid</h2>
+<p>Two dice produce 36 equally likely combinations, but only 11 different sums. The sums in the middle can be made more ways than the ones at the edges:</p>
+<table>
+<tr><th>Sum</th><th>Ways</th><th>Probability</th></tr>
+<tr><td>2 or 12</td><td>1 each</td><td>2.8%</td></tr>
+<tr><td>3 or 11</td><td>2 each</td><td>5.6%</td></tr>
+<tr><td>4 or 10</td><td>3 each</td><td>8.3%</td></tr>
+<tr><td>5 or 9</td><td>4 each</td><td>11.1%</td></tr>
+<tr><td>6 or 8</td><td>5 each</td><td>13.9%</td></tr>
+<tr><td><strong>7</strong></td><td><strong>6</strong></td><td><strong>16.7%</strong></td></tr>
+</table>
+<p>Seven can be built six ways (1+6, 2+5, 3+4, 4+3, 5+2, 6+1). Twelve can be built exactly one way. That's the whole secret: no magic, just counting.</p>
+
+<h2>What the pyramid runs</h2>
+<p><strong>Catan:</strong> tiles numbered 6 and 8 are gold, 2 and 12 are jokes, and the robber lives on 7 because 7 comes up more than any other roll. The little dots under each number token are literally the "ways to roll it" count from the table above.</p>
+<p><strong>Craps:</strong> the entire casino game is engineered around 7's dominance — it makes you win on the come-out roll and lose everafter.</p>
+<p><strong>Monopoly:</strong> you're most likely to travel 7 squares per turn, which is why the orange properties (6-9 squares after the busiest square on the board, Jail) are statistically the best purchase in the game.</p>
+
+<h2>Streaks, hot dice and other lies</h2>
+<p>Rolled three sixes in a row? The chance of a fourth is still 1 in 6. Dice have no memory — each roll is independent, and "hot dice" is a story our pattern-hungry brains tell about noise. The related trap, believing a number is "due" after a drought, has its own article (and its own name: the gambler's fallacy).</p>
+
+<h2>Quick mental math for gamers</h2>
+<ul>
+<li><strong>At least one six in N rolls:</strong> 1 roll → 17%, 2 → 31%, 4 → 52%, 6 → 67%. It never hits 100%, no matter how many dice you throw.</li>
+<li><strong>Doubles:</strong> 6 doubles out of 36 combos = 1 in 6 per roll. Three consecutive doubles in Monopoly (straight to jail): 1 in 216.</li>
+<li><strong>Beating a specific number:</strong> to roll strictly higher than a 4 on one die, you need 5 or 6 — 1 in 3.</li>
+</ul>
+<div class="cta-box"><h3>See the pyramid yourself</h3><p>Roll two dice thirty times and tally the sums — the bell shape around 7 appears astonishingly fast.</p><a class="btn btn-primary" href="/dice-roller/">Open the dice roller →</a></div>
+<h2>The takeaway</h2>
+<p>Dice odds come down to one skill: counting the ways. Sums with more recipes come up more often. Master that single idea and Catan placements, Craps tables and Monopoly's orange monopoly all snap into focus — and you'll never again pay good sheep for a settlement on a 12.</p>
+
+    </article>
+
+    <section class="quick-tools-section" style="margin-top:3.5rem; max-width: 1000px; margin-left:auto; margin-right:auto;">
+      <h3 class="quick-tools-title">Keep Reading</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/blog/birthday-paradox/">
+          <div class="tool-card-icon">🎂</div>
+          <h4>The Birthday Paradox: 23 People, Even Odds</h4>
+          <p>In a room of just 23 people there's a 50% chance two share a birthday. It feels wrong, it'…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/gamblers-fallacy/">
+          <div class="tool-card-icon">🎰</div>
+          <h4>The Gambler's Fallacy: Why Streaks Lie</h4>
+          <p>In 1913, black hit 26 times in a row at Monte Carlo and gamblers lost fortunes betting red…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/monty-hall-problem/">
+          <div class="tool-card-icon">🚪</div>
+          <h4>The Monty Hall Problem: Always Switch</h4>
+          <p>Three doors, one car, one opened goat — and the most argued-about probability puzzle ever.…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tournament/" class="text-decoration-none mx-2">Tournament Bracket</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/blog/" class="text-decoration-none mx-2">Blog</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>
