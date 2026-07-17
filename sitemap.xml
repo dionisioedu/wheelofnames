@@ -33,6 +33,42 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://wheeloflist.com/wheels/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/what-to-eat/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/truth-or-dare/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/what-to-watch/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/what-to-do/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/workout/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/date-night/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/chore-wheel/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/wheels/icebreaker-questions/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://wheeloflist.com/tools/</loc>
     <priority>0.8</priority>
   </url>

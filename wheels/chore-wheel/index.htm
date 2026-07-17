@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chore Wheel — Spin to Assign Chores Fairly | Wheel Of List</title>
+  <meta name="description" content="End the chore wars. Spin the chore wheel to randomly assign dishes, laundry, vacuuming and more — fair for roommates, families and couples.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/wheels/chore-wheel/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Chore Wheel — Spin to Assign Chores Fairly">
+  <meta property="og:description" content="End the chore wars. Spin the chore wheel to randomly assign dishes, laundry, vacuuming and more — fair for roommates, families and couples.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/wheels/chore-wheel/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Chore Wheel",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "End the chore wars. Spin the chore wheel to randomly assign dishes, laundry, vacuuming and more — fair for roommates, families and couples.",
+  "url": "https://wheeloflist.com/wheels/chore-wheel/"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Wheel Templates",
+      "item": "https://wheeloflist.com/wheels/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Chore Wheel",
+      "item": "https://wheeloflist.com/wheels/chore-wheel/"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is “Remove winner after spin” on by default here?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because chores should be assigned exactly once per round. Each spin claims a chore and removes it, so the wheel empties as the week gets covered."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do we handle chores nobody wants, like the bathroom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That's the beauty of the wheel — it doesn't care. Everyone accepts the same risk on every spin, which is the definition of fair."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I adapt it for my family or flat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — “Customize this wheel” opens the list in the editor. Add pet duties, yard work or split big chores into smaller ones, then share the link with the household."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    .ww-wrap { position: relative; width: min(420px, 88vw); margin: 0 auto; }
+    #wwCanvas { width: 100%; height: auto; display: block; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; background: #fff; }
+    .ww-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(180deg); width: 40px; height: 34px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background: #1E90FF; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4)); z-index: 5; }
+    .ww-result { font-size: 2rem; font-weight: 900; text-align: center; min-height: 2.8rem; margin: 18px 0 6px; }
+    .ww-controls { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+    .ww-entries { columns: 2; column-gap: 30px; }
+    @media (max-width: 600px) { .ww-entries { columns: 1; } }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>🧹 Chore Wheel</h2>
+        <p class="tools-subtitle">The referee your household needed</p>
+      </div>
+      <div class="tools-content">
+        <div id="wheel-widget"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Chore Wheel</h1>
+    <p>Every household has one person who "always ends up doing the dishes" and another who has been "about to vacuum" since March. The chore wheel is the neutral referee: chores get assigned by chance, everyone watches the spin, and nobody can argue with physics. <em>Remove winner after spin</em> is on by default — each chore leaves the wheel once it's claimed, so spin until the wheel is empty and the house is covered.</p>
+    <h2 style="font-size:1.4rem; margin-top:2rem;">What's on the wheel</h2>
+    <p>Dishes, vacuum, laundry, clean bathroom, take out trash, mop floors, dust shelves, water plants, clean kitchen and wash windows. Ten chores that cover a standard week. Got a pet, a yard or a roommate who exclusively generates laundry? Customize the list to match your actual home.</p>
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Three ways to run it</h2>
+    <ul>
+      <li><strong>Round-robin:</strong> take turns spinning until the wheel is empty. Whatever you land on is yours this week.</li>
+      <li><strong>Weekly lottery:</strong> one person spins for everyone on Sunday night; results go on the fridge. The wheel's word is law.</li>
+      <li><strong>Kids edition:</strong> customize with age-appropriate chores and small rewards between them — spinning turns "go clean your room" into a game they volunteer for.</li>
+    </ul>
+    <p>Need to decide who spins first? That's a job for the <a href="/">name wheel</a> — or a quick <a href="/coin-flip/">coin flip</a>.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Make it yours</h2>
+    <p>Want to add, remove or reword the options? Hit <strong>“Customize this wheel”</strong> under the spinner — it opens this exact list in the <a href="/">full wheel editor</a>, where you can edit entries, change the theme, and share your version with a link. You can also toggle <em>Remove winner after spin</em> to run through every option without repeats.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Why is “Remove winner after spin” on by default here?</strong><br>Because chores should be assigned exactly once per round. Each spin claims a chore and removes it, so the wheel empties as the week gets covered.</p>
+    <p><strong>How do we handle chores nobody wants, like the bathroom?</strong><br>That's the beauty of the wheel — it doesn't care. Everyone accepts the same risk on every spin, which is the definition of fair.</p>
+    <p><strong>Can I adapt it for my family or flat?</strong><br>Yes — “Customize this wheel” opens the list in the editor. Add pet duties, yard work or split big chores into smaller ones, then share the link with the household.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">More Wheels</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/wheels/icebreaker-questions/">
+          <div class="tool-card-icon">🧊</div>
+          <h4>Icebreaker Question Wheel</h4>
+          <p>Ten questions, zero awkward silences</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/what-to-eat/">
+          <div class="tool-card-icon">🍕</div>
+          <h4>What to Eat Wheel</h4>
+          <p>Dinner indecision, solved in one spin</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/truth-or-dare/">
+          <div class="tool-card-icon">🎭</div>
+          <h4>Truth or Dare Wheel</h4>
+          <p>The party classic, minus the arguing</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/">
+          <div class="tool-card-icon">🎯</div>
+          <h4>All Wheel Templates</h4>
+          <p>Browse every ready-made wheel in the gallery</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>window.WHEEL_DATA = {"entries": ["Dishes", "Vacuum", "Laundry", "Clean bathroom", "Take out trash", "Mop floors", "Dust shelves", "Water plants", "Clean kitchen", "Wash windows"], "removeDefault": true};</script>
+  <script src="/wheels/wheel-widget.js"></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Truth or Dare Wheel — Spin to Play | Wheel Of List</title>
+  <meta name="description" content="Spin the Truth or Dare wheel and let chance run your party game. Fair 50/50 spins plus starter questions and dares for every group.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/wheels/truth-or-dare/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Truth or Dare Wheel — Spin to Play">
+  <meta property="og:description" content="Spin the Truth or Dare wheel and let chance run your party game. Fair 50/50 spins plus starter questions and dares for every group.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/wheels/truth-or-dare/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Truth or Dare Wheel",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Spin the Truth or Dare wheel and let chance run your party game. Fair 50/50 spins plus starter questions and dares for every group.",
+  "url": "https://wheeloflist.com/wheels/truth-or-dare/"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Wheel Templates",
+      "item": "https://wheeloflist.com/wheels/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Truth or Dare Wheel",
+      "item": "https://wheeloflist.com/wheels/truth-or-dare/"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the wheel really 50/50 between truth and dare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the wheel has four Truth and four Dare segments, and every spin lands uniformly at random, so both outcomes always have equal odds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I make a wheel with actual questions on it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — click “Customize this wheel” and replace the segments with your own truths and dares, then share the link with your group."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we play remotely?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Share your screen on the call, or send the wheel link so everyone spins the same wheel on their turn."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    .ww-wrap { position: relative; width: min(420px, 88vw); margin: 0 auto; }
+    #wwCanvas { width: 100%; height: auto; display: block; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; background: #fff; }
+    .ww-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(180deg); width: 40px; height: 34px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background: #1E90FF; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4)); z-index: 5; }
+    .ww-result { font-size: 2rem; font-weight: 900; text-align: center; min-height: 2.8rem; margin: 18px 0 6px; }
+    .ww-controls { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+    .ww-entries { columns: 2; column-gap: 30px; }
+    @media (max-width: 600px) { .ww-entries { columns: 1; } }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>🎭 Truth or Dare Wheel</h2>
+        <p class="tools-subtitle">The party classic, minus the arguing</p>
+      </div>
+      <div class="tools-content">
+        <div id="wheel-widget"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Truth or Dare Wheel</h1>
+    <p>The oldest party game in the world has one weak point: the "you always pick truth!" argument. The wheel fixes it. Each player spins on their turn — the wheel decides truth or dare, chance takes the blame, and the game keeps moving. Four Truth and four Dare segments guarantee a fair 50/50 on every spin.</p>
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to play</h2>
+    <ol>
+      <li>Sit in a circle (or on a video call — it works great remotely).</li>
+      <li>On your turn, spin the wheel. No re-spins — that's the rule that makes it fun.</li>
+      <li>Truth: answer honestly. Dare: do the thing. The group decides if you delivered.</li>
+      <li>Chickening out costs a forfeit — the group picks it (keep it kind).</li>
+    </ol>
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Starter questions and dares</h2>
+    <p><strong>Truths:</strong> What's the most embarrassing song you secretly love? What's a lie you told that you still feel bad about? Who in this room would you trade lives with for a day? What's your most irrational fear? What's the worst gift you ever gave someone?</p>
+    <p><strong>Dares:</strong> Talk in an accent until your next turn. Let the group post a (harmless) status from your phone. Do your best impression of another player. Eat a spoonful of a condiment chosen by the group. Show everyone your most-used emoji list.</p>
+    <p>Playing with kids or coworkers? Keep a "family mode" rule: all truths and dares must pass the grandma test. Need turn order too? Put everyone's name on the <a href="/">main wheel</a> and spin for who goes next.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Make it yours</h2>
+    <p>Want to add, remove or reword the options? Hit <strong>“Customize this wheel”</strong> under the spinner — it opens this exact list in the <a href="/">full wheel editor</a>, where you can edit entries, change the theme, and share your version with a link. You can also toggle <em>Remove winner after spin</em> to run through every option without repeats.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Is the wheel really 50/50 between truth and dare?</strong><br>Yes — the wheel has four Truth and four Dare segments, and every spin lands uniformly at random, so both outcomes always have equal odds.</p>
+    <p><strong>Can I make a wheel with actual questions on it?</strong><br>Yes — click “Customize this wheel” and replace the segments with your own truths and dares, then share the link with your group.</p>
+    <p><strong>Can we play remotely?</strong><br>Absolutely. Share your screen on the call, or send the wheel link so everyone spins the same wheel on their turn.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">More Wheels</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/wheels/what-to-watch/">
+          <div class="tool-card-icon">🍿</div>
+          <h4>What to Watch Wheel</h4>
+          <p>Stop scrolling, start watching</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/what-to-do/">
+          <div class="tool-card-icon">🎈</div>
+          <h4>What to Do Wheel</h4>
+          <p>Boredom ends where the wheel stops</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/workout/">
+          <div class="tool-card-icon">💪</div>
+          <h4>Workout Wheel</h4>
+          <p>Your randomized no-equipment circuit</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/">
+          <div class="tool-card-icon">🎯</div>
+          <h4>All Wheel Templates</h4>
+          <p>Browse every ready-made wheel in the gallery</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>window.WHEEL_DATA = {"entries": ["Truth", "Dare", "Truth", "Dare", "Truth", "Dare", "Truth", "Dare"], "removeDefault": false};</script>
+  <script src="/wheels/wheel-widget.js"></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

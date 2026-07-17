@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Workout Wheel — Spin for Your Next Exercise | Wheel Of List</title>
+  <meta name="description" content="Spin the workout wheel for your next exercise: push-ups, squats, plank, burpees and more. Turn any workout into a game — no equipment needed.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/wheels/workout/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Workout Wheel — Spin for Your Next Exercise">
+  <meta property="og:description" content="Spin the workout wheel for your next exercise: push-ups, squats, plank, burpees and more. Turn any workout into a game — no equipment needed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/wheels/workout/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Workout Wheel",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Spin the workout wheel for your next exercise: push-ups, squats, plank, burpees and more. Turn any workout into a game — no equipment needed.",
+  "url": "https://wheeloflist.com/wheels/workout/"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Wheel Templates",
+      "item": "https://wheeloflist.com/wheels/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Workout Wheel",
+      "item": "https://wheeloflist.com/wheels/workout/"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need any equipment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — all ten exercises are bodyweight-only and fit in a small room. Push-ups, squats, planks and friends."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many spins make a full workout?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Six to eight spins with short rests is a solid 15–20 minute session. Or enable “Remove winner after spin” and complete the entire wheel once."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change the exercises or reps?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — “Customize this wheel” opens the list in the editor. Adjust reps to your level or swap in your favorite movements."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    .ww-wrap { position: relative; width: min(420px, 88vw); margin: 0 auto; }
+    #wwCanvas { width: 100%; height: auto; display: block; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; background: #fff; }
+    .ww-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(180deg); width: 40px; height: 34px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background: #1E90FF; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4)); z-index: 5; }
+    .ww-result { font-size: 2rem; font-weight: 900; text-align: center; min-height: 2.8rem; margin: 18px 0 6px; }
+    .ww-controls { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+    .ww-entries { columns: 2; column-gap: 30px; }
+    @media (max-width: 600px) { .ww-entries { columns: 1; } }
+  </style>
+</head>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="tools-container" style="display:block">
+    <div class="tools-section">
+      <div class="tools-header">
+        <h2>💪 Workout Wheel</h2>
+        <p class="tools-subtitle">Your randomized no-equipment circuit</p>
+      </div>
+      <div class="tools-content">
+        <div id="wheel-widget"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Workout Wheel</h1>
+    <p>The hardest rep of any workout is deciding to start it. The wheel removes the decision: spin, do what it says, rest, spin again. Ten no-equipment exercises with set reps — a full-body circuit that assembles itself differently every session, which is exactly why it doesn't get boring.</p>
+    <h2 style="font-size:1.4rem; margin-top:2rem;">What's on the wheel</h2>
+    <p>15 push-ups, 20 squats, a 60-second plank, 30 jumping jacks, 12 lunges per leg, 10 burpees, 30 mountain climbers, 20 sit-ups, a 45-second wall sit and 30 seconds of high knees. Push, legs, core and cardio — all bases covered, zero equipment, doable in a living room.</p>
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Ways to play</h2>
+    <ul>
+      <li><strong>Classic circuit:</strong> 6–8 spins with 30–45 seconds rest between. Done in under 20 minutes.</li>
+      <li><strong>Full sweep:</strong> turn on <em>Remove winner after spin</em> and complete all ten — the wheel guarantees no doubles.</li>
+      <li><strong>Group mode:</strong> everyone does whatever the wheel picks, together. Complaining is allowed; skipping is not.</li>
+      <li><strong>Leveling:</strong> customize reps to your level — beginners halve them, masochists double them.</li>
+    </ul>
+    <p><em>As with any exercise: warm up first, keep your form honest, and adapt the list to your body. The wheel is a game, not a personal trainer.</em></p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Make it yours</h2>
+    <p>Want to add, remove or reword the options? Hit <strong>“Customize this wheel”</strong> under the spinner — it opens this exact list in the <a href="/">full wheel editor</a>, where you can edit entries, change the theme, and share your version with a link. You can also toggle <em>Remove winner after spin</em> to run through every option without repeats.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Do I need any equipment?</strong><br>No — all ten exercises are bodyweight-only and fit in a small room. Push-ups, squats, planks and friends.</p>
+    <p><strong>How many spins make a full workout?</strong><br>Six to eight spins with short rests is a solid 15–20 minute session. Or enable “Remove winner after spin” and complete the entire wheel once.</p>
+    <p><strong>Can I change the exercises or reps?</strong><br>Yes — “Customize this wheel” opens the list in the editor. Adjust reps to your level or swap in your favorite movements.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">More Wheels</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/wheels/date-night/">
+          <div class="tool-card-icon">💘</div>
+          <h4>Date Night Wheel</h4>
+          <p>Because “I don't know, you pick” isn't a date</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/chore-wheel/">
+          <div class="tool-card-icon">🧹</div>
+          <h4>Chore Wheel</h4>
+          <p>The referee your household needed</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/icebreaker-questions/">
+          <div class="tool-card-icon">🧊</div>
+          <h4>Icebreaker Question Wheel</h4>
+          <p>Ten questions, zero awkward silences</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/wheels/">
+          <div class="tool-card-icon">🎯</div>
+          <h4>All Wheel Templates</h4>
+          <p>Browse every ready-made wheel in the gallery</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>window.WHEEL_DATA = {"entries": ["15 Push-ups", "20 Squats", "60s Plank", "30 Jumping jacks", "12 Lunges each leg", "10 Burpees", "30 Mountain climbers", "20 Sit-ups", "45s Wall sit", "30s High knees"], "removeDefault": false};</script>
+  <script src="/wheels/wheel-widget.js"></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>
