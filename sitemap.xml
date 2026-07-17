@@ -6,10 +6,22 @@
   </url>
   <url>
     <loc>https://wheeloflist.com/random-number/</loc>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://wheeloflist.com/dice-roller/</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/tools/</loc>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/privacy-policy/</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/terms/</loc>
+    <priority>0.3</priority>
   </url>
 </urlset>

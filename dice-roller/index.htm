@@ -2,12 +2,197 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dice Roller - Wheel Of List</title>
+  <title>Dice Roller — Roll Virtual 3D Dice Online | Wheel Of List</title>
+  <meta name="description" content="Free online dice roller with animated 3D dice. Roll 1 to 10 dice at once, see individual results and totals, and keep a history of your rolls. Perfect for board games and RPGs.">
   <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/dice-roller/">
+  <meta name="theme-color" content="#3369e8">
+  <link rel="icon" href="/favicon.ico">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dice Roller — Roll Virtual 3D Dice Online">
+  <meta property="og:description" content="Roll 1 to 10 animated 3D dice, see totals and keep a history of your rolls. Perfect for board games and RPGs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wheeloflist.com/dice-roller/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <!-- Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <!-- Three.js for the 3D dice -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Analytics + Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XV614N2RLR"></script>
   <script>
-    window.location.replace('/?tool=dice-roller');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XV614N2RLR');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Dice Roller",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online dice roller with animated 3D dice. Roll 1 to 10 dice, see individual results and totals, and keep a roll history.",
+    "url": "https://wheeloflist.com/dice-roller/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wheeloflist.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://wheeloflist.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Dice Roller", "item": "https://wheeloflist.com/dice-roller/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many dice can I roll at once?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can roll from 1 to 10 six-sided dice at the same time. The tool shows each individual result plus the total." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the dice rolls fair?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each die is an independent uniform draw from 1 to 6 — the 3D animation is just for fun, the result is decided by the random number generator, not by physics." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this for board games and RPGs?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. It replaces physical dice for Monopoly, Yahtzee, Catan and most tabletop games. For other die types like a d20, use our random number generator with a 1-20 range." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it save my rolls?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The last 10 rolls are saved locally in your browser with results, totals and timestamps. Nothing is sent to a server." }
+      }
+    ]
+  }
   </script>
 </head>
-<body></body>
+<body>
+  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tool mounts here -->
+  <div id="tools-container" style="display:block"></div>
+
+  <main class="container" style="max-width: 900px; padding: 40px 20px;">
+    <h1 style="font-size:1.9rem;">Online Dice Roller</h1>
+    <p>Lost the dice from your board game box? Playing over a video call? This free dice roller gives you up to ten animated 3D dice in your browser. Pick how many dice you need, hit <em>Roll Dices</em>, and watch them tumble before settling on your result. You get each individual die face plus the total, and your last ten rolls are kept in a local history.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">How to use it</h2>
+    <ol>
+      <li><strong>Choose the number of dice</strong> — from 1 to 10, using the slider or the +/− buttons.</li>
+      <li><strong>Click Roll Dices</strong> — the 3D dice tumble and land on your results.</li>
+      <li><strong>Read the results</strong> — individual faces and the sum are shown below the animation.</li>
+      <li><strong>Check the history</strong> — the last 10 rolls stay saved in your browser with timestamps.</li>
+    </ol>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">Perfect for game night</h2>
+    <ul>
+      <li><strong>Board games:</strong> Monopoly, Backgammon, Catan, Yahtzee — two dice or five, it covers the classics.</li>
+      <li><strong>Remote play:</strong> playing over a call? Share your screen and everyone sees the same fair roll.</li>
+      <li><strong>Teaching probability:</strong> roll two dice repeatedly and chart the totals — the bell shape around 7 appears fast, a hands-on intro to distributions.</li>
+      <li><strong>Quick decisions:</strong> odd or even, high or low — a die is the fastest tie-breaker there is.</li>
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">The odds, briefly</h2>
+    <p>Each die is an independent, uniform draw: every face from 1 to 6 has a 1-in-6 chance. With two dice, totals aren't uniform anymore — 7 is the most likely sum (6 ways out of 36, about 16.7%), while 2 and 12 come up only once in 36 rolls each. That asymmetry is the engine behind games like Catan and Craps. The 3D animation here is purely visual: results are drawn by the random number generator the moment you click, then the dice are animated to match — so physics glitches can never bias your roll.</p>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem;">FAQ</h2>
+    <p><strong>Can I roll other dice types (d4, d8, d20)?</strong><br>This tool rolls six-sided dice. For any other die, use the <a href="/random-number/">Random Number Generator</a> — set the range to 1–20 for a d20, 1–8 for a d8, and so on.</p>
+    <p><strong>Are rolls fair?</strong><br>Yes — each die is an independent uniform draw. Previous rolls never affect the next one.</p>
+    <p><strong>Does it work on mobile?</strong><br>Yes, the 3D dice run in any modern mobile or desktop browser.</p>
+
+    <section class="quick-tools-section" style="margin-top:3rem;">
+      <h3 class="quick-tools-title">Related Tools</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/">
+          <div class="tool-card-icon">🎡</div>
+          <h4>Wheel Spinner</h4>
+          <p>Enter names, spin the wheel and pick a random winner</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/random-number/">
+          <div class="tool-card-icon">🎲</div>
+          <h4>Random Number Generator</h4>
+          <p>Generate a random number in any range — great for d20s too</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/tools/module-manager.js"></script>
+  <script src="/tools/dice-3d.js"></script>
+  <script src="/tools/dice-loader.js"></script>
+  <script>
+    function backToWheel(){ window.location.href = '/'; }
+    document.addEventListener('DOMContentLoaded', function(){
+      moduleManager.switchTo('diceLoader');
+      window.scrollTo(0, 0);
+    });
+  </script>
+  <script src="/consent.js" defer></script>
+</body>
 </html>
