@@ -618,6 +618,7 @@ function applyNamesFromTextarea() {
 
   const inputText = document.getElementById("namesInput").value;
   names = inputText.split("\n").map((n) => n.trim()).filter(Boolean);
+  if (window.wolAnalytics) window.wolAnalytics.track("wheel_items_update", { item_count: names.length });
   setStoredValue(STORAGE_KEYS.names, names.join("\n"));
 
   if (names.length === 0) {
@@ -708,6 +709,8 @@ document.getElementById("loadSample").addEventListener("click", () => {
 // ---------------- Spin logic ----------------
 function spin() {
   if (isSpinning || isAnimatingWinner || names.length < 2) return;
+
+  if (window.wolAnalytics) window.wolAnalytics.track("wheel_spin_start", { item_count: names.length });
 
   highlightIndex = null;
   blinkActive = false;
@@ -829,6 +832,12 @@ function addScoreboard(winner) {
   li.dataset.winner = winner;
   li.innerHTML = `<span class="order-number">${spinOrder}</span> ${winner}`;
   scoreboardEl.appendChild(li);
+  if (window.wolAnalytics) {
+    window.wolAnalytics.track("wheel_result", {
+      item_count: originalNames.length,
+      remaining_count: Math.max(0, names.length - 1)
+    });
+  }
 }
 
 // ---------------- Winner animation (blink only) ----------------
@@ -933,6 +942,7 @@ document.getElementById("shareResult").addEventListener("click", async () => {
   try {
     if (navigator.share) {
       await navigator.share({ title: "Wheel Of List", text: shareText, url: shareUrl.toString() });
+      if (window.wolAnalytics) window.wolAnalytics.track("wheel_share", { method: "native" });
       showToast("Shared!");
       return;
     }
@@ -940,6 +950,7 @@ document.getElementById("shareResult").addEventListener("click", async () => {
 
   const fallback = shareText + "\n\n" + shareUrl.toString();
   const ok = await copyToClipboard(fallback);
+  if (ok && window.wolAnalytics) window.wolAnalytics.track("wheel_share", { method: "clipboard" });
   showToast(ok ? "Copied to clipboard." : "Could not copy.");
 });
 
@@ -1137,6 +1148,7 @@ document.getElementById("downloadShareImage").addEventListener("click", async ()
     const dataUrl = await generateShareImageDataUrl();
     if (!dataUrl) return showToast("Could not generate image.");
     downloadDataUrl(dataUrl, "wheeloflist-result.png");
+    if (window.wolAnalytics) window.wolAnalytics.track("wheel_image_download");
     showToast("Image downloaded.");
   } catch (e) {
     console.error(e);
@@ -1149,6 +1161,7 @@ document.getElementById("themeSelect").addEventListener("change", (e) => {
   const selectedTheme = e.target.value === "dark" ? "dark" : "light";
   document.body.classList.toggle("dark-theme", selectedTheme === "dark");
   setStoredValue(STORAGE_KEYS.theme, selectedTheme);
+  if (window.wolAnalytics) window.wolAnalytics.track("theme_change", { theme: selectedTheme });
   resizeCanvas();
 });
 

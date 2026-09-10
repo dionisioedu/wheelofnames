@@ -149,6 +149,7 @@ TEMPLATE = '''<!DOCTYPE html>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>window.WHEEL_DATA = @@WHEEL_DATA@@;</script>
   <script src="/wheels/wheel-widget.js"></script>
+  <script src="/engagement.js" defer></script>
   <script src="/consent.js" defer></script>
 </body>
 </html>
@@ -549,6 +550,7 @@ GALLERY_TEMPLATE = '''<!DOCTYPE html>
 @@FOOTER@@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/engagement.js" defer></script>
   <script src="/consent.js" defer></script>
 </body>
 </html>

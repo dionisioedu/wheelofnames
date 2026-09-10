@@ -101,6 +101,7 @@
     var data = read();
     data[name] = entries;
     write(data);
+    if (window.wolAnalytics) window.wolAnalytics.track('wheel_save', { item_count: entries.length });
     nameInput.value = '';
     render();
   });

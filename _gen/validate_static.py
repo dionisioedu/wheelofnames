@@ -70,6 +70,9 @@ def main():
         if duplicates:
             errors.append(f"{page.relative_to(ROOT)}: duplicate ids: {', '.join(duplicates)}")
 
+        if "/engagement.js" not in parser.links:
+            errors.append(f"{page.relative_to(ROOT)}: missing shared analytics.js")
+
         for index, payload in enumerate(parser.jsonld, 1):
             if not payload:
                 errors.append(f"{page.relative_to(ROOT)}: empty JSON-LD block {index}")
