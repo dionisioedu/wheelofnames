@@ -4,9 +4,39 @@
  * (textarea + Update button), so it stays decoupled from wheel internals.
  */
 (function () {
+  // ---------- Editor tabs ----------
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[data-editor-tab]'));
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (item) {
+        var selected = item === tab;
+        item.classList.toggle('active', selected);
+        item.setAttribute('aria-selected', selected ? 'true' : 'false');
+        item.setAttribute('tabindex', selected ? '0' : '-1');
+        var panel = document.getElementById(item.getAttribute('data-editor-tab'));
+        if (panel) {
+          panel.hidden = !selected;
+          panel.classList.toggle('active', selected);
+        }
+      });
+      // Panel heights can reflow the Bootstrap row at narrow widths; keep the
+      // canvas overlays anchored to the wheel after that layout change.
+      setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 0);
+    });
+    tab.addEventListener('keydown', function (event) {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      var direction = event.key === 'ArrowRight' ? 1 : -1;
+      var next = tabs[(tabs.indexOf(tab) + direction + tabs.length) % tabs.length];
+      next.focus();
+      next.click();
+    });
+  });
+
   // ---------- Fullscreen ----------
   var container = document.getElementById('wheel-container');
   var fsBtn = document.getElementById('fullscreenBtn');
+  var fsShortcut = document.getElementById('fullscreenShortcut');
   if (container && fsBtn) {
     fsBtn.addEventListener('click', function () {
       try {
@@ -23,6 +53,9 @@
       // Let the wheel recompute its size for the new viewport
       setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 60);
     });
+  }
+  if (fsShortcut && fsBtn) {
+    fsShortcut.addEventListener('click', function () { fsBtn.click(); });
   }
 
   // ---------- Saved wheels ----------

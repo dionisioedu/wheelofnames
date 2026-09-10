@@ -1149,7 +1149,7 @@ document.getElementById("themeSelect").addEventListener("change", (e) => {
   const selectedTheme = e.target.value === "dark" ? "dark" : "light";
   document.body.classList.toggle("dark-theme", selectedTheme === "dark");
   setStoredValue(STORAGE_KEYS.theme, selectedTheme);
-  drawWheel();
+  resizeCanvas();
 });
 
 // Keyboard

@@ -8,7 +8,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NAV = '''  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
@@ -68,7 +68,7 @@ TEMPLATE = '''<!DOCTYPE html>
   <meta name="robots" content="index, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://wheeloflist.com/wheels/@@SLUG@@/">
-  <meta name="theme-color" content="#3369e8">
+  <meta name="theme-color" content="#6858e8">
   <link rel="icon" href="/favicon.ico">
   <meta property="og:title" content="@@OG_TITLE@@">
   <meta property="og:description" content="@@DESC@@">
@@ -494,7 +494,7 @@ GALLERY_TEMPLATE = '''<!DOCTYPE html>
   <meta name="robots" content="index, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://wheeloflist.com/wheels/">
-  <meta name="theme-color" content="#3369e8">
+  <meta name="theme-color" content="#6858e8">
   <link rel="icon" href="/favicon.ico">
   <meta property="og:title" content="Wheel Templates — Ready-Made Decision Wheels">
   <meta property="og:description" content="Spin ready-made wheels: what to eat, truth or dare, what to watch, workouts, chores and more.">
