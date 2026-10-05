@@ -94,7 +94,7 @@
   </style>
 </head>
 <body>
-  <script>try{if(localStorage.getItem('wheeloflist_theme')==='dark')document.body.classList.add('dark-theme');}catch(e){}</script>
+  <script src="/theme.js"></script>
 
   <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
@@ -241,6 +241,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/sounds.js"></script>
   <script>
   (function(){
     var canvas = document.getElementById('ynwCanvas');
@@ -324,14 +325,22 @@
       var startRot = rot;
       var delta = 4 * 360 + Math.random() * 720; // 4-6 turns
       var t0 = performance.now();
+      var lastSeg = -1;
+      var spinHandle = window.WOLSound ? window.WOLSound.play('spin', { duration: duration / 1000 }) : null;
       function frame(now){
         var t = Math.min((now - t0) / duration, 1);
         rot = (startRot + delta * easeOutCubic(t)) % 360000;
         draw(rot % 360);
+        // Tick when the segment under the pointer changes (throttled, not per-frame).
+        var cfg = MODES[mode];
+        var segNow = Math.floor((((270 - (rot % 360)) % 360 + 360) % 360) / (360 / cfg.labels.length));
+        if (segNow !== lastSeg) { if (window.WOLSound) window.WOLSound.play('tick'); lastSeg = segNow; }
         if (t < 1) { requestAnimationFrame(frame); }
         else {
+          if (spinHandle && spinHandle.stop) spinHandle.stop();
           var w = winnerAt(rot % 360);
           resultEl.textContent = (w === 'Yes' ? '✅ ' : w === 'No' ? '❌ ' : '🤔 ') + w + '!';
+          if (window.WOLSound) window.WOLSound.play(w === 'Yes' ? 'win' : w === 'No' ? 'fail' : 'click');
           stats[w.toLowerCase()]++;
           try { localStorage.setItem('ynw-stats', JSON.stringify(stats)); } catch(e) {}
           renderStats();

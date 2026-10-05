@@ -321,10 +321,15 @@ function setStoredValue(key, value) {
 }
 
 function applyStoredTheme() {
-  const savedTheme = getStoredValue(STORAGE_KEYS.theme);
-  const theme = savedTheme === "dark" ? "dark" : "light";
+  const theme = window.WOLTheme ? window.WOLTheme.get() : (getStoredValue(STORAGE_KEYS.theme) === "dark" ? "dark" : "light");
 
-  document.body.classList.toggle("dark-theme", theme === "dark");
+  if (window.WOLTheme) {
+    // theme.js is the source of truth: persists (idempotent) + applies classes.
+    window.WOLTheme.set(theme);
+  } else {
+    // Defensive fallback if theme.js failed to load.
+    document.body.classList.toggle("dark-theme", theme === "dark");
+  }
 
   const themeSelect = document.getElementById("themeSelect");
   if (themeSelect) themeSelect.value = theme;
@@ -727,7 +732,7 @@ function spin() {
   isSpinning = true;
 
   spinSound.loop = true;
-  try { const sp = spinSound.play(); if (sp && sp.catch) sp.catch(() => {}); } catch (e) {}
+  try { if (!window.WOLSound || window.WOLSound.isEnabled()) { const sp = spinSound.play(); if (sp && sp.catch) sp.catch(() => {}); } } catch (e) {}
 
   requestAnimationFrame(rotateWheel);
 }
@@ -762,6 +767,7 @@ function rotateWheel() {
 
 function playTick() {
   try {
+    if (window.WOLSound && !window.WOLSound.isEnabled()) return;
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const o = audioCtx.createOscillator();
     const g = audioCtx.createGain();
@@ -853,7 +859,7 @@ function triggerWinnerAnimation(winningName, callback) {
 
   try { if (window.confettiBurst) window.confettiBurst(); } catch (e) {}
 
-  try { const p = winSound.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+  try { if (!window.WOLSound || window.WOLSound.isEnabled()) { const p = winSound.play(); if (p && p.catch) p.catch(() => {}); } } catch (e) {}
 
   // Enable blink during the animation
   blinkActive = true;
@@ -1182,10 +1188,23 @@ document.getElementById("downloadShareImage").addEventListener("click", async ()
 });
 
 // ---------------- Theme ----------------
+// Keep the <select> in sync whenever the theme changes anywhere (including
+// programmatic WOLTheme.set() calls from other scripts).
+window.addEventListener("wol:theme", (e) => {
+  const id = e && e.detail ? e.detail.theme : null;
+  const themeSelect = document.getElementById("themeSelect");
+  if (id && themeSelect && themeSelect.value !== id) themeSelect.value = id;
+});
+
 document.getElementById("themeSelect").addEventListener("change", (e) => {
-  const selectedTheme = e.target.value === "dark" ? "dark" : "light";
-  document.body.classList.toggle("dark-theme", selectedTheme === "dark");
-  setStoredValue(STORAGE_KEYS.theme, selectedTheme);
+  const selectedTheme = e.target.value;
+  if (window.WOLTheme) {
+    window.WOLTheme.set(selectedTheme);
+  } else {
+    // Defensive fallback if theme.js failed to load.
+    document.body.classList.toggle("dark-theme", selectedTheme === "dark");
+    setStoredValue(STORAGE_KEYS.theme, selectedTheme);
+  }
   if (window.wolAnalytics) window.wolAnalytics.track("theme_change", { theme: selectedTheme });
   resizeCanvas();
 });

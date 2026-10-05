@@ -1516,6 +1516,202 @@ body.dark-theme {
     var(--aurora-bg);
 }
 
+/* ===== Multi-theme palettes =====
+   Each block overrides the :root custom properties. Dark-style themes also
+   set color-scheme + a matching background gradient (theme.js additionally
+   keeps the legacy `dark-theme` class in sync). */
+body.theme-light {
+  color-scheme: light;
+}
+
+/* Light-style palettes get matching background glows too */
+body.theme-sunset,
+body.theme-candy,
+body.theme-paper {
+  color-scheme: light;
+  color: var(--aurora-text);
+  background:
+    radial-gradient(circle at 8% 4%, var(--aurora-glow), transparent 27rem),
+    radial-gradient(circle at 92% 38%, var(--aurora-glow-2), transparent 26rem),
+    var(--aurora-bg);
+}
+
+body.theme-dark,
+body.theme-neon,
+body.theme-ocean,
+body.theme-forest,
+body.theme-retro,
+body.theme-midnight {
+  color-scheme: dark;
+  color: var(--aurora-text);
+  background:
+    radial-gradient(circle at 8% 4%, var(--aurora-glow), transparent 27rem),
+    radial-gradient(circle at 92% 38%, var(--aurora-glow-2), transparent 26rem),
+    var(--aurora-bg);
+}
+
+/* Night — the original dark theme, exposed as an explicit palette */
+body.theme-dark {
+  --aurora-bg: #10121b;
+  --aurora-surface: rgba(25, 28, 41, 0.92);
+  --aurora-surface-solid: #191c29;
+  --aurora-soft: #232738;
+  --aurora-text: #f5f6ff;
+  --aurora-muted: #b1b7ca;
+  --aurora-line: #32374b;
+  --aurora-accent: #9b8cff;
+  --aurora-accent-strong: #b1a6ff;
+  --aurora-mint: #45d6c3;
+  --aurora-pink: #ff82a4;
+  --aurora-shadow: 0 20px 55px rgba(0, 0, 0, .28);
+  --aurora-glow: rgba(155, 140, 255, .14);
+  --aurora-glow-2: rgba(69, 214, 195, .09);
+}
+
+/* Neon Cyberpunk */
+body.theme-neon {
+  --aurora-bg: #0b0418;
+  --aurora-surface: rgba(24, 8, 46, 0.9);
+  --aurora-surface-solid: #1a0730;
+  --aurora-soft: #260b45;
+  --aurora-text: #f3eaff;
+  --aurora-muted: #b79fdc;
+  --aurora-line: #4b1e7a;
+  --aurora-accent: #ff2fd0;
+  --aurora-accent-strong: #ff6ee0;
+  --aurora-mint: #00f0ff;
+  --aurora-pink: #ff4fa3;
+  --aurora-shadow: 0 20px 60px rgba(255, 47, 208, .22);
+  --aurora-glow: rgba(255, 47, 208, .22);
+  --aurora-glow-2: rgba(0, 240, 255, .16);
+}
+
+/* Deep Ocean */
+body.theme-ocean {
+  --aurora-bg: #04121f;
+  --aurora-surface: rgba(9, 33, 54, 0.92);
+  --aurora-surface-solid: #0a2438;
+  --aurora-soft: #0e3049;
+  --aurora-text: #e6f6ff;
+  --aurora-muted: #93b8cf;
+  --aurora-line: #1c4a68;
+  --aurora-accent: #38bdf8;
+  --aurora-accent-strong: #7dd3fc;
+  --aurora-mint: #2dd4bf;
+  --aurora-pink: #67e8f9;
+  --aurora-shadow: 0 20px 55px rgba(0, 0, 0, .38);
+  --aurora-glow: rgba(56, 189, 248, .16);
+  --aurora-glow-2: rgba(45, 212, 191, .12);
+}
+
+/* Sunset */
+body.theme-sunset {
+  --aurora-bg: #fff4ec;
+  --aurora-surface: rgba(255, 255, 255, 0.88);
+  --aurora-surface-solid: #fffaf5;
+  --aurora-soft: #ffe8d6;
+  --aurora-text: #3a1d12;
+  --aurora-muted: #8a5a44;
+  --aurora-line: #f4d3bd;
+  --aurora-accent: #f2642b;
+  --aurora-accent-strong: #d1471a;
+  --aurora-mint: #e0912f;
+  --aurora-pink: #e84f7d;
+  --aurora-shadow: 0 18px 50px rgba(120, 52, 20, 0.14);
+  --aurora-glow: rgba(242, 100, 43, .16);
+  --aurora-glow-2: rgba(232, 79, 125, .12);
+}
+
+/* Forest */
+body.theme-forest {
+  --aurora-bg: #0a1710;
+  --aurora-surface: rgba(17, 38, 26, 0.92);
+  --aurora-surface-solid: #122a1c;
+  --aurora-soft: #173522;
+  --aurora-text: #e9f7ec;
+  --aurora-muted: #a2c2a8;
+  --aurora-line: #245036;
+  --aurora-accent: #4ade80;
+  --aurora-accent-strong: #86efac;
+  --aurora-mint: #34d399;
+  --aurora-pink: #a3e635;
+  --aurora-shadow: 0 20px 55px rgba(0, 0, 0, .35);
+  --aurora-glow: rgba(74, 222, 128, .16);
+  --aurora-glow-2: rgba(52, 211, 153, .12);
+}
+
+/* Candy Pop */
+body.theme-candy {
+  --aurora-bg: #fff2f7;
+  --aurora-surface: rgba(255, 255, 255, 0.9);
+  --aurora-surface-solid: #fffafd;
+  --aurora-soft: #ffe0ee;
+  --aurora-text: #431430;
+  --aurora-muted: #a2517d;
+  --aurora-line: #ffc9e1;
+  --aurora-accent: #f9559e;
+  --aurora-accent-strong: #d92f80;
+  --aurora-mint: #42cce0;
+  --aurora-pink: #b06cf0;
+  --aurora-shadow: 0 18px 50px rgba(217, 47, 128, 0.14);
+  --aurora-glow: rgba(249, 85, 158, .16);
+  --aurora-glow-2: rgba(176, 108, 240, .12);
+}
+
+/* Retro Arcade */
+body.theme-retro {
+  --aurora-bg: #120a1f;
+  --aurora-surface: rgba(27, 14, 42, 0.92);
+  --aurora-surface-solid: #1d0f2e;
+  --aurora-soft: #2a1440;
+  --aurora-text: #f7e9c8;
+  --aurora-muted: #d0a86a;
+  --aurora-line: #4d2a6b;
+  --aurora-accent: #ffcc00;
+  --aurora-accent-strong: #ffe066;
+  --aurora-mint: #ff5d8f;
+  --aurora-pink: #ff7a45;
+  --aurora-shadow: 0 20px 55px rgba(0, 0, 0, .4);
+  --aurora-glow: rgba(255, 204, 0, .16);
+  --aurora-glow-2: rgba(255, 93, 143, .12);
+}
+
+/* Paper (sepia editorial) */
+body.theme-paper {
+  --aurora-bg: #f4ecd8;
+  --aurora-surface: rgba(255, 252, 243, 0.9);
+  --aurora-surface-solid: #fffdf6;
+  --aurora-soft: #eae0c8;
+  --aurora-text: #3b3222;
+  --aurora-muted: #7d6f54;
+  --aurora-line: #ddd0b0;
+  --aurora-accent: #9c6b2f;
+  --aurora-accent-strong: #7d531f;
+  --aurora-mint: #6b8f5e;
+  --aurora-pink: #b5623b;
+  --aurora-shadow: 0 18px 50px rgba(90, 74, 42, 0.14);
+  --aurora-glow: rgba(156, 107, 47, .12);
+  --aurora-glow-2: rgba(107, 143, 94, .10);
+}
+
+/* Midnight Blue */
+body.theme-midnight {
+  --aurora-bg: #070d21;
+  --aurora-surface: rgba(13, 23, 48, 0.92);
+  --aurora-surface-solid: #0e1830;
+  --aurora-soft: #142242;
+  --aurora-text: #e8eeff;
+  --aurora-muted: #9fb0d8;
+  --aurora-line: #22325c;
+  --aurora-accent: #3b6ef5;
+  --aurora-accent-strong: #6f97ff;
+  --aurora-mint: #22d3ee;
+  --aurora-pink: #818cf8;
+  --aurora-shadow: 0 20px 60px rgba(0, 0, 0, .42);
+  --aurora-glow: rgba(59, 110, 245, .18);
+  --aurora-glow-2: rgba(34, 211, 238, .12);
+}
+
 a { color: var(--aurora-accent-strong); text-underline-offset: .18em; }
 a:hover { color: var(--aurora-mint); }
 h1, h2, h3, h4, h5, h6 { color: var(--aurora-text); font-weight: 700; letter-spacing: -.025em; }

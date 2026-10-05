@@ -165,6 +165,9 @@ class RandomNumberGenerator {
 
     this.isGenerating = true;
 
+    // Event sound: UI click on generate.
+    try { if (window.WOLSound) window.WOLSound.play('click'); } catch(e){}
+
     // Animação de geração
     const result = document.getElementById('number-result');
     const btn = document.getElementById('generate-btn');
@@ -191,6 +194,7 @@ class RandomNumberGenerator {
 
         // Play win sound (guarded)
         try { if (this.winSound) { this.winSound.currentTime = 0; this.winSound.play().catch(()=>{}); } } catch(e){}
+        try { if (window.WOLSound) window.WOLSound.play('win'); } catch(e){}
 
         // Adicionar ao histórico
         this.addToHistory(finalNumber, min, max);

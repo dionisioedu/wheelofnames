@@ -185,6 +185,9 @@ class DiceLoader {
     
     console.log('[DiceLoader] Generated values:', results);
 
+    // Event sound: dice rattle at throw start.
+    try { if (window.WOLSound) window.WOLSound.play('dice'); } catch(e){}
+
     // Animate 3D dice with the results
     if (this.dice3D) {
       this.dice3D.rollDice(results, 1000);
@@ -220,6 +223,7 @@ class DiceLoader {
 
     // Play sound
     try { if (this.winSound) { this.winSound.currentTime = 0; this.winSound.play().catch(()=>{}); } } catch(e){}
+    try { if (window.WOLSound) window.WOLSound.play('win'); } catch(e){}
 
     // Re-enable button after 5 seconds (when dice unfreezes) or when user clicks again
     setTimeout(() => {

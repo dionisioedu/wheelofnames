@@ -118,6 +118,7 @@
   </script>
 </head>
 <body>
+  <script src="/theme.js"></script>
   <!-- quick tools toolbar removed (tools accessible from top nav) -->
   <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
@@ -215,8 +216,16 @@
           <section class="editor-panel" id="appearancePanel" role="tabpanel" aria-labelledby="appearanceTab" hidden>
             <label for="themeSelect" class="form-label">Color theme</label>
             <select id="themeSelect" class="form-select">
-              <option value="light">Light theme</option>
-              <option value="dark">Dark theme</option>
+              <option value="light">Light</option>
+              <option value="dark">Night</option>
+              <option value="neon">Neon Cyberpunk</option>
+              <option value="ocean">Deep Ocean</option>
+              <option value="sunset">Sunset</option>
+              <option value="forest">Forest</option>
+              <option value="candy">Candy Pop</option>
+              <option value="retro">Retro Arcade</option>
+              <option value="paper">Paper</option>
+              <option value="midnight">Midnight Blue</option>
             </select>
             <p class="panel-help">Choose the look that works best for your room and screen.</p>
             <button id="fullscreenShortcut" class="btn btn-outline-primary w-100" type="button">Open wheel fullscreen</button>
@@ -503,6 +512,8 @@
 
   <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Shared synthesized sound module (also injects the global mute toggle) -->
+  <script src="/sounds.js"></script>
   <!-- Module System -->
   <script src="tools/module-manager.js"></script>
   <!-- 3D Utilities -->

@@ -119,15 +119,25 @@
     var startRot = rot;
     var delta = 4 * 360 + Math.random() * 720;
     var t0 = performance.now();
+    var lastIdx = winnerIndex(rot % 360);
+    var spinHandle = (window.WOLSound && window.WOLSound.play) ? window.WOLSound.play('spin', { duration: duration / 1000 }) : null;
     function frame(now) {
       var t = Math.min((now - t0) / duration, 1);
       rot = (startRot + delta * easeOutCubic(t)) % 360000;
       draw(rot % 360);
+      // Tick only when the segment under the pointer changes (mirrors homepage).
+      var idxNow = winnerIndex(rot % 360);
+      if (idxNow !== lastIdx) {
+        if (window.WOLSound) window.WOLSound.play('tick');
+        lastIdx = idxNow;
+      }
       if (t < 1) { requestAnimationFrame(frame); }
       else {
+        if (spinHandle && spinHandle.stop) spinHandle.stop();
         var idx = winnerIndex(rot % 360);
         var winner = entries[idx];
         resultEl.textContent = '🎉 ' + winner;
+        if (window.WOLSound) window.WOLSound.play('win');
         try { if (window.confettiBurst) window.confettiBurst({ count: 120 }); } catch (e) {}
         spinBtn.classList.remove('loading');
         spinning = false;
