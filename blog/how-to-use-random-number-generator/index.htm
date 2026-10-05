@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>A Short History of Dice: 5,000 Years of Rolling | Wheel Of List Blog</title>
-  <meta name="description" content="From sheep anklebones to loaded Roman dice to the d20 — how a tiny cube carried divination, gambling and game night across five millennia.">
+  <title>How to Use a Random Number Generator (Ranges, Decimals, Seeds)</title>
+  <meta name="description" content="Generate random integers or decimals in any range: how to set a min and max, when you need a whole number, and how to avoid the classic off-by-one mistake.">
   <meta name="robots" content="index, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://wheeloflist.com/blog/history-of-dice/">
+  <link rel="canonical" href="https://wheeloflist.com/blog/how-to-use-random-number-generator/">
   <meta name="theme-color" content="#6858e8">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180x180.png">
-  <meta property="og:title" content="A Short History of Dice: 5,000 Years of Rolling">
-  <meta property="og:description" content="From sheep anklebones to loaded Roman dice to the d20 — how a tiny cube carried divination, gambling and game night across five millennia.">
+  <meta property="og:title" content="How to Use a Random Number Generator">
+  <meta property="og:description" content="Generate random integers or decimals in any range: how to set a min and max, when you need a whole number, and how to avoid the classic off-by-one mistake.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://wheeloflist.com/blog/history-of-dice/">
+  <meta property="og:url" content="https://wheeloflist.com/blog/how-to-use-random-number-generator/">
   <meta property="og:site_name" content="Wheel Of List">
   <meta property="og:image" content="https://wheeloflist.com/og.jpg">
   <meta property="article:published_time" content="2026-07-17">
@@ -38,8 +38,8 @@
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "A Short History of Dice: 5,000 Years of Rolling",
-  "description": "From sheep anklebones to loaded Roman dice to the d20 — how a tiny cube carried divination, gambling and game night across five millennia.",
+  "headline": "How to Use a Random Number Generator",
+  "description": "Generate random integers or decimals in any range: how to set a min and max, when you need a whole number, and how to avoid the classic off-by-one mistake.",
   "author": {
     "@type": "Person",
     "name": "Eduardo Dionisio",
@@ -52,7 +52,7 @@
   },
   "datePublished": "2026-07-17",
   "dateModified": "2026-07-17",
-  "mainEntityOfPage": "https://wheeloflist.com/blog/history-of-dice/",
+  "mainEntityOfPage": "https://wheeloflist.com/blog/how-to-use-random-number-generator/",
   "image": "https://wheeloflist.com/og.jpg"
 }
   </script>
@@ -76,8 +76,8 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "A Short History of Dice: 5,000 Years of Rolling",
-      "item": "https://wheeloflist.com/blog/history-of-dice/"
+      "name": "How to Use a Random Number Generator",
+      "item": "https://wheeloflist.com/blog/how-to-use-random-number-generator/"
     }
   ]
 }
@@ -144,48 +144,57 @@
 
   <main class="container" style="padding: 40px 20px;">
     <article class="article-body">
-      <div class="article-catlin"><a href="/blog/" class="article-back">← All articles</a> <span class="article-cat article-cat-theory">Theory</span></div>
-      <h1>A Short History of Dice: 5,000 Years of Rolling</h1>
+      <div class="article-catlin"><a href="/blog/" class="article-back">← All articles</a> <span class="article-cat article-cat-guides">Guides</span></div>
+      <h1>How to Use a Random Number Generator</h1>
       <div class="article-meta">By Eduardo Dionisio · July 17, 2026 · 2 min read</div>
 
-<p>Before dice were toys they were telephones to the gods. The oldest randomizers archaeologists find are <strong>astragali</strong> — anklebones of sheep and goats, naturally four-sided-ish — used across the ancient Near East for divination: toss the bones, read the will of heaven in how they land. Chance was sacred tech long before it was Saturday night entertainment, and the transition from oracle to game is basically the history of civilization in miniature.</p>
+<p>A random number generator is the tool for when the options aren't names but numbers: a number between 1 and 100, a decimal test value, an index to pick from a list you keep elsewhere. This guide covers the <a href="/random-number/">Random Number Generator</a> and the mistakes people make with ranges.</p>
 
-<h2>The first true dice</h2>
-<p>Six-sided dice with marked faces appear by around 3000 BCE in Mesopotamia and the Indus Valley; the Royal Game of Ur (c. 2600 BCE) shipped with tetrahedral dice, and Egyptian tombs hold cubic dice remarkably like yours. By the Roman era, dice (<em>tesserae</em>) were everywhere — soldiers, emperors, back alleys. Suetonius records the emperor Claudius wrote a book on dice play; Roman law banned gambling except during Saturnalia, a prohibition enforced with a wink. Archaeologists have recovered Roman dice weighted with drops of lead — proof that within a few centuries of inventing standardized chance, humanity industrialized cheating at it.</p>
+<h2>Setting a range</h2>
+<p>Enter a minimum and a maximum, then generate. By default you get a whole number in that range, <em>inclusive</em> — min 1, max 10 can return a 1 or a 10, not just 2 through 9. That inclusiveness is the single most common point of confusion. If you need 1–10 without the endpoints, set 2–9.</p>
 
-<h2>Dice built probability theory</h2>
-<p>Here's the strangest part: dice existed for over four millennia before anyone did the math. Not until 1654, when gambler Antoine Gombaud asked Blaise Pascal why betting on a double six in 24 rolls lost money, did Pascal and Pierre de Fermat, in a burst of letters, invent probability theory itself. (Answer: 24 rolls gives 49.1% — a hair under fair.) Every actuarial table, weather forecast and clinical trial descends from two Frenchmen arguing about dice by mail.</p>
+<h2>Whole numbers vs. decimals</h2>
+<p>Use integers for counting (picking a numbered seat, a lottery number, a page in a book). Use decimals when you're generating test data, simulating a percentage, or need a value between 0 and 1. You can control how many decimal places you get.</p>
 
-<h2>Loaded language</h2>
-<p>Dice soaked so deep into culture that our idioms still rattle with them: Caesar's <em>alea iacta est</em> — "the die is cast" — crossing the Rubicon; "no dice"; "dicey"; "loaded question." When Einstein wanted to reject quantum indeterminacy he reached for the same object: "God does not play dice." (Current physics consensus: He might.)</p>
+<h2>The off-by-one trap</h2>
+<p>"Pick a number from 1 to 6" and "roll a die" should give the same answers — both inclusive of 1 and 6. If your generator treats the max as exclusive, your "d6" is really a d5 plus one and the distribution is wrong. Always check whether the max is included, and state the range out loud when it matters.</p>
 
-<h2>The polyhedral renaissance</h2>
-<p>For most of history "dice" meant d6. Then 1974 happened: Dungeons &amp; Dragons hauled the Platonic solids out of geometry class and onto kitchen tables — d4, d8, d12, the icosahedral d20 that now has its own cultural gravity, plus the pentagonal-trapezohedral d10 invented to fill the decimal gap. A shape catalogued by Euclid twenty-three centuries ago is today the emotional core of the world's biggest tabletop hobby. Long arc, good landing.</p>
-<div class="cta-box"><h3>Roll like a Roman (minus the lead)</h3><p>Ten fair 3D dice, no drilled pips, no thumb on the scale — five millennia of refinement in one click.</p><a class="btn btn-primary" href="/dice-roller/">Roll the dice →</a></div>
-<h2>Why the cube endures</h2>
-<p>Five thousand years of technology and the randomizer in your board game box is still a small cube with pips. It survived because it does everything at once: manufacturable anywhere, verifiable by anyone, tactile, audible, and fair <em>visibly</em> — you watch the tumble, you trust the result. Digital dice add convenience; the design they imitate needed no improvement. Some inventions are just finished.</p>
+<h2>Uniform means uniform</h2>
+<p>A good generator gives every value in the range equal probability. That matters in tests: if you generate 1–100 a thousand times, each value should appear about ten times. Run it a few thousand times and check — that's how you demo the law of large numbers, and how you catch a bad generator.</p>
+
+<h2>Practical uses</h2>
+<table>
+<tr><th>Task</th><th>Setup</th></tr>
+<tr><td>Lottery / door prize number</td><td>Integers 1–N inclusive</td></tr>
+<tr><td>Pick a page to read to</td><td>Integers 1–total pages</td></tr>
+<tr><td>Test data</td><td>Decimals, several places</td></tr>
+<tr><td>Random delay simulation</td><td>Decimals in seconds</td></tr>
+<tr><td>Assign a number to each student</td><td>Integers 1–class size</td></tr>
+</table>
+<p>If your options have names instead of numbers, the <a href="/">wheel</a> is usually clearer — people can see the options. Use numbers when the list lives elsewhere or you genuinely just need a value.</p>
+<div class="cta-box"><h3>Generate a number</h3><p>Set your min and max and generate — integers or decimals, inclusive ranges.</p><a class="btn btn-primary" href="/random-number/">Open the generator →</a></div>
 
     </article>
 
     <section class="quick-tools-section" style="margin-top:3.5rem; max-width: 1000px; margin-left:auto; margin-right:auto;">
       <h3 class="quick-tools-title">Keep Reading</h3>
       <div class="tools-grid">
-        <a class="tool-card" href="/blog/law-of-large-numbers-streaks/">
-          <div class="tool-card-icon">📈</div>
-          <h4>Streaks Are Normal: The Law of Large Numbers</h4>
-          <p>Fair coins produce six heads in a row all the time — and casinos profit on a 1% edge. How …</p>
+        <a class="tool-card" href="/blog/how-to-decide-with-coin-flip/">
+          <div class="tool-card-icon">🪙</div>
+          <h4>How to Use a Coin Flip to Decide</h4>
+          <p>A digital coin flip is the fastest two-way decision there is. How to use it, why it's fair…</p>
           <div class="tool-card-arrow">→</div>
         </a>
-        <a class="tool-card" href="/blog/how-to-use-a-wheel-spinner/">
-          <div class="tool-card-icon">🎡</div>
-          <h4>How to Use a Wheel Spinner</h4>
-          <p>Everything the wheel can do: adding names, images, weights, presets, sharing a wheel by li…</p>
+        <a class="tool-card" href="/blog/how-to-run-a-tournament-bracket/">
+          <div class="tool-card-icon">🏟️</div>
+          <h4>How to Run a Tournament Bracket</h4>
+          <p>Build a single-elimination bracket for any group size: seeding, byes, randomising the draw…</p>
           <div class="tool-card-arrow">→</div>
         </a>
-        <a class="tool-card" href="/blog/how-to-run-a-fair-giveaway/">
-          <div class="tool-card-icon">🏆</div>
-          <h4>How to Run a Fair Giveaway or Raffle</h4>
-          <p>A step-by-step method for picking a random winner on camera — importing entries, weighting…</p>
+        <a class="tool-card" href="/blog/how-to-get-out-of-a-decision-rut/">
+          <div class="tool-card-icon">🧭</div>
+          <h4>Four Tools to Stop Being Stuck on a Decision</h4>
+          <p>A quick map of which Wheel Of List tool to reach for depending on the decision in front of…</p>
           <div class="tool-card-arrow">→</div>
         </a>
       </div>

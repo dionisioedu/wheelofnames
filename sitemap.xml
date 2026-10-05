@@ -62,12 +62,12 @@
   </url>
   <url>
     <loc>https://wheeloflist.com/privacy-policy/</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://wheeloflist.com/terms/</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
@@ -106,6 +106,46 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://wheeloflist.com/blog/how-to-decide-with-coin-flip/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/how-to-get-out-of-a-decision-rut/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/how-to-pick-random-teams/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/how-to-run-a-fair-giveaway/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/how-to-run-a-tournament-bracket/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/how-to-use-a-wheel-spinner/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/how-to-use-dice-roller/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/how-to-use-random-number-generator/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://wheeloflist.com/blog/law-of-large-numbers-streaks/</loc>
     <lastmod>2026-10-05</lastmod>
     <priority>0.7</priority>
@@ -122,6 +162,11 @@
   </url>
   <url>
     <loc>https://wheeloflist.com/blog/prisoners-dilemma-party-games/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wheeloflist.com/blog/product-update-themes-sounds-templates/</loc>
     <lastmod>2026-10-05</lastmod>
     <priority>0.7</priority>
   </url>

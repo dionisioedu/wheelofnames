@@ -10,8 +10,10 @@ from blog_lib import build_article, build_index, word_count
 import blog_batch1
 import blog_batch2
 import blog_batch3
+import blog_batch4
 
-all_articles = blog_batch1.ARTICLES + blog_batch2.ARTICLES + blog_batch3.ARTICLES
+all_articles = (blog_batch1.ARTICLES + blog_batch2.ARTICLES +
+                blog_batch3.ARTICLES + blog_batch4.ARTICLES)
 total_words = 0
 
 for a in all_articles:
