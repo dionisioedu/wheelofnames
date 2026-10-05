@@ -1580,6 +1580,11 @@ p, li { color: inherit; }
 .eyebrow { display: block; margin-bottom: 3px; color: var(--aurora-accent-strong); font-size: .78rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
 .wheel-intro h1 { margin: 0; font-size: clamp(1.7rem, 3.2vw, 2.55rem); line-height: 1.15; }
 .wheel-intro p { margin: .3rem 0 0; color: var(--aurora-muted); }
+.usecase-chips { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; align-items: center; margin-top: 12px; margin-bottom: 12px; }
+.usecase-label { font-size: .78rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--aurora-muted); }
+.usecase-chip { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; font-size: .84rem; font-weight: 600; line-height: 1; color: var(--aurora-accent-strong); background: rgba(104, 88, 232, .09); border: 1px solid rgba(104, 88, 232, .28); border-radius: 999px; text-decoration: none; white-space: nowrap; transition: background-color .15s ease, border-color .15s ease, transform .15s ease; }
+.usecase-chip:hover, .usecase-chip:focus-visible { background: rgba(104, 88, 232, .18); border-color: var(--aurora-accent-strong); transform: translateY(-1px); }
+.dark-theme .usecase-chip { background: rgba(139, 126, 255, .14); border-color: rgba(139, 126, 255, .34); }
 #wheel-container,
 .dark-theme #wheel-container {
   width: 100%;
