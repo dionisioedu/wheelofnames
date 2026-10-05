@@ -712,6 +712,9 @@ function spin() {
 
   if (window.wolAnalytics) window.wolAnalytics.track("wheel_spin_start", { item_count: names.length });
 
+  // Signal a spin for other modules (e.g. the PWA install prompt in enhancements.js).
+  window.dispatchEvent(new CustomEvent("wol:spin"));
+
   highlightIndex = null;
   blinkActive = false;
   blinkOn = false;
@@ -953,6 +956,28 @@ document.getElementById("shareResult").addEventListener("click", async () => {
   if (ok && window.wolAnalytics) window.wolAnalytics.track("wheel_share", { method: "clipboard" });
   showToast(ok ? "Copied to clipboard." : "Could not copy.");
 });
+
+// ---------------- Copy share link (editor) ----------------
+const copyShareLinkEl = document.getElementById("copyShareLink");
+if (copyShareLinkEl) {
+  copyShareLinkEl.addEventListener("click", async () => {
+    const listForShare =
+      shareSnapshotNames && shareSnapshotNames.length ? shareSnapshotNames :
+      originalNames && originalNames.length ? originalNames : [];
+
+    if (!listForShare.length) {
+      showToast("Add names first.");
+      return;
+    }
+
+    const shareUrl = new URL(getBaseUrl());
+    shareUrl.searchParams.set("items", base64UrlEncode(listForShare.join("\n")));
+
+    const ok = await copyToClipboard(shareUrl.toString());
+    showToast(ok ? "Link copied — paste it anywhere." : "Could not copy.");
+    if (ok && window.wolAnalytics) window.wolAnalytics.track("wheel_share", { method: "copylink" });
+  });
+}
 
 // ---------------- Copy winner / ranking ----------------
 document.getElementById("copyWinner").addEventListener("click", async () => {
