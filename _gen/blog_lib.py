@@ -158,6 +158,26 @@ def cta(title, text, href, button):
     return ('<div class="cta-box"><h3>%s</h3><p>%s</p>'
             '<a class="btn btn-primary" href="%s">%s</a></div>' % (title, text, href, button))
 
+
+def _b64url(text):
+    import base64
+    return base64.urlsafe_b64encode(text.encode('utf-8')).decode('ascii').rstrip('=')
+
+
+def cta_wheel(title, text, items, button, sublabel=None):
+    """CTA that deep-links to the wheel tool with a ready-made preset.
+
+    `items` is a list of wheel entries; they are base64url-encoded into the
+    `?items=` share param, the same format the homepage reads on load. The
+    reader lands on a fully-populated wheel and can spin in one click.
+    """
+    href = "/?items=" + _b64url("\n".join(items))
+    label = button
+    if sublabel:
+        label = "%s (%s)" % (button, sublabel)
+    return ('<div class="cta-box"><h3>%s</h3><p>%s</p>'
+            '<a class="btn btn-primary" href="%s">%s</a></div>' % (title, text, href, label))
+
 def build_article(article, all_articles):
     wc = word_count(article["body"])
     minutes = max(2, round(wc / 220))

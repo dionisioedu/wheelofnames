@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Blog batch 2 — probability cluster."""
-from blog_lib import cta
+from blog_lib import cta, cta_wheel
 
 ARTICLES = [
 {
@@ -123,9 +123,9 @@ ARTICLES = [
 
 <h2>The great pile-on of 1990</h2>
 <p>When Marilyn vos Savant published the correct answer in <em>Parade</em>, she received some ten thousand letters, roughly a thousand from people with doctorates, many dripping with condescension, nearly all wrong. Even the great Paul Erdős refused to accept it until shown a computer simulation. Take comfort: if this puzzle bends your brain, you're in Hall-of-Fame company.</p>
-""" + cta("Simulate it yourself",
-"Put 'Car, Goat, Goat' on the wheel and play host 20 times — switching wins about 13 of them. Simulation beats argument.",
-"/", "Build the three-door wheel →") + """
+""" + cta_wheel("Simulate it yourself",
+"Put 'Door 1, Door 2, Door 3' on the wheel and play host 20 times — switching wins about 13 of them. Simulation beats argument.",
+["Door 1", "Door 2", "Door 3"], "Build the three-door wheel →") + """
 <h2>Why it matters off-stage</h2>
 <p>Monty Hall is the cleanest known demonstration that evidence depends on process. A medical test result, a survived company in a success study, a suspiciously specific alibi — each means something different depending on the rule that produced it. Survivorship bias, publication bias and selection effects are all Monty in disguise: someone opened the goat doors before you arrived. The master question, on the game show and off: <em>what could I have been shown instead, and why wasn't I?</em></p>
 """,

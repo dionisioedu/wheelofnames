@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Blog batch 1 — game theory cluster."""
-from blog_lib import cta
+from blog_lib import cta, cta_wheel
 
 ARTICLES = [
 {
@@ -112,9 +112,9 @@ ARTICLES = [
 <p><strong>Divide-and-choose for chores:</strong> one roommate splits all chores into two bundles, the other picks a bundle. Works beautifully — the splitter balances "clean the bathroom" against "do all dishes for a week" with the precision of a Swiss watchmaker, because they'll be living with the leftovers.</p>
 <p><strong>Sealed bids for shared stuff:</strong> when roommates split up, have everyone write secret valuations for each contested item; highest bid takes it and compensates the others in cash (the Knaster procedure). Sounds cold; prevents decade-long grudges over a couch.</p>
 <p><strong>Turn-taking with a random start:</strong> for things that can't be cut — choosing bedrooms, draft picks, weekend shifts — alternate picks in A-B-B-A order to offset first-pick advantage, and let chance decide who starts.</p>
-""" + cta("Who picks first?",
+""" + cta_wheel("Who picks first?",
 "Every fair division scheme needs an unbiased opening move. Let the wheel make it.",
-"/", "Spin for first pick →") + """
+["Alice", "Bob", "Carol", "Dave", "Erin"], "Spin for first pick →") + """
 <h2>When randomness IS the fair division</h2>
 <p>Some things are indivisible and priceless — the last concert ticket, the window seat, naming the dog. For these, the fairest mechanism isn't clever cutting; it's an honest lottery. A visible, verifiable random draw gives everyone identical expected value, which is the only equality available when the good itself can't be shared. The ancient Athenians staffed their government by lottery for exactly this reason. Your household can settle the window seat the same way.</p>
 
@@ -149,9 +149,9 @@ ARTICLES = [
 <p><strong>Snake drafts</strong> for anything with sequential picks: 1-2-3-4 then 4-3-2-1. First pick is offset by last pick in the next round.</p>
 <p><strong>Auction the advantage:</strong> in heavier board games, players bid victory points for turn order — the edge goes to whoever values it most and they pay market price for it.</p>
 <p><strong>Rotate deterministically after a random start:</strong> randomize game one, then pass the starting player left each game. One roll of fairness, then zero overhead forever.</p>
-""" + cta("Settle it in five seconds",
+""" + cta_wheel("Settle it in five seconds",
 "Names on the wheel, one spin, no arguments — and winners get removed so everyone starts once before anyone starts twice.",
-"/", "Spin for turn order →") + """
+["Player 1", "Player 2", "Player 3", "Player 4"], "Spin for turn order →") + """
 <h2>The deeper point</h2>
 <p>Kids argue about going first because they intuit what game theorists later proved: order is value. The mature response isn't to pretend otherwise — it's to price the advantage and distribute it fairly. Randomize the start, rotate thereafter, snake the drafts. Ninety seconds of mechanism design buys you a whole evening without the phrase "that's not fair." Cheap at twice the price.</p>
 """,

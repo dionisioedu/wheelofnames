@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Blog batch 3 — practical & psychology cluster."""
-from blog_lib import cta
+from blog_lib import cta, cta_wheel
 
 ARTICLES = [
 {
@@ -41,9 +41,9 @@ ARTICLES = [
 
 <h2>10. The 'reward wheel' economy</h2>
 <p>Class hits a collective goal? Spin the reward wheel: extra recess, music during work time, teacher wears a silly hat. Variable rewards are more motivating than fixed ones — the spin is the payday.</p>
-""" + cta("Save your class lists",
-"Build a wheel per class, save it with 'My Wheels', and it's one click away every morning.",
-"/", "Set up your class wheel →") + """
+""" + cta_wheel("Save your class lists",
+"Try it with a sample roster, then save it with 'My Wheels' — one click away every morning.",
+["Emma", "Liam", "Olivia", "Noah", "Ava", "Ethan", "Mia", "Lucas"], "Set up your class wheel →") + """
 <h2>One caution</h2>
 <p>Randomness is a tool for fairness, not a substitute for judgment. Keep an opt-out signal for students having a rough day, and never use the wheel to assign punishments — chance should hand out turns and treats, not consequences. Keep that line clean and the wheel stays what it should be: the fairest colleague in the room.</p>
 """,
