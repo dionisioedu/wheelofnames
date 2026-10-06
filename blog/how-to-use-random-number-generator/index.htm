@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>How to Use a Random Number Generator (Ranges, Decimals, Seeds)</title>
+  <title>How to Use a Random Number Generator (Ranges, Seeds)</title>
   <meta name="description" content="Generate random integers or decimals in any range: how to set a min and max, when you need a whole number, and how to avoid the classic off-by-one mistake.">
   <meta name="robots" content="index, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,6 +54,38 @@
   "dateModified": "2026-07-17",
   "mainEntityOfPage": "https://wheeloflist.com/blog/how-to-use-random-number-generator/",
   "image": "https://wheeloflist.com/og.jpg"
+}
+  </script>
+  <script type="application/ld+json" id="article-faq-jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is an online random number generator truly random?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For practical purposes, yes. It draws from the browser's cryptographic random source, which is unguessable and evenly distributed - far more random than asking a person to pick a number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I generate decimals or negative numbers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Set a minimum and maximum of any size, including negatives and decimals like -1.5 to 1.5, and the generator returns a value in that range with uniform probability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I pick a number without repeats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a single draw, run it once. For several unique numbers in a range - like a lottery - use the Raffle Picker, which removes each winner before drawing the next."
+      }
+    }
+  ]
 }
   </script>
   <script type="application/ld+json">

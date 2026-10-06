@@ -160,7 +160,7 @@ PAGES = [
     "slug": "what-to-eat",
     "name": "What to Eat Wheel",
     "emoji": "🍕",
-    "title": "What to Eat Wheel — Spin to Decide Your Next Meal | Wheel Of List",
+    "title": "What to Eat Wheel — Spin for Dinner | Wheel Of List",
     "og_title": "What to Eat Wheel — Spin to Decide Your Next Meal",
     "desc": "Can't decide what to eat? Spin the food wheel and let it pick dinner: pizza, sushi, tacos, pasta and more. Free, instant and argument-proof.",
     "subtitle": "Dinner indecision, solved in one spin",
@@ -221,7 +221,7 @@ PAGES = [
     "slug": "what-to-watch",
     "name": "What to Watch Wheel",
     "emoji": "🍿",
-    "title": "What to Watch Wheel — Spin for a Movie Genre | Wheel Of List",
+    "title": "What to Watch Wheel — Spin a Genre | Wheel Of List",
     "og_title": "What to Watch Wheel — Spin for a Movie Genre",
     "desc": "Endless scrolling, zero movies watched? Spin the what-to-watch wheel and get a genre: comedy, horror, sci-fi and more. Decide in seconds, watch in minutes.",
     "subtitle": "Stop scrolling, start watching",
@@ -311,7 +311,7 @@ PAGES = [
     "slug": "date-night",
     "name": "Date Night Wheel",
     "emoji": "💘",
-    "title": "Date Night Wheel — Spin for Your Next Date Idea | Wheel Of List",
+    "title": "Date Night Wheel — Spin an Idea | Wheel Of List",
     "og_title": "Date Night Wheel — Spin for Your Next Date Idea",
     "desc": "Out of date ideas? Spin the date night wheel: cook together, stargaze, game night, picnic and more. Twelve ideas from free to fancy.",
     "subtitle": "Because “I don't know, you pick” isn't a date",
@@ -371,7 +371,7 @@ PAGES = [
     "slug": "icebreaker-questions",
     "name": "Icebreaker Question Wheel",
     "emoji": "🧊",
-    "title": "Icebreaker Question Wheel — Spin to Break the Ice | Wheel Of List",
+    "title": "Icebreaker Question Wheel — Break the Ice | Wheel Of List",
     "og_title": "Icebreaker Question Wheel — Spin to Break the Ice",
     "desc": "Spin the icebreaker wheel for instant conversation starters. Ten crowd-tested questions for teams, classrooms and meetups — no awkward silences.",
     "subtitle": "Ten questions, zero awkward silences",
@@ -463,8 +463,13 @@ def faq_html(page):
 def build_page(page):
     app_j, bc_j, faq_j = schema_json(page)
     wheel_data = json.dumps({"entries": page["entries"], "removeDefault": page["remove_default"]}, ensure_ascii=False)
+    # Keep <title> <=60 chars: drop the authored suffix, re-add brand only if it fits.
+    import re as _re
+    _base = _re.sub(r"\s*\|\s*Wheel Of List\s*$", "", page["title"]).strip()
+    _sfx = " | Wheel Of List"
+    _title = _base + _sfx if len(_base) + len(_sfx) <= 60 else _base
     html = (TEMPLATE
-            .replace('@@TITLE@@', page["title"])
+            .replace('@@TITLE@@', _title)
             .replace('@@OG_TITLE@@', page["og_title"])
             .replace('@@DESC@@', page["desc"])
             .replace('@@SLUG@@', page["slug"])

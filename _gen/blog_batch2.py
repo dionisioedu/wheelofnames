@@ -110,7 +110,7 @@ ARTICLES = [
 "emoji": "🚪",
 "title": "The Monty Hall Problem: Always Switch | Wheel Of List Blog",
 "h1": "The Monty Hall Problem: Always Switch",
-"desc": "Three doors, one car, one opened goat — and the most argued-about probability puzzle ever. Switching doubles your odds, and here's the version that finally clicks.",
+"desc": "Three doors, one car, one opened goat — and the most argued-about probability puzzle ever. Here's why switching doubles your odds.",
 "body": """
 <p>You're on a game show. Three doors: one hides a car, two hide goats. You pick door 1. The host — who knows where the car is — opens door 3, revealing a goat, and asks: "want to switch to door 2?" Most people shrug: two doors left, 50/50, switching changes nothing. Most people are wrong. <strong>Switching wins two times out of three</strong>, and this little puzzle once made a thousand PhDs write angry letters.</p>
 
@@ -135,7 +135,7 @@ ARTICLES = [
 "emoji": "💻",
 "title": "How Computers Fake Randomness (and Why It's Fine) | Wheel Of List Blog",
 "h1": "How Computers Fake Randomness (and Why It's Fine)",
-"desc": "Computers are deterministic machines, yet they shuffle playlists and run lotteries. PRNGs, seeds, entropy and the difference between fake-good and fake-dangerous.",
+"desc": "Computers are deterministic, yet they shuffle playlists and run lotteries. PRNGs, seeds, entropy and the difference between fake-good and fake-dangerous.",
 "body": """
 <p>A computer is a machine built to do exactly what it's told, identically, every time. So how does it roll a die? The honest answer: <strong>it doesn't</strong>. It computes sequences that merely <em>look</em> random — and the story of how well that works, where it breaks, and when it matters is one of computing's quiet masterpieces.</p>
 

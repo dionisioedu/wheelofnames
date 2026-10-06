@@ -56,6 +56,38 @@
   "image": "https://wheeloflist.com/og.jpg"
 }
   </script>
+  <script type="application/ld+json" id="article-faq-jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I seed a tournament bracket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Either randomize the draw or place ranked players so top seeds meet later. The generator handles byes automatically when the player count is not a power of two, so nobody sits out unfairly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens with an odd number of players?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The bracket rounds up to the next power of two and gives the surplus players a first-round bye, assigned at random for fairness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change a result after the tournament starts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Changing a match result resets and re-propagates every later round, so downstream brackets update automatically instead of leaving stale winners."
+      }
+    }
+  ]
+}
+  </script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",

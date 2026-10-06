@@ -147,6 +147,7 @@ TEMPLATE = '''<!DOCTYPE html>
   <script type="application/ld+json">
 @@ARTICLE_JSON@@
   </script>
+@@FAQ_BLOCK@@
   <script type="application/ld+json">
 @@BREADCRUMB_JSON@@
   </script>
@@ -224,6 +225,21 @@ def build_article(article, all_articles):
         "mainEntityOfPage": "https://wheeloflist.com/blog/%s/" % article["slug"],
         "image": "https://wheeloflist.com/og.jpg",
     }, indent=2, ensure_ascii=False)
+    # Optional per-article FAQ -> FAQPage rich result (guides benefit most)
+    faq_block = ""
+    faqs = article.get("faqs")
+    if faqs:
+        faq_json = json.dumps({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {"@type": "Question", "name": q,
+                 "acceptedAnswer": {"@type": "Answer", "text": a}}
+                for q, a in faqs
+            ],
+        }, indent=2, ensure_ascii=False)
+        faq_block = ('  <script type="application/ld+json" id="article-faq-jsonld">\n'
+                     + faq_json + '\n  </script>')
     bc_json = json.dumps({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -249,8 +265,15 @@ def build_article(article, all_articles):
 
     cat = category_of(article)
     cat_label = CATEGORIES[cat]["label"]
+    # Search-friendly <title>: keep <=60 chars. Strip any authored suffix,
+    # then append " | Wheel Of List" only when it still fits (Google truncates
+    # ~60 chars; a half-cut brand name looks worse than none).
+    import re as _re
+    base_title = _re.sub(r"\s*\|\s*Wheel Of List( Blog)?\s*$", "", article["title"]).strip()
+    suffix = " | Wheel Of List"
+    title = base_title + suffix if len(base_title) + len(suffix) <= 60 else base_title
     html = (TEMPLATE
-            .replace('@@TITLE@@', article["title"])
+            .replace('@@TITLE@@', title)
             .replace('@@OG_TITLE@@', article["h1"])
             .replace('@@DESC@@', article["desc"])
             .replace('@@SLUG@@', article["slug"])
@@ -260,6 +283,7 @@ def build_article(article, all_articles):
             .replace('@@CATEGORY_LABEL@@', cat_label)
             .replace('@@META_LINE@@', 'By Eduardo Dionisio · %s · %d min read' % ("July 17, 2026", minutes))
             .replace('@@ARTICLE_JSON@@', art_json)
+            .replace('@@FAQ_BLOCK@@', faq_block)
             .replace('@@BREADCRUMB_JSON@@', bc_json)
             .replace('@@BODY@@', article["body"])
             .replace('@@RELATED@@', related)

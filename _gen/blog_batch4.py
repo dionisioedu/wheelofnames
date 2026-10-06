@@ -15,6 +15,14 @@ ARTICLES = [
 "title": "How to Use a Wheel Spinner (Complete Guide) | Wheel Of List",
 "h1": "How to Use a Wheel Spinner",
 "desc": "Everything the wheel can do: adding names, images, weights, presets, sharing a wheel by link, and when to spin instead of deciding yourself.",
+  "faqs": [
+    ("Is the wheel of names truly random?",
+     "Yes. Every segment has an equal chance on every spin, and the winner is whichever segment lands under the pointer when the wheel stops. Nothing is weighted toward earlier or later names."),
+    ("How many names can I add to a wheel spinner?",
+     "You can paste dozens of names or items. Up to about 12 segments stay readable; beyond that the labels shrink, so for very long lists use the Random Number Generator or Raffle Picker instead."),
+    ("Can I save a wheel and reuse it later?",
+     "Yes. Use \"Copy link\" to share the exact list as a URL, or save it under My Wheels so it loads again with one click next class or next event."),
+  ],
 "body": """
 <p>A wheel spinner looks like a toy and works like a decision machine. You put options on it, spin, and physics picks one so nobody has to. This guide walks through every feature of the <a href="/">Wheel Of List spinner</a> — from your first spin to shared, weighted, image-based wheels — so you can use it for anything from picking a restaurant to running a live giveaway.</p>
 
@@ -56,9 +64,17 @@ ARTICLES = [
 "slug": "how-to-run-a-fair-giveaway",
 "category": "guides",
 "emoji": "🏆",
-"title": "How to Run a Fair Giveaway or Raffle Online | Wheel Of List",
-"h1": "How to Run a Fair Giveaway or Raffle",
-"desc": "A step-by-step method for picking a random winner on camera — importing entries, weighting tickets, proving fairness, and handling the messy bits.",
+"title": "How to Run a Fair Raffle Online (Step by Step) | Wheel Of List",
+"h1": "How to Run a Fair Raffle",
+"desc": "Step-by-step: import entries, add ticket weighting, spin live and prove the draw was fair. Handles late entries, ties, and recording the winner.",
+  "faqs": [
+    ("How do I prove my raffle wasn't rigged?",
+     "Record the draw on camera, state the number of entries aloud before spinning, and use a tool that picks live. Showing the full entry list and the spin in one unbroken clip is the simplest proof."),
+    ("What is ticket weighting and when should I use it?",
+     "Weighting gives some entries more chances than others - useful when people earn extra entries by sharing or referring. Add each person's name once per ticket so the odds stay transparent."),
+    ("Can I run a raffle with more than one winner?",
+     "Yes. The Raffle Picker draws multiple non-repeating winners in one run, with silver and bronze medals for 2nd and 3rd place."),
+  ],
 "body": """
 <p>Running a giveaway looks easy until someone asks \"how do I know you didn't just pick your friend?\" This guide gives you a method that produces a provably random winner <em>on camera</em>, using the <a href="/raffle-picker/">Raffle Picker</a> and the <a href="/">wheel</a>. It takes about two minutes per giveaway.</p>
 
@@ -99,6 +115,14 @@ ARTICLES = [
 "title": "How to Split People Into Random Teams (Fairly) | Wheel Of List",
 "h1": "How to Split People Into Random Teams",
 "desc": "Random team generation for sports, classrooms and game nights — how many teams, how to keep it fair, and how to avoid repeat pairings across weeks.",
+  "faqs": [
+    ("How do I split people into fair random teams?",
+     "Paste all names, choose the number of teams (or players per team), and shuffle. The generator deals round-robin after a Fisher-Yates shuffle, so team sizes stay even and no one can influence the draw."),
+    ("Should the number of teams or players per team come first?",
+     "Pick whichever constraint is fixed. If you need exactly 4 teams, choose team count. If each team must have 2 players, choose players per team and the generator works out the team count."),
+    ("Can I keep certain people together or apart?",
+     "Not automatically. Keep it fully random for fairness, then swap one or two names manually if you need to separate a pair - note the swap so everyone sees it was transparent."),
+  ],
 "body": """
 <p>Dividing a group into teams by hand is a minefield: the same cliques form, the same two people end up together, and someone always claims it's rigged. Random team generation fixes all three in a single click. This guide uses the <a href="/team-generator/">Team Generator</a>.</p>
 
@@ -137,6 +161,14 @@ ARTICLES = [
 "title": "How to Use a Dice Roller (D&D, Board Games, Teaching) | Wheel Of List",
 "h1": "How to Use a Dice Roller",
 "desc": "Roll d4 to d100 online: why digital dice are as fair as physical ones, how to roll pools for tabletop RPGs, and how to use dice to teach probability.",
+  "faqs": [
+    ("What dice can I roll online?",
+     "Standard polyhedrals: d4, d6, d8, d10, d12 and d20, plus multiple dice at once. Each result is independent, so rolling three d6 is the same as rolling one d6 three times."),
+    ("Is an online dice roller fair for tabletop games?",
+     "Yes. A digital roller uses the same uniform random source as a fair physical die - each face has an equal chance every roll, and it cannot be biased by a worn edge or a bad throw."),
+    ("How do I roll with advantage or add modifiers?",
+     "Roll two d20s and keep the higher (advantage) or lower (disadvantage), then add your modifier to the kept result. The roller shows every die so you can apply the rule yourself."),
+  ],
 "body": """
 <p>A digital dice roller is the same maths as a physical die, minus the die that rolled under the sofa. This guide covers the <a href="/dice-roller/">Dice Roller</a> for tabletop games, board games and teaching — plus the one thing that actually matters: making sure the roll is fair.</p>
 
@@ -163,9 +195,17 @@ ARTICLES = [
 "slug": "how-to-use-random-number-generator",
 "category": "guides",
 "emoji": "🔢",
-"title": "How to Use a Random Number Generator (Ranges, Decimals, Seeds)",
+"title": "How to Use a Random Number Generator (Ranges, Seeds)",
 "h1": "How to Use a Random Number Generator",
 "desc": "Generate random integers or decimals in any range: how to set a min and max, when you need a whole number, and how to avoid the classic off-by-one mistake.",
+  "faqs": [
+    ("Is an online random number generator truly random?",
+     "For practical purposes, yes. It draws from the browser's cryptographic random source, which is unguessable and evenly distributed - far more random than asking a person to pick a number."),
+    ("Can I generate decimals or negative numbers?",
+     "Yes. Set a minimum and maximum of any size, including negatives and decimals like -1.5 to 1.5, and the generator returns a value in that range with uniform probability."),
+    ("Can I pick a number without repeats?",
+     "For a single draw, run it once. For several unique numbers in a range - like a lottery - use the Raffle Picker, which removes each winner before drawing the next."),
+  ],
 "body": """
 <p>A random number generator is the tool for when the options aren't names but numbers: a number between 1 and 100, a decimal test value, an index to pick from a list you keep elsewhere. This guide covers the <a href="/random-number/">Random Number Generator</a> and the mistakes people make with ranges.</p>
 
@@ -203,6 +243,14 @@ ARTICLES = [
 "title": "How to Use a Coin Flip to Decide (and When Not To) | Wheel Of List",
 "h1": "How to Use a Coin Flip to Decide",
 "desc": "A digital coin flip is the fastest two-way decision there is. How to use it, why it's fair, and the psychology trick that reveals what you actually wanted.",
+  "faqs": [
+    ("Is flipping a coin actually 50/50?",
+     "For a fair coin, yes - heads and tails each have a 50% chance on every flip. Online flips use a uniform random source, so they are exactly 50/50 with no bias from a thumb or an uneven coin."),
+    ("When is a coin flip a bad way to decide?",
+     "When the outcomes are not equally desirable. If you'd be disappointed by one result, you already know your preference - flipping just adds delay. Coin flips suit genuinely balanced, low-stakes choices."),
+    ("Can I flip many coins or track the streak?",
+     "Yes. The Coin Flip tool keeps a running heads/tails count and current streak, which is a neat way to see that long streaks are normal, not a sign of a rigged coin."),
+  ],
 "body": """
 <p>Heads or tails is the oldest randomiser in the book and still the fastest. The <a href="/coin-flip/">Coin Flip</a> gives you a fair 50/50 in one click — no coin, no thumb, no \"that was definitely tails.\" Here's how to use it well, and one trick that makes it more useful than you'd expect.</p>
 
@@ -232,6 +280,14 @@ ARTICLES = [
 "title": "How to Run a Tournament Bracket (Setup, Seeding, Tie-breaks)",
 "h1": "How to Run a Tournament Bracket",
 "desc": "Build a single-elimination bracket for any group size: seeding, byes, randomising the draw fairly, and what to do when a match ends tied.",
+  "faqs": [
+    ("How do I seed a tournament bracket?",
+     "Either randomize the draw or place ranked players so top seeds meet later. The generator handles byes automatically when the player count is not a power of two, so nobody sits out unfairly."),
+    ("What happens with an odd number of players?",
+     "The bracket rounds up to the next power of two and gives the surplus players a first-round bye, assigned at random for fairness."),
+    ("Can I change a result after the tournament starts?",
+     "Yes. Changing a match result resets and re-propagates every later round, so downstream brackets update automatically instead of leaving stale winners."),
+  ],
 "body": """
 <p>A bracket turns a pile of players into a champion. Doing it by hand means drawing lines, erasing names and getting the byes wrong. The <a href="/tournament/">Tournament Bracket</a> builds it for you, any size. This guide covers the setup decisions that actually matter.</p>
 
@@ -271,6 +327,14 @@ ARTICLES = [
 "title": "Four Tools to Stop Being Stuck on a Decision | Wheel Of List",
 "h1": "Four Tools to Stop Being Stuck on a Decision",
 "desc": "A quick map of which Wheel Of List tool to reach for depending on the decision in front of you — two options, many options, weighted odds, or a whole group.",
+  "faqs": [
+    ("How does randomness help me decide?",
+     "When options are close, deliberating longer rarely changes the answer - it just costs time. Letting chance pick breaks the tie and hands you the decision, and your reaction to the result often reveals what you actually wanted."),
+    ("Which tool should I use for a decision?",
+     "Two options: a coin flip for a straight binary choice, or a wheel with all the options written out for three or more."),
+    ("What if I dislike the result?",
+     "That reaction is the answer. If the pick disappoints you, the other option was the one you wanted - take it and move on. Chance is a mirror for your real preference, not a replacement for it."),
+  ],
 "body": """
 <p>Most \"I can't decide\" problems aren't about the options — they're about the decider. Different decisions need different tools, and picking the right one is half the fix. Here's the map, in roughly increasing complexity.</p>
 
@@ -301,9 +365,17 @@ ARTICLES = [
 "slug": "product-update-themes-sounds-templates",
 "category": "news",
 "emoji": "🆕",
-"title": "What's New: 10 Themes, Event Sounds Everywhere, 16 Wheel Templates",
+"title": "What's New: Themes, Sounds and 16 Templates",
 "h1": "What's New: Themes, Sounds and 16 Wheel Templates",
 "desc": "A round of updates across the site: ten colour themes, sound on every game, double the wheel templates, and a fresh look for the favicon.",
+  "faqs": [
+    ("How many themes are there now?",
+     "Ten, from Light and Night to Neon, Ocean, Sunset, Forest, Candy, Retro, Paper and Midnight. Your choice is saved in the browser and applies across every tool."),
+    ("Where did the sounds go?",
+     "Every game now has sound effects - spin ticks, dice rolls, coin flips and a winner chime - synthesised in the browser with no downloads. A mute button in the corner turns them off and remembers your choice."),
+    ("How many wheel templates are available?",
+     "Sixteen ready-made wheels, including Who Pays?, Prize Wheel, Random Movie, Party Games, Baby Names, Christmas Movies and Study Break - each loads instantly with its list already filled in."),
+  ],
 "body": """
 <p>A batch of updates just shipped across Wheel Of List. Here's what changed and why, in plain terms.</p>
 

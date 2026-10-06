@@ -39,7 +39,7 @@ PAGES = [
         slug="first-date-questions",
         name="First Date Questions",
         title="First Date Questions Wheel — Conversation Starters | Wheel Of List",
-        desc="Nervous about silences? Spin the first date questions wheel for easy, interesting conversation starters. Keep the chat flowing and actually get to know each other.",
+        desc="Nervous about silences? Spin the first date questions wheel for easy, interesting starters that keep the chat flowing and help you get to know them.",
         icon="💬",
         subtitle="Never run out of things to talk about",
         h1="First Date Questions",
@@ -155,7 +155,7 @@ PAGES = [
         slug="study-break",
         name="Study Break",
         title="Study Break Wheel — Spin for a Quick Break Activity | Wheel Of List",
-        desc="Studying hard? Spin the study break wheel for a quick, restorative break activity — stretch, hydrate, walk or breathe. Free and instant, so you get back to work.",
+        desc="Studying hard? Spin the study break wheel for a quick, restorative break — stretch, hydrate, walk or breathe. Free and instant, so you get back to work.",
         icon="📚",
         subtitle="Smart breaks that actually recharge you",
         h1="Study Break Wheel",
@@ -184,6 +184,12 @@ PAGES = [
 
 
 def build(p):
+    # Keep <title> <=60 chars: drop authored suffix, re-add brand only if it fits.
+    import re as _re
+    _base = _re.sub(r"\s*\|\s*Wheel Of List\s*$", "", p["title"]).strip()
+    _sfx = " | Wheel Of List"
+    p = dict(p)
+    p["title"] = _base + _sfx if len(_base) + len(_sfx) <= 60 else _base
     url = f"{DOMAIN}/wheels/{p['slug']}/"
     faq_ld = {
         "@context": "https://schema.org",
