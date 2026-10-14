@@ -400,7 +400,7 @@ function getScoreboardWinners() {
 
 function getLatestWinner() {
   const winners = getScoreboardWinners();
-  return winners.length ? winners[winners.length - 1] : "";
+  return winners.length ? winners[0] : "";
 }
 
 function findWinnerIndexInList(winner, list) {
@@ -840,7 +840,7 @@ function addScoreboard(winner) {
   li.className = "list-group-item";
   li.dataset.winner = winner;
   li.innerHTML = `<span class="order-number">${spinOrder}</span> ${winner}`;
-  scoreboardEl.appendChild(li);
+  scoreboardEl.prepend(li);
   if (window.wolAnalytics) {
     window.wolAnalytics.track("wheel_result", {
       item_count: originalNames.length,
@@ -1001,7 +1001,7 @@ document.getElementById("copyRanking").addEventListener("click", async () => {
   showToast(ok ? "Ranking copied." : "Copy failed.");
 });
 
-// ---------------- Share image (filled wheel + Top 5 + highlight FIRST winner row) ----------------
+// ---------------- Share image (filled wheel + latest results) ----------------
 function downloadDataUrl(dataUrl, filename) {
   const a = document.createElement("a");
   a.href = dataUrl;
@@ -1060,8 +1060,7 @@ async function generateShareImageDataUrl() {
   if (!canvas.width || !canvas.height) return null;
 
   const ranking = getScoreboardWinners();
-  const latest = ranking.length ? ranking[ranking.length - 1] : "";
-  const firstWinner = ranking.length ? ranking[0] : "";
+  const latestWinner = ranking.length ? ranking[0] : "";
 
   const listForSnapshot =
     (shareSnapshotNames && shareSnapshotNames.length) ? shareSnapshotNames :
@@ -1114,8 +1113,7 @@ async function generateShareImageDataUrl() {
   octx.font = "500 34px system-ui, -apple-system, Segoe UI, Roboto, Arial";
   octx.fillText("Spin the wheel. Pick a winner.", 80, 200);
 
-  // Keep “First winner” line 
-  const winnerLine = firstWinner ? `Winner: ${firstWinner}` : "Winner: —";
+  const winnerLine = latestWinner ? `Latest winner: ${latestWinner}` : "Latest winner: —";
   octx.fillStyle = "rgba(255,255,255,0.92)";
   octx.font = "700 36px system-ui, -apple-system, Segoe UI, Roboto, Arial";
   octx.fillText(winnerLine, 80, 250);
@@ -1145,10 +1143,10 @@ async function generateShareImageDataUrl() {
 
   for (let i = 0; i < shown.length; i++) {
     const n = shown[i];
-    const isFirst = firstWinner && n.trim().toLowerCase() === firstWinner.trim().toLowerCase();
+    const isLatest = latestWinner && n.trim().toLowerCase() === latestWinner.trim().toLowerCase();
 
-    // Highlight ONLY the first winner row
-    if (isFirst) {
+    // Highlight the latest winner row.
+    if (isLatest) {
       octx.fillStyle = "rgba(34,197,94,0.22)";
       octx.fillRect(boxX + 12, y - 26, boxW - 24, 34);
       octx.fillStyle = "#ffffff";
