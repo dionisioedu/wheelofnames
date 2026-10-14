@@ -9,7 +9,7 @@
   'use strict';
 
   var CONSENT_KEY = 'wol_consent_v1';
-  var MEASUREMENT_ID = 'G-XV614N2RLR';
+  var MEASUREMENT_ID = 'G-5ZB03BH08J';
   var EVENT_PARAMS = {
     wheel_spin_start: ['item_count'],
     wheel_result: ['item_count', 'remaining_count'],
