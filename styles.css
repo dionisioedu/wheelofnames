@@ -1771,7 +1771,12 @@ p, li { color: inherit; }
 /* Main wheel workspace */
 .wheel-app { max-width: 1380px; padding: clamp(10px, 1.6vw, 22px) clamp(12px, 2vw, 28px) clamp(16px, 2.5vw, 30px); }
 .wheel-workspace { --bs-gutter-x: clamp(18px, 2.2vw, 30px); align-items: stretch; }
-.wheel-stage { display: flex; flex-direction: column; align-items: stretch !important; }
+.wheel-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
 .wheel-intro { display: flex; align-items: baseline; justify-content: center; gap: 12px; margin: 0 auto 9px; text-align: center; }
 .eyebrow { display: block; margin-bottom: 3px; color: var(--aurora-accent-strong); font-size: .78rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
 .wheel-intro h1 { margin: 0; font-size: clamp(1.35rem, 2.4vw, 2rem); line-height: 1.15; }
