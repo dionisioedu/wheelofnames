@@ -13,7 +13,7 @@
  * and to fire 'beforeinstallprompt'.
  */
 
-var CACHE_NAME = 'wol-cache-v1';
+var CACHE_NAME = 'wol-cache-v2';
 var PRECACHE_URLS = ['/', '/manifest.json'];
 
 self.addEventListener('install', function (event) {
@@ -49,7 +49,7 @@ self.addEventListener('fetch', function (event) {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    fetch(request)
+    fetch(request, { cache: 'no-store' })
       .then(function (response) {
         // Cache a copy of the fresh response for offline fallback.
         if (response && response.status === 200 && response.type === 'basic') {
