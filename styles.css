@@ -2033,7 +2033,7 @@ p, li { color: inherit; }
   background: color-mix(in srgb, var(--aurora-accent) 11%, var(--aurora-surface-solid));
 }
 .scoreboard-empty-medal svg { width: 25px; height: 25px; fill: currentColor; }
-.scoreboard-list { display: grid; gap: 8px; max-height: 220px; padding: 2px 3px 2px 1px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--aurora-line) transparent; }
+.scoreboard-list { display: grid; gap: 8px; max-height: none; padding: 2px 3px 2px 1px; overflow: visible; }
 #scoreboard .list-group-item.scoreboard-entry {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -2075,7 +2075,7 @@ p, li { color: inherit; }
 .scoreboard-rank-3 .scoreboard-rank-icon { color: #6d3921; border-color: #dc9b6b; background: linear-gradient(145deg, #f8c6a3, #bd7041); }
 .scoreboard-entry-details { display: grid; min-width: 0; }
 .scoreboard-place { color: var(--aurora-muted); font-size: .65rem; font-weight: 800; letter-spacing: .08em; line-height: 1.2; text-transform: uppercase; }
-.scoreboard-name { overflow: hidden; color: var(--aurora-text); font-size: .94rem; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+.scoreboard-name { color: var(--aurora-text); font-size: .94rem; line-height: 1.35; overflow-wrap: anywhere; white-space: normal; }
 .scoreboard-rank-1 .scoreboard-name { font-size: 1.02rem; }
 .scoreboard-position { color: var(--aurora-muted); font-size: .74rem; font-weight: 900; }
 .share-result-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 14px; box-shadow: 0 10px 24px color-mix(in srgb, var(--aurora-mint) 24%, transparent); }
