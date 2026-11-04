@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>How to Create an Interactive Quiz Wheel | Wheel Of List</title>
+  <meta name="description" content="Build a quiz wheel for classrooms, training and game nights: choose question categories, set clear rules, avoid repeats and keep every round moving.">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://wheeloflist.com/blog/how-to-create-a-quiz-wheel/">
+  <meta name="theme-color" content="#6858e8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180x180.png">
+  <meta property="og:title" content="How to Create an Interactive Quiz Wheel">
+  <meta property="og:description" content="Build a quiz wheel for classrooms, training and game nights: choose question categories, set clear rules, avoid repeats and keep every round moving.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wheeloflist.com/blog/how-to-create-a-quiz-wheel/">
+  <meta property="og:site_name" content="Wheel Of List">
+  <meta property="og:image" content="https://wheeloflist.com/og.jpg">
+  <meta property="article:published_time" content="2026-11-04">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@DionisioDev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZB03BH08J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5ZB03BH08J');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6858130394830057" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Create an Interactive Quiz Wheel",
+  "description": "Build a quiz wheel for classrooms, training and game nights: choose question categories, set clear rules, avoid repeats and keep every round moving.",
+  "author": {
+    "@type": "Person",
+    "name": "Eduardo Dionisio",
+    "url": "https://dionisio.dev"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dionisio Software",
+    "url": "https://dionisio.dev"
+  },
+  "datePublished": "2026-11-04",
+  "dateModified": "2026-11-04",
+  "mainEntityOfPage": "https://wheeloflist.com/blog/how-to-create-a-quiz-wheel/",
+  "image": "https://wheeloflist.com/og.jpg"
+}
+  </script>
+  <script type="application/ld+json" id="article-faq-jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I make a quiz wheel online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Add one question, topic or category per line, save the wheel, and spin to choose the next prompt. Remove a selected item if it should not appear twice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should a quiz wheel contain questions or categories?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use full questions for a short ready-to-play quiz. Use categories for a longer game where the host keeps several questions for each topic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I make a classroom quiz wheel fair?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use equally sized entries, publish the scoring rules before the first spin, alternate teams consistently, and offer the same time limit for every question."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wheeloflist.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://wheeloflist.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to Create an Interactive Quiz Wheel",
+      "item": "https://wheeloflist.com/blog/how-to-create-a-quiz-wheel/"
+    }
+  ]
+}
+  </script>
+  <style>
+    .article-body { max-width: 760px; margin: 0 auto; font-size: 1.06rem; line-height: 1.75; }
+    .article-body h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 0.5rem; }
+    .article-body h2 { font-size: 1.45rem; margin-top: 2.2rem; margin-bottom: 0.8rem; }
+    .article-meta { color: #888; font-size: 0.9rem; margin-bottom: 1.8rem; }
+    .article-catlin { display:flex; align-items:center; gap:.75rem; margin-bottom:.9rem; }
+    .article-back { font-size:.9rem; text-decoration:none; opacity:.8; }
+    .article-back:hover { opacity:1; text-decoration:underline; }
+    .article-cat { font-size:.68rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+      padding:.22rem .55rem; border-radius:999px; color:#fff; }
+    .article-cat-guides { background:#0aa2c0; }
+    .article-cat-theory { background:#6858e8; }
+    .article-cat-news { background:#e8590c; }
+    .article-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .article-body th, .article-body td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    .article-body th { background: rgba(30,144,255,0.08); }
+    .dark-theme .article-body th, .dark-theme .article-body td { border-color: #555; }
+    .cta-box { background: linear-gradient(135deg, rgba(30,144,255,0.08), rgba(0,191,255,0.08)); border: 2px solid #1E90FF; border-radius: 14px; padding: 22px 26px; margin: 2.2rem 0; }
+    .cta-box h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .cta-box p { margin-bottom: 0.9rem; }
+    blockquote { border-left: 4px solid #1E90FF; padding-left: 16px; color: #666; font-style: italic; }
+    .dark-theme blockquote { color: #aaa; }
+  </style>
+</head>
+<body>
+  <script src="/theme.js"></script>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">🎡 Wheel Of List</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">Tools</a>
+            <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+              <li><a class="dropdown-item" href="/">🎡 Wheel Spinner</a></li>
+              <li><a class="dropdown-item" href="/coin-flip/">🪙 Coin Flip</a></li>
+              <li><a class="dropdown-item" href="/random-number/">🎲 Random Number Generator</a></li>
+              <li><a class="dropdown-item" href="/dice-roller/">🎰 Dice Roller</a></li>
+              <li><a class="dropdown-item" href="/yes-no-wheel/">❓ Yes or No Wheel</a></li>
+              <li><a class="dropdown-item" href="/team-generator/">👥 Team Generator</a></li>
+              <li><a class="dropdown-item" href="/random-letter/">🔤 Random Letter</a></li>
+              <li><a class="dropdown-item" href="/raffle-picker/">🏆 Raffle Picker</a></li>
+              <li><a class="dropdown-item" href="/tournament/">🏟️ Tournament Bracket</a></li>
+              <li><a class="dropdown-item" href="/wheels/">🎯 Wheel Templates</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/tools/">🧰 All Tools</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding: 40px 20px;">
+    <article class="article-body">
+      <div class="article-catlin"><a href="/blog/" class="article-back">← All articles</a> <span class="article-cat article-cat-guides">Guides</span></div>
+      <h1>How to Create an Interactive Quiz Wheel</h1>
+      <div class="article-meta">By Eduardo Dionisio · November 4, 2026 · 3 min read</div>
+
+<p>A quiz wheel turns a list of questions into a game people can see and anticipate. Instead of moving through a worksheet in order, the wheel chooses the next topic, prompt or challenge. That small piece of randomness works well in classrooms, employee training, team socials and family game nights. You can build one in minutes with the <a href="/">Wheel Of List spinner</a>.</p>
+
+<h2>Choose the right kind of quiz wheel</h2>
+<p>There are three useful formats. A <strong>question wheel</strong> contains complete prompts, such as “What is the capital of Canada?” A <strong>category wheel</strong> contains broader topics like Geography, Science and Music, while the host keeps a separate question bank. A <strong>challenge wheel</strong> mixes tasks — answer, draw, act, explain or solve.</p>
+<p>Full questions are fastest for a short review. Categories scale better because you can reuse the same wheel with new questions underneath each topic.</p>
+
+<h2>Step 1: write balanced entries</h2>
+<p>Add one entry per line. Keep labels short enough to read on a slice, and avoid putting clues in one category name that do not appear in the others. If one topic is much harder, mark its point value clearly or split the wheel into difficulty levels.</p>
+
+<h2>Step 2: decide the game rules first</h2>
+<p>Before spinning, define who answers, how long they have, how points work and whether another team can steal. A simple structure is: alternate teams, 30 seconds per question, one point for a correct answer, and one steal attempt after an incorrect answer. The wheel should choose the prompt; it should not be responsible for rules that change halfway through the game.</p>
+
+<h2>Step 3: prevent or allow repeats</h2>
+<p>Remove an entry after it is selected when every question should appear once. Keep entries when categories may repeat and you have multiple prompts per category. If repeats stay enabled, prepare at least three questions for every category so the second spin does not stall the game.</p>
+
+<h2>Step 4: make difficulty visible</h2>
+<p>For mixed-age groups or training cohorts, create separate Easy, Medium and Hard entries, or include point values in the labels. Another option is two wheels: the first chooses a category and the second chooses difficulty. Keep the scoring symmetric so both teams face the same range of possible outcomes.</p>
+
+<h2>Step 5: host the round</h2>
+<p>Show the wheel on a shared screen, read the selected entry aloud, then start the timer. Mark the score somewhere everyone can see. If a prompt is ambiguous, discard it openly and spin again; do not quietly substitute a different question after seeing which team will answer.</p>
+
+<h2>Ready-made quiz wheel ideas</h2>
+<table>
+<tr><th>Audience</th><th>Wheel entries</th></tr>
+<tr><td>Classroom review</td><td>Vocabulary, Key Dates, People, Concepts, Challenge</td></tr>
+<tr><td>Employee training</td><td>Product, Process, Security, Customer, Scenario</td></tr>
+<tr><td>Family game night</td><td>Movies, Music, Food, Places, Who Am I?</td></tr>
+<tr><td>Language learning</td><td>Translate, Define, Spell, Use in a Sentence, Act It Out</td></tr>
+</table>
+
+<h2>Make the quiz accessible</h2>
+<p>Read every prompt aloud as well as displaying it. Avoid relying on colour alone to communicate difficulty, allow extra response time when needed, and offer a non-timed mode. If spinning animation is distracting, participants with reduced-motion settings will receive a calmer experience automatically.</p>
+
+<h2>Save and share the wheel</h2>
+<p>Use a share link to prepare the categories before the session and open the same list on the presentation computer. The link carries the entries, which is useful for substitute teachers, co-facilitators and recurring training sessions. Keep the detailed answers in your own notes rather than in the wheel labels.</p>
+
+<h2>After the final question</h2>
+<p>Use the Results tab to review the order of selected categories, then run a final tie-breaker with one clearly labelled challenge entry or a separate <a href="/coin-flip/">coin flip</a> when the rules allow a 50/50 decision. Finish by asking which categories felt hardest; that feedback can guide the next lesson or training session.</p>
+<div class="cta-box"><h3>Try a ready-made quiz wheel</h3><p>Use these five categories as-is or replace them with topics from your lesson, training or game night.</p><a class="btn btn-primary" href="/?items=U2NpZW5jZQpIaXN0b3J5Ckdlb2dyYXBoeQpNb3ZpZXMKV2lsZGNhcmQ">Create a quiz wheel →</a></div>
+
+    </article>
+
+    <section class="quick-tools-section" style="margin-top:3.5rem; max-width: 1000px; margin-left:auto; margin-right:auto;">
+      <h3 class="quick-tools-title">Keep Reading</h3>
+      <div class="tools-grid">
+        <a class="tool-card" href="/blog/prisoners-dilemma-party-games/">
+          <div class="tool-card-icon">⛓️</div>
+          <h4>The Prisoner's Dilemma at Your Game Night</h4>
+          <p>The most famous problem in game theory isn't locked in a textbook — it's at your table eve…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/nash-equilibrium-everyday-games/">
+          <div class="tool-card-icon">⚖️</div>
+          <h4>Nash Equilibrium, Explained with Party Games</h4>
+          <p>A Nash equilibrium is when no player gains by changing strategy alone. Sounds abstract — u…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+        <a class="tool-card" href="/blog/rock-paper-scissors-strategy/">
+          <div class="tool-card-icon">✊</div>
+          <h4>How to Win Rock-Paper-Scissors (More Often)</h4>
+          <p>RPS is a fair game only if both players are random — and humans are terrible at random. Th…</p>
+          <div class="tool-card-arrow">→</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light text-center mt-3 p-4">
+    <div class="mb-2">
+      <a href="/" class="text-decoration-none mx-2">Wheel Spinner</a>
+      <a href="/coin-flip/" class="text-decoration-none mx-2">Coin Flip</a>
+      <a href="/random-number/" class="text-decoration-none mx-2">Random Number</a>
+      <a href="/dice-roller/" class="text-decoration-none mx-2">Dice Roller</a>
+      <a href="/yes-no-wheel/" class="text-decoration-none mx-2">Yes or No Wheel</a>
+      <a href="/team-generator/" class="text-decoration-none mx-2">Team Generator</a>
+      <a href="/random-letter/" class="text-decoration-none mx-2">Random Letter</a>
+      <a href="/raffle-picker/" class="text-decoration-none mx-2">Raffle Picker</a>
+      <a href="/tournament/" class="text-decoration-none mx-2">Tournament Bracket</a>
+      <a href="/wheels/" class="text-decoration-none mx-2">Wheel Templates</a>
+      <a href="/blog/" class="text-decoration-none mx-2">Blog</a>
+      <a href="/tools/" class="text-decoration-none mx-2">All Tools</a>
+    </div>
+    <div class="mb-2">
+      <a href="/privacy-policy/" class="text-decoration-none mx-2">Privacy Policy</a>
+      <a href="/terms/" class="text-decoration-none mx-2">Terms of Use</a>
+      <a href="mailto:dionisiosoftware@gmail.com?subject=Wheel%20of%20List" class="text-decoration-none mx-2">Contact</a>
+    </div>
+    <a href="https://dionisio.dev" class="text-decoration-none">Copyright © Dionisio Software</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/engagement.js" defer></script>
+  <script src="/consent.js" defer></script>
+</body>
+</html>

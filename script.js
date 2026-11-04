@@ -400,7 +400,40 @@ function getScoreboardWinners() {
 
 function getLatestWinner() {
   const winners = getScoreboardWinners();
-  return winners.length ? winners[0] : "";
+  return winners.length ? winners[winners.length - 1] : "";
+}
+
+function getOrdinalLabel(position) {
+  const remainder100 = position % 100;
+  if (remainder100 >= 11 && remainder100 <= 13) return `${position}th place`;
+  const suffix = position % 10 === 1 ? "st" : position % 10 === 2 ? "nd" : position % 10 === 3 ? "rd" : "th";
+  return `${position}${suffix} place`;
+}
+
+function getRankIconMarkup(position) {
+  if (position === 1) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8v2h3a1 1 0 0 1 1 1v2a5 5 0 0 1-4.1 4.92A5.02 5.02 0 0 1 13 15.9V18h3v3H8v-3h3v-2.1a5.02 5.02 0 0 1-2.9-2.98A5 5 0 0 1 4 8V6a1 1 0 0 1 1-1h3V3Zm0 4H6v1a3 3 0 0 0 1.68 2.7A5.04 5.04 0 0 1 8 9V7Zm8 0v2c0 .59-.1 1.16-.28 1.7A3 3 0 0 0 18 8V7h-2Z"/></svg>';
+  }
+  if (position <= 3) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h4l1 4 1-4h4l-2.35 6.28a6 6 0 1 1-5.3 0L7 2Zm5 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 1.45.78 1.58 1.75.25-1.27 1.24.3 1.75L12 16.45l-1.56.82.3-1.75-1.27-1.24 1.75-.25.78-1.58Z"/></svg>';
+  }
+  return `<span aria-hidden="true">${position}</span>`;
+}
+
+function updateScoreboardState() {
+  const scoreboardEl = document.getElementById("scoreboard");
+  const count = scoreboardEl ? scoreboardEl.children.length : 0;
+  const emptyState = document.getElementById("scoreboardEmpty");
+  const countEl = document.getElementById("scoreboardCount");
+
+  if (emptyState) emptyState.hidden = count > 0;
+  if (countEl) countEl.textContent = `${count} ${count === 1 ? "result" : "results"}`;
+}
+
+function clearScoreboard() {
+  const scoreboardEl = document.getElementById("scoreboard");
+  if (scoreboardEl) scoreboardEl.replaceChildren();
+  updateScoreboardState();
 }
 
 function findWinnerIndexInList(winner, list) {
@@ -634,7 +667,7 @@ function applyNamesFromTextarea() {
     highlightIndex = null;
     blinkActive = false;
     blinkOn = false;
-    document.getElementById("scoreboard").innerHTML = "";
+    clearScoreboard();
     drawWheel();
     syncUrlWithItems([]);
     updatePointerPosition();
@@ -653,7 +686,7 @@ function applyNamesFromTextarea() {
   shareSnapshotNames = originalNames.slice();
 
   spinOrder = 0;
-  document.getElementById("scoreboard").innerHTML = "";
+  clearScoreboard();
 
   drawWheel();
   updatePointerPosition();
@@ -837,10 +870,34 @@ function addScoreboard(winner) {
   spinOrder++;
   const scoreboardEl = document.getElementById("scoreboard");
   const li = document.createElement("li");
-  li.className = "list-group-item";
+  const rankClass = spinOrder <= 3 ? `scoreboard-rank-${spinOrder}` : "scoreboard-rank-standard";
+  li.className = `list-group-item scoreboard-entry ${rankClass}`;
   li.dataset.winner = winner;
-  li.innerHTML = `<span class="order-number">${spinOrder}</span> ${winner}`;
-  scoreboardEl.prepend(li);
+  li.dataset.rank = String(spinOrder);
+
+  const emblem = document.createElement("span");
+  emblem.className = "scoreboard-rank-icon";
+  emblem.innerHTML = getRankIconMarkup(spinOrder);
+
+  const details = document.createElement("span");
+  details.className = "scoreboard-entry-details";
+
+  const place = document.createElement("span");
+  place.className = "scoreboard-place";
+  place.textContent = getOrdinalLabel(spinOrder);
+
+  const name = document.createElement("strong");
+  name.className = "scoreboard-name";
+  name.textContent = winner;
+
+  const position = document.createElement("span");
+  position.className = "scoreboard-position";
+  position.textContent = `#${spinOrder}`;
+
+  details.append(place, name);
+  li.append(emblem, details, position);
+  scoreboardEl.appendChild(li);
+  updateScoreboardState();
   if (window.wolAnalytics) {
     window.wolAnalytics.track("wheel_result", {
       item_count: originalNames.length,
@@ -929,9 +986,7 @@ canvas.addEventListener("click", () => {
 
 // ---------------- Share Result ----------------
 document.getElementById("shareResult").addEventListener("click", async () => {
-  const resultLines = Array.from(document.querySelectorAll("#scoreboard li"))
-    .map((li) => li.textContent.trim())
-    .filter(Boolean);
+  const resultLines = getScoreboardWinners().map((winner, index) => `${index + 1}. ${winner}`);
 
   const result = resultLines.join("\n");
 
@@ -1060,7 +1115,7 @@ async function generateShareImageDataUrl() {
   if (!canvas.width || !canvas.height) return null;
 
   const ranking = getScoreboardWinners();
-  const latestWinner = ranking.length ? ranking[0] : "";
+  const latestWinner = ranking.length ? ranking[ranking.length - 1] : "";
 
   const listForSnapshot =
     (shareSnapshotNames && shareSnapshotNames.length) ? shareSnapshotNames :

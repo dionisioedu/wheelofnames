@@ -8,6 +8,7 @@ present measurably speeds up reindexing of new/updated pages.
 Usage:  python3 _gen/gen_sitemap.py
 """
 import os
+import subprocess
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,6 +50,23 @@ def lastmod_for(rel_path):
     full = os.path.join(ROOT, rel_path)
     if not os.path.isfile(full):
         return None
+    # Git dates survive a fresh checkout, unlike filesystem mtimes. Dirty or
+    # untracked pages use today's date because their content is being shipped.
+    try:
+        status = subprocess.run(
+            ["git", "status", "--porcelain", "--", rel_path],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+        ).stdout.strip()
+        if status:
+            return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        committed = subprocess.run(
+            ["git", "log", "-1", "--format=%cs", "--", rel_path],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+        ).stdout.strip()
+        if committed:
+            return committed
+    except (OSError, subprocess.CalledProcessError):
+        pass
     ts = os.path.getmtime(full)
     return datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d")
 

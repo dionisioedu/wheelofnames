@@ -3,6 +3,7 @@
 import json
 import os
 import re
+from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATE = "2026-07-17"
@@ -213,6 +214,8 @@ def cta_wheel(title, text, items, button, sublabel=None):
 def build_article(article, all_articles):
     wc = word_count(article["body"])
     minutes = max(2, round(wc / 220))
+    article_date = article.get("date", DATE)
+    display_date = datetime.strptime(article_date, "%Y-%m-%d").strftime("%B %d, %Y").replace(" 0", " ")
     art_json = json.dumps({
         "@context": "https://schema.org",
         "@type": "Article",
@@ -220,8 +223,8 @@ def build_article(article, all_articles):
         "description": article["desc"],
         "author": {"@type": "Person", "name": "Eduardo Dionisio", "url": "https://dionisio.dev"},
         "publisher": {"@type": "Organization", "name": "Dionisio Software", "url": "https://dionisio.dev"},
-        "datePublished": DATE,
-        "dateModified": DATE,
+        "datePublished": article_date,
+        "dateModified": article_date,
         "mainEntityOfPage": "https://wheeloflist.com/blog/%s/" % article["slug"],
         "image": "https://wheeloflist.com/og.jpg",
     }, indent=2, ensure_ascii=False)
@@ -277,11 +280,11 @@ def build_article(article, all_articles):
             .replace('@@OG_TITLE@@', article["h1"])
             .replace('@@DESC@@', article["desc"])
             .replace('@@SLUG@@', article["slug"])
-            .replace('@@DATE@@', DATE)
+            .replace('@@DATE@@', article_date)
             .replace('@@H1@@', article["h1"])
             .replace('@@CATEGORY@@', cat)
             .replace('@@CATEGORY_LABEL@@', cat_label)
-            .replace('@@META_LINE@@', 'By Eduardo Dionisio · %s · %d min read' % ("July 17, 2026", minutes))
+            .replace('@@META_LINE@@', 'By Eduardo Dionisio · %s · %d min read' % (display_date, minutes))
             .replace('@@ARTICLE_JSON@@', art_json)
             .replace('@@FAQ_BLOCK@@', faq_block)
             .replace('@@BREADCRUMB_JSON@@', bc_json)
@@ -399,9 +402,13 @@ def _card(a):
 
 
 def build_index(all_articles):
-    # newest-ish first within each category: Guides, News, then Theory
+    # Group by category and show the newest entries first inside each group.
     order = {"guides": 0, "news": 1, "theory": 2}
-    ordered = sorted(all_articles, key=lambda a: order.get(category_of(a), 9))
+    ordered = sorted(
+        all_articles,
+        key=lambda a: (order.get(category_of(a), 9),
+                       -int(a.get("date", DATE).replace("-", ""))),
+    )
 
     # category filter buttons
     present = []

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate blog articles from batches 1-3, then build the blog index."""
+"""Generate every blog article batch, then build the blog index."""
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -11,9 +11,11 @@ import blog_batch1
 import blog_batch2
 import blog_batch3
 import blog_batch4
+import blog_batch5
 
 all_articles = (blog_batch1.ARTICLES + blog_batch2.ARTICLES +
-                blog_batch3.ARTICLES + blog_batch4.ARTICLES)
+                blog_batch3.ARTICLES + blog_batch4.ARTICLES +
+                blog_batch5.ARTICLES)
 total_words = 0
 
 for a in all_articles:
